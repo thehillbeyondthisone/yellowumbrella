@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#DCE4F2">
+<title>Yellow Umbrella Group | Games, 3D, spatial capture, and print</title>
+<meta name="description" content="Yellow Umbrella Group builds games, creates 3D models, captures real places as photorealistic, explorable 3D scenes, turns floor plans into interactive 3D homes, and produces 3D prints, large-format print, and apparel. Based in St. Louis, working across the US and in Europe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#DCE4F2; --paper:#F6F8FC; --ink:#161D38; --ink-2:#3B4466;
+  --umbrella:#FFC61A; --canal:#2D5BE3; --signal:#FF5B3A;
+  --display:"Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --body:"Figtree", ui-sans-serif, system-ui, sans-serif;
+  --pad:clamp(20px,4vw,56px); --max:1240px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{-webkit-tap-highlight-color:transparent;font-family:var(--body);font-size:18px;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--canal);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{scroll-margin-top:74px}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.2vw,4.6rem);line-height:.95;letter-spacing:-.03em;font-variation-settings:"opsz" 96}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto;z-index:30;transition:background .3s, box-shadow .3s}
+.nav.scrolled{background:rgba(246,248,252,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(22,29,56,.1)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.nav ul{display:flex;gap:30px;list-style:none;padding:0;align-items:center}
+.nav ul a:not(.btn){text-decoration:none;font-weight:500;font-size:16px}
+.nav ul a:not(.btn):hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;font:600 16px/1 var(--body);padding:15px 24px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1), background .2s, color .2s}
+@media (hover:hover){.btn:hover{transform:translateY(-3px) rotate(-1.5deg)}}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.small{padding:11px 18px;font-size:15px}
+@media (max-width:760px){.nav ul li:not(:last-child){display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;background:var(--sky);overflow:hidden;display:flex;align-items:flex-end}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.hero-content{position:relative;z-index:2;pointer-events:none;width:100%;padding-top:140px;padding-bottom:clamp(48px,9vh,110px)}
+.hero-content a,.hero-content button{pointer-events:auto}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3.1rem,8.6vw,8.4rem);line-height:.88;letter-spacing:-.04em;max-width:8.6ch;font-variation-settings:"opsz" 96}
+.hero h1 .w{display:inline-block;animation:drop .9s cubic-bezier(.3,1.55,.5,1) both}
+@keyframes drop{from{transform:translateY(-.9em);opacity:0}to{transform:none;opacity:1}}
+.lede{max-width:36ch;font-size:clamp(18px,1.55vw,21px);margin-top:30px;color:var(--ink-2)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.umbrella-toggle{position:absolute;z-index:3;right:var(--pad);bottom:var(--pad);font:600 14px/1 var(--body);color:var(--ink);background:rgba(246,248,252,.7);border:2px solid var(--ink);border-radius:999px;padding:10px 16px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.umbrella-toggle:hover{background:var(--umbrella)}
+.tap-umb{display:block;position:fixed;z-index:60;width:36px;height:36px;margin:-18px 0 0 -18px;pointer-events:none;animation:tapUmb 1s cubic-bezier(.2,.8,.3,1) forwards}
+.tap-umb svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 3px 3px rgba(22,29,56,.2))}
+@keyframes tapUmb{
+  0%{transform:translateY(6px) scale(.25,.9) rotate(var(--r));opacity:0}
+  22%{transform:translateY(0) scale(1.18,1) rotate(var(--r));opacity:1}
+  38%{transform:translateY(-4px) scale(1) rotate(var(--r))}
+  100%{transform:translateY(-46px) scale(.9) rotate(calc(var(--r) * -1));opacity:0}}
+.badge{position:absolute;z-index:3;top:118px;right:var(--pad);width:132px;height:132px;display:block;color:var(--ink)}
+.badge svg{width:100%;height:100%;overflow:visible}
+
+.badge:hover .core{fill:var(--umbrella)}
+@media (max-width:900px){.badge{display:none}}
+@media (max-width:760px){
+  .hero{align-items:flex-start}
+  .hero-content{padding-top:calc(min(95vw,460px) + 80px);padding-bottom:96px}
+  .brand{font-size:17px}
+  .umbrella-toggle{top:calc(min(95vw,460px) + 20px);bottom:auto;right:var(--pad);left:auto}
+  .umbrella-toggle .long{display:none}
+}
+
+/* ---------- services ---------- */
+.services{padding:clamp(88px,12vw,160px) 0}
+.services-head{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,88px);align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+.services-head p{max-width:40ch;color:var(--ink-2)}
+.services-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,88px);align-items:start}
+.svc-list{list-style:none;padding:0;border-top:2px solid var(--ink)}
+.svc{display:block;width:100%;text-align:left;background:transparent;border:0;border-bottom:2px solid var(--ink);padding:0;cursor:pointer;color:inherit;font:inherit;transition:background .3s}
+.svc-inner{display:block;padding:26px 16px;transition:transform .45s cubic-bezier(.2,.9,.2,1)}
+.svc h3{font-family:var(--display);font-weight:700;font-size:clamp(26px,2.9vw,38px);letter-spacing:-.02em;line-height:1.05;display:block}
+.svc .desc{display:block;margin-top:10px;max-width:46ch;color:var(--ink-2)}
+.svc .tags{display:block;font-size:14px;font-weight:600;margin-top:10px}
+@media (hover:hover){.svc:hover{background:rgba(255,198,26,.25)}}
+.svc.active{background:var(--umbrella)}
+.svc.active .svc-inner{transform:translateX(12px)}
+.svc.has-link{border-bottom:0}
+.svc-link{display:block;padding:0 16px 24px;border-bottom:2px solid var(--ink);font-weight:700;font-size:16px;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px;transition:background .3s}
+.svc-link:hover{text-decoration-thickness:4px}
+@media (hover:hover){.svc:hover + .svc-link{background:rgba(255,198,26,.25)}}
+.svc.active + .svc-link{background:var(--umbrella);padding-left:28px}
+.viewer-wrap{position:sticky;top:110px}
+.viewer{position:relative;aspect-ratio:1;background:var(--sky);border-radius:36px}
+.viewer canvas{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:inherit;cursor:grab}
+.crop{position:absolute;width:26px;height:26px;pointer-events:none}
+.crop::before,.crop::after{content:"";position:absolute;background:var(--ink)}
+.crop::before{width:18px;height:1.5px}.crop::after{width:1.5px;height:18px}
+.crop.tl{top:-22px;left:-22px}.crop.tl::before{top:22px;left:0}.crop.tl::after{left:22px;top:0}
+.crop.tr{top:-22px;right:-22px}.crop.tr::before{top:22px;right:0}.crop.tr::after{right:22px;top:0}
+.crop.bl{bottom:-22px;left:-22px}.crop.bl::before{bottom:22px;left:0}.crop.bl::after{left:22px;bottom:0}
+.crop.br{bottom:-22px;right:-22px}.crop.br::before{bottom:22px;right:0}.crop.br::after{right:22px;bottom:0}
+.viewer-cap{margin-top:34px;font-size:15px;color:var(--ink-2)}
+@media (max-width:900px){
+  .services-head,.services-grid{grid-template-columns:1fr}
+  .services-grid{gap:0}
+  .viewer-wrap{position:sticky;top:74px;z-index:5;order:-1;margin:0 calc(-1*var(--pad));padding:10px var(--pad) 14px;background:var(--paper);box-shadow:0 12px 14px -14px rgba(22,29,56,.35)}
+  .viewer{aspect-ratio:auto;height:min(30svh,260px);border-radius:24px}
+  .crop,.viewer-cap{display:none}
+  .svc-inner{padding:22px 14px}
+}
+
+/* ---------- process ---------- */
+.process{background:var(--ink);color:var(--paper);padding:clamp(88px,12vw,150px) 0}
+.process h2{max-width:12ch}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,40px);margin-top:clamp(48px,6vw,80px);position:relative}
+.steps li{position:relative;padding-top:28px}
+.steps li::before{content:"";position:absolute;top:0;left:0;right:-40px;border-top:2px dashed rgba(246,248,252,.35)}
+.steps li:last-child::before{right:0}
+.steps .n{display:block;font-family:var(--display);font-weight:800;font-size:clamp(64px,7vw,104px);line-height:.9;color:var(--umbrella);letter-spacing:-.04em}
+.steps h3{font-family:var(--display);font-weight:700;font-size:24px;margin-top:18px;letter-spacing:-.01em}
+.steps p{margin-top:8px;color:rgba(246,248,252,.75);font-size:17px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}.steps li::before{right:0}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* ---------- places ---------- */
+.places{background:var(--sky);padding:clamp(88px,12vw,150px) 0;overflow:hidden}
+.places .intro{max-width:52ch;margin-top:24px;color:var(--ink-2)}
+.place-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(20px,4vw,48px);align-items:start;margin-top:clamp(48px,6vw,80px)}
+.place h3{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.place .time{font-family:var(--display);font-weight:800;font-size:clamp(72px,11vw,156px);line-height:.9;letter-spacing:-.05em;font-variant-numeric:tabular-nums;margin-top:12px}
+.place .when{font-weight:600;font-size:15px;margin-top:10px}
+.place .body{margin-top:18px;max-width:34ch;color:var(--ink-2)}
+.arc{width:clamp(90px,14vw,190px);align-self:center;color:var(--ink);overflow:visible}
+.arc .route{opacity:.4}
+.arc .trail{stroke:var(--canal)}
+.arc .pin{fill:currentColor;opacity:.55}
+.arc .car{filter:drop-shadow(0 2px 2px rgba(22,29,56,.18))}
+@media (max-width:760px){.place-grid{grid-template-columns:1fr}.arc{width:min(76vw,320px);margin:clamp(10px,3vw,22px) auto}}
+
+/* ---------- contact ---------- */
+.contact{background:var(--umbrella);padding:clamp(96px,13vw,170px) 0}
+.contact h2{font-size:clamp(3rem,8vw,7.4rem);max-width:10ch}
+.contact p{max-width:44ch;margin-top:26px;font-size:20px}
+.email{display:inline-block;margin-top:40px;font-family:var(--display);font-weight:700;font-size:clamp(22px,3.6vw,46px);letter-spacing:-.02em;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:8px;overflow-wrap:anywhere}
+.email:hover{text-decoration-thickness:6px}
+.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;align-items:center}
+.contact .ghost{border-color:var(--ink)}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--paper);padding:48px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+footer small{font-size:15px;color:rgba(246,248,252,.7)}
+footer nav{display:flex;gap:24px}
+footer nav a{text-decoration:none;font-size:15px}
+footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .hero h1 .w{animation:none}
+  .btn:hover{transform:none}
+  .svc-inner{transition:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Yellow Umbrella Group, home">
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A" stroke="#161D38" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#161D38" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="capture.html">3D Capture</a></li>
+      <li><a href="floorplans.html">3D Floor Plans</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#locations">Locations</a></li>
+      <li><a class="btn small" href="#contact">Start a project</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+  <a class="badge" href="#services" aria-label="Jump to services">
+    <svg viewBox="0 0 140 140" aria-hidden="true">
+      <defs><path id="circ" d="M70,70 m-54,0 a54,54 0 1,1 108,0 a54,54 0 1,1 -108,0"/></defs>
+      <g class="ring" id="badge-ring">
+        <text font-family="Figtree, sans-serif" font-weight="700" font-size="11.5" letter-spacing="1.4" fill="currentColor">
+          <textPath href="#circ">games ✦ 3D ✦ capture ✦ print ✦ since 2018 ✦</textPath>
+        </text>
+      </g>
+      <circle class="core" cx="70" cy="70" r="30" fill="#F6F8FC" stroke="currentColor" stroke-width="2" style="transition:fill .2s"/>
+      <path d="M70 60v20M62 72l8 8 8-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <div class="hero-content wrap">
+    <h1 id="headline">Everything we make, under one umbrella.</h1>
+    <p class="lede">Yellow Umbrella Group builds games, models in 3D, scans real places into scenes you can walk through, and prints things you can hold, from small parts to big banners. Based in St. Louis, working across the U.S. and in Europe, with Amsterdam as our European base.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#contact">Start a project</a>
+      <a class="btn ghost" href="#services">See what we do</a>
+    </div>
+  </div>
+
+  <button class="umbrella-toggle" id="umbrella-toggle" aria-pressed="true" type="button">
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 13A10 10 0 0 1 22 13Z" fill="currentColor"/><path d="M12 13v6.5a2 2 0 0 1-4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span class="lbl">Close<span class="long"> the umbrella</span></span>
+  </button>
+</header>
+
+<main>
+  <section class="services" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="services-head">
+        <h2 id="services-title">What fits under the umbrella</h2>
+        <p>Six kinds of work, one studio. Use one, or combine them: scan a real location, build a game inside it, and print the figure for launch day.</p>
+      </div>
+
+      <div class="services-grid">
+        <ul class="svc-list" role="list">
+          <li><button class="svc active has-link" data-key="capture" aria-pressed="true" type="button"><span class="svc-inner">
+            <h3>3D spatial capture</h3>
+            <span class="desc">We capture real places as photorealistic 3D scenes you can explore from a link. For historic preservation, property, construction, restoration, film, and spaces worth remembering.</span>
+            <span class="tags">Historic spaces, apartments, job sites, film locations</span>
+          </span></button><a class="svc-link" href="capture.html">See the 3D capture page <span aria-hidden="true">&rarr;</span></a></li>
+          <li><button class="svc has-link" data-key="floorplans" aria-pressed="false" type="button"><span class="svc-inner">
+            <h3>3D floor plans</h3>
+            <span class="desc">We turn the flat floor plans in your brochure into furnished 3D homes renters can turn, compare, and walk through from a link. No site visit needed.</span>
+            <span class="tags">Apartments, new construction, leasing, condo sales</span>
+          </span></button><a class="svc-link" href="floorplans.html">See the 3D floor plans page <span aria-hidden="true">&rarr;</span></a></li>
+          <li><button class="svc" data-key="games" aria-pressed="false" type="button"><span class="svc-inner">
+            <h3>Game development</h3>
+            <span class="desc">Browser, desktop, and mobile games from first prototype to launch. Real-time 3D on the web is home turf.</span>
+            <span class="tags">Three.js, WebGL, prototypes, mobile</span>
+          </span></button></li>
+          <li><button class="svc" data-key="modeling" aria-pressed="false" type="button"><span class="svc-inner">
+            <h3>3D modeling</h3>
+            <span class="desc">Characters, props, environments, and product models, prepared for games, renders, or printing.</span>
+            <span class="tags">Game assets, product renders, print-ready files</span>
+          </span></button></li>
+          <li><button class="svc" data-key="printing" aria-pressed="false" type="button"><span class="svc-inner">
+            <h3>3D printing</h3>
+            <span class="desc">Prototypes, replacement parts, figures, and small production runs, printed and finished.</span>
+            <span class="tags">Prototypes, parts, figures, small runs</span>
+          </span></button></li>
+          <li><button class="svc" data-key="large" aria-pressed="false" type="button"><span class="svc-inner">
+            <h3>Large-format print &amp; apparel</h3>
+            <span class="desc">Banners, signs, posters, and custom apparel, from a single piece to a whole event's worth.</span>
+            <span class="tags">Banners, signs, posters, shirts</span>
+          </span></button></li>
+        </ul>
+
+        <div class="viewer-wrap">
+          <div class="viewer">
+            <canvas id="svc-canvas" aria-hidden="true"></canvas>
+            <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+          </div>
+          <p class="viewer-cap">Pick a service to see it built. Drag to turn it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process" aria-labelledby="process-title">
+    <div class="wrap">
+      <h2 id="process-title">How a project goes</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><h3>Tell us the idea</h3><p>A sketch, a reference photo, or one sentence is enough to start. We'll ask about budget, timing, and where it's headed.</p></li>
+        <li><span class="n">2</span><h3>See a prototype</h3><p>You get a model to spin, a build to play, or a proof to mark up before anything is final.</p></li>
+        <li><span class="n">3</span><h3>We make it</h3><p>Code, models, and prints produced in-house, with check-ins at each milestone.</p></li>
+        <li><span class="n">4</span><h3>Deliver it</h3><p>Printed goods get shipped. Games launch, and 3D scans arrive as a link you can share with anyone.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="places" id="locations" aria-labelledby="places-title">
+    <div class="wrap">
+      <h2 id="places-title">One studio, two home bases</h2>
+      <p class="intro">Yellow Umbrella Group, LLC has been in business since 2018. Today we work with clients across the United States and in Europe.</p>
+      <div class="place-grid">
+        <article class="place">
+          <h3>United States</h3>
+          <p class="time" data-tz="America/Chicago" aria-live="off">--:--</p>
+          <p class="when" data-when="America/Chicago">&nbsp;</p>
+          <p class="body">Game development and 3D work nationwide, with spatial capture based in St. Louis and available for travel projects. Printed goods ship across the country.</p>
+        </article>
+        <svg class="arc" id="arc" viewBox="0 0 200 80" aria-hidden="true">
+          <path class="route" id="arc-route" d="M8 64 Q100 -14 192 64" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7"/>
+          <path class="trail" id="arc-trail" d="M8 64 Q100 -14 192 64" pathLength="1" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="0 1" style="opacity:0"/>
+          <circle class="pin" id="arc-pin-a" cx="8" cy="64" r="3.2"/>
+          <circle class="pin" id="arc-pin-b" cx="192" cy="64" r="3.2"/>
+          <g class="car" id="arc-traveler">
+            <path d="M-11 0A11 11 0 0 1 11 0Q8.3-2.4 5.5 0Q2.8-2.4 0 0Q-2.8-2.4-5.5 0Q-8.3-2.4-11 0Z" fill="#FFC61A" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M-5.5 0Q-3.7-7.4 0-10.9M5.5 0Q3.7-7.4 0-10.9" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"/>
+            <path d="M0-10.9v-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M0 0v8.2a2.8 2.8 0 0 1-5.6 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <article class="place">
+          <h3>Amsterdam</h3>
+          <p class="time" data-tz="Europe/Amsterdam" aria-live="off">--:--</p>
+          <p class="when" data-when="Europe/Amsterdam">&nbsp;</p>
+          <p class="body">Our European chapter, working with clients in Amsterdam and across the Netherlands.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 id="contact-title">Got something to make?</h2>
+      <p>Tell us what it is, roughly when you need it, and where it's going. We'll reply with questions and next steps.</p>
+      <a class="email" href="mailto:yellowumbrellagroup@gmail.com?subject=New%20project">yellowumbrellagroup@gmail.com</a>
+      <div class="contact-actions">
+        <a class="btn" href="mailto:yellowumbrellagroup@gmail.com?subject=New%20project">Email us</a>
+        <button class="btn ghost" id="copy-email" type="button">Copy email address</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#F6F8FC" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <nav aria-label="Footer">
+      <a href="#services">Services</a><a href="capture.html">3D Capture</a><a href="floorplans.html">3D Floor Plans</a><a href="#process">Process</a><a href="#locations">Locations</a><a href="#contact">Contact</a>
+    </nav>
+    <small>© <span id="year">2026</span> Yellow Umbrella Group, LLC. Since 2018.</small>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const C = {sky:0xDCE4F2, paper:0xF6F8FC, ink:0x161D38, ink2:0x3B4466, yellow:0xFFC61A, yellow2:0xFFD95C, canal:0x2D5BE3, signal:0xFF5B3A, green:0x36D399};
+
+/* ---------------- page bits ---------------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// headline: split words for the drop-in
+const h1 = document.getElementById('headline');
+h1.setAttribute('aria-label', h1.textContent);
+h1.innerHTML = h1.textContent.split(' ').map((w,i) =>
+  `<span class="w" aria-hidden="true" style="animation-delay:${300 + i*80}ms">${w}</span>`).join(' ');
+
+// badge spins, nudged by scroll speed
+const ring = document.getElementById('badge-ring');
+let ringA = 0, lastY = scrollY, kick = 0;
+function badgeTick(){
+  const dy = scrollY - lastY; lastY = scrollY;
+  kick = kick*0.9 + Math.abs(dy)*0.06;
+  ringA += 0.15 + kick;
+  ring.setAttribute('transform', `rotate(${ringA} 70 70)`);
+  requestAnimationFrame(badgeTick);
+}
+if (!RM) badgeTick();
+
+// clocks
+function partOfDay(h){ return h<5?'Night':h<12?'Morning':h<17?'Afternoon':h<22?'Evening':'Night'; }
+function clocks(){
+  document.querySelectorAll('.time[data-tz]').forEach(el => {
+    el.textContent = new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:el.dataset.tz}).format(new Date());
+  });
+  document.querySelectorAll('[data-when]').forEach(el => {
+    const tz = el.dataset.when;
+    const h = +new Intl.DateTimeFormat('en-GB',{hour:'2-digit',hour12:false,timeZone:tz}).format(new Date());
+    const day = new Intl.DateTimeFormat('en-US',{weekday:'long',timeZone:tz}).format(new Date());
+    const zn = loc => new Intl.DateTimeFormat(loc,{timeZone:tz,timeZoneName:'short'}).formatToParts(new Date()).find(p=>p.type==='timeZoneName').value;
+    let zone = zn('en-US'); if (zone.startsWith('GMT')) zone = zn('en-GB');
+    el.textContent = `${partOfDay(h)} there, ${day} (${zone})`;
+  });
+}
+clocks(); setInterval(clocks, 15000);
+
+// little umbrella carried between the two home bases, drawing its route behind it
+const arcSvg = document.getElementById('arc');
+if (arcSvg) {
+  const route = document.getElementById('arc-route'), trail = document.getElementById('arc-trail');
+  const trav = document.getElementById('arc-traveler');
+  // Same route at every width, only scaled: the stacked layout used to rotate the
+  // whole svg, which tipped the umbrella onto its side.
+  const BANK = .5;
+  let len = 0, u = RM ? .5 : 0;
+
+  function place(t){
+    const d = u * len, at = route.getPointAtLength(d);
+    const a = route.getPointAtLength(Math.max(0, d - 1.5));
+    const b = route.getPointAtLength(Math.min(len, d + 1.5));
+    const tan = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+    const sway = RM ? 0 : Math.sin(t / 850) * 2.6;
+    const bob  = RM ? 0 : Math.sin(t / 610) * .8;
+    trav.setAttribute('transform', `translate(${at.x.toFixed(2)} ${(at.y + bob).toFixed(2)}) rotate(${(tan * BANK + sway).toFixed(2)})`);
+    trail.setAttribute('stroke-dasharray', `${u.toFixed(4)} 1`);
+    trail.style.opacity = u > .006 ? 1 : 0;
+  }
+
+  len = route.getTotalLength();
+  place(0);
+
+  // one slow crossing each way, with a hover over each city at the turn
+  const LEG = 7600, HOLD = .16;
+  function arcTick(t){
+    const p = (t % (LEG * 2)) / LEG, tri = p < 1 ? p : 2 - p;
+    const s = Math.min(1, Math.max(0, (tri - HOLD) / (1 - 2 * HOLD)));
+    u = s * s * (3 - 2 * s);
+    place(t);
+    requestAnimationFrame(arcTick);
+  }
+  if (!RM) requestAnimationFrame(arcTick);
+}
+
+// little umbrellas where you tap (touch/pen only, so desktop clicks stay quiet)
+const tapSvg = '<svg viewBox="0 0 24 24"><path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A" stroke="#161D38" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#161D38" stroke-width="1.6" stroke-linecap="round"/></svg>';
+if (!RM) addEventListener('pointerdown', e => {
+  if (e.pointerType === 'mouse' || document.querySelectorAll('.tap-umb').length > 5) return;
+  const el = document.createElement('span');
+  el.className = 'tap-umb'; el.innerHTML = tapSvg;
+  el.style.left = e.clientX + 'px'; el.style.top = e.clientY + 'px';
+  el.style.setProperty('--r', (Math.random()*30 - 15).toFixed(1) + 'deg');
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
+}, {passive:true});
+
+// copy email
+const copyBtn = document.getElementById('copy-email');
+copyBtn.addEventListener('click', async () => {
+  try {
+    if (navigator.clipboard && isSecureContext) await navigator.clipboard.writeText('yellowumbrellagroup@gmail.com');
+    else { const t = document.createElement('textarea'); t.value = 'yellowumbrellagroup@gmail.com'; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+    copyBtn.textContent = 'Email address copied';
+  }
+  catch { copyBtn.textContent = 'yellowumbrellagroup@gmail.com'; }
+  setTimeout(() => copyBtn.textContent = 'Copy email address', 2200);
+});
+
+if (!window.THREE) return;
+
+function addLights(scene){
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x7d88ad, 0.7));
+  const key = new THREE.DirectionalLight(0xfff6e8, 0.7); key.position.set(4, 8, 6); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xbcd0ff, 0.4); rim.position.set(-6, -2, -4); scene.add(rim);
+}
+const lin = h => new THREE.Color(h).convertSRGBToLinear();
+function std(color, extra={}){ return new THREE.MeshStandardMaterial(Object.assign({color:lin(color), roughness:.6, metalness:0, flatShading:true}, extra)); }
+function softShadowTexture(){
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const g = c.getContext('2d'); const gr = g.createRadialGradient(64,64,0,64,64,64);
+  gr.addColorStop(0,'rgba(22,29,56,.28)'); gr.addColorStop(1,'rgba(22,29,56,0)');
+  g.fillStyle = gr; g.fillRect(0,0,128,128);
+  return new THREE.CanvasTexture(c);
+}
+
+// A little room built from soft "splats" that appear in the order a scanner would reach them.
+function makeSplatRoom(n){
+  const R = Math.random, W = 1.5, Y0 = -1.1, H = 2.2;
+  const rgb = h => [(h>>16&255)/255, (h>>8&255)/255, (h&255)/255];
+  const mix = (a,b,t) => a.map((v,i) => v + (b[i]-v)*t);
+  const INK = rgb(0x161D38), pos = [], col = [], size = [], seed = [];
+  function add(x,y,z,c,s){
+    pos.push(x,y,z);
+    c.forEach(v => col.push(Math.min(1, Math.max(0, v + (R()-.5)*.07))));
+    size.push(s*(.9 + R()*.7));
+    seed.push(Math.min(1, Math.hypot(x-1.3, (y-Y0)*.5, z-1.3)/4.1 + R()*.1));
+  }
+  const loop = (f, fn) => { for (let i=0, m=Math.round(n*f); i<m; i++) fn(); };
+  loop(.3, () => {   // floorboards and a rug
+    const x = (R()*2-1)*W, z = (R()*2-1)*W, e = (x-.2)**2/.75 + (z-.35)**2/.4;
+    add(x, Y0, z, e < 1 ? rgb(e > .75 ? 0xFF5B3A : 0x2D5BE3) : rgb([0xC99A63,0xB5824E,0xD8AE78][Math.floor((x+W)*3.3)%3]), .15);
+  });
+  loop(.3, () => {   // back wall with an arched window
+    const x = (R()*2-1)*W, y = Y0 + R()*H, dx = x-.3;
+    const inWin = r => Math.abs(dx) < r && y > -.35-(r-.42) && (y < .3 || Math.hypot(dx, y-.3) < r);
+    let c = y < Y0+.14 ? INK : rgb(0xEDE6DA);
+    if (inWin(.42)) c = mix(rgb(0xFFE3A0), rgb(0x8FB4E8), Math.min(1, (y+.35)/1.1));
+    else if (inWin(.5)) c = INK;
+    add(x, y, -W, c, .14);
+  });
+  loop(.24, () => {  // side wall with a framed print
+    const z = (R()*2-1)*W, y = Y0 + R()*H, fz = Math.abs(z+.15), fy = Math.abs(y-.25);
+    let c = y < Y0+.14 ? INK : rgb(0xE3D5BF);
+    if (fz < .46 && fy < .34) c = (fz > .38 || fy > .26) ? rgb(0xFFC61A) : mix(rgb(0x2D5BE3), rgb(0x36D399), (y+.01)/.52);
+    add(-W, y, z, c, .14);
+  });
+  loop(.05, () => {  // plant pot
+    const a = R()*Math.PI*2, h = R()*.42, r = .14 + h*.12;
+    add(-.95 + Math.cos(a)*r, Y0 + h, -.95 + Math.sin(a)*r, rgb(0xFF5B3A), .1);
+  });
+  loop(.08, () => {  // leaves
+    const u = R()*2-1, a = R()*Math.PI*2, s = Math.sqrt(1-u*u), r = .36*(.75 + R()*.25);
+    add(-.95 + Math.cos(a)*s*r, Y0 + .8 + u*r*1.1, -.95 + Math.sin(a)*s*r, mix(rgb(0x36D399), rgb(0x1F7A55), R()), .12);
+  });
+  loop(.03, () => {  // round side table
+    const a = R()*Math.PI*2;
+    if (R() < .7){ const r = Math.sqrt(R())*.4; add(.55 + Math.cos(a)*r, Y0 + .6, .15 + Math.sin(a)*r, INK, .11); }
+    else add(.55 + Math.cos(a)*.05, Y0 + R()*.6, .15 + Math.sin(a)*.05, INK, .09);
+  });
+
+  const N = seed.length, geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('aCol', new THREE.Float32BufferAttribute(col, 3));
+  geo.setAttribute('aSize', new THREE.Float32BufferAttribute(size, 1));
+  geo.setAttribute('aSeed', new THREE.Float32BufferAttribute(seed, 1));
+  const order = new Uint16Array(N).map((_, i) => i), idx = new THREE.BufferAttribute(order, 1);
+  idx.setUsage(THREE.DynamicDrawUsage); geo.setIndex(idx);
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {uT:{value:0}, uFade:{value:1}, uPx:{value:500}},
+    vertexShader: `
+      uniform float uT, uPx;
+      attribute vec3 aCol; attribute float aSize, aSeed;
+      varying vec3 vC; varying float vA;
+      void main(){
+        float k = clamp((uT - aSeed) / .06, 0., 1.);
+        vec4 mv = modelViewMatrix * vec4(position, 1.);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = aSize * length(modelMatrix[0].xyz) * uPx * (k + 1.6*k*(1.-k)) / -mv.z;
+        vC = aCol + (1.-k) * .35; vA = k;
+      }`,
+    fragmentShader: `
+      uniform float uFade;
+      varying vec3 vC; varying float vA;
+      void main(){
+        vec2 d = gl_PointCoord - .5;
+        float a = exp(-dot(d, d) * 14.) * vA * uFade;
+        if (a < .015) discard;
+        gl_FragColor = vec4(vC, a);
+      }`,
+    transparent: true, depthWrite: false
+  });
+  const points = new THREE.Points(geo, mat); points.frustumCulled = false;
+  const depth = new Float32Array(N), cam = new THREE.Vector3(); let frameNo = 0;
+  return {points, update(t, camera, renderer){
+    const u = mat.uniforms;
+    u.uPx.value = renderer.domElement.height / (2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+    if (RM){ u.uT.value = 2; u.uFade.value = 1; }
+    else { const c = t % 11; u.uT.value = c/6; u.uFade.value = Math.min(1, (11-c)*2); }
+    if (frameNo++ % 4 === 0){   // back-to-front so the soft edges blend correctly
+      cam.copy(camera.position); points.worldToLocal(cam);
+      for (let i=0; i<N; i++){ const j = i*3; depth[i] = (pos[j]-cam.x)**2 + (pos[j+1]-cam.y)**2 + (pos[j+2]-cam.z)**2; }
+      order.sort((a, b) => depth[b] - depth[a]); idx.needsUpdate = true;
+    }
+  }};
+}
+
+/* =====================================================
+   HERO: umbrella in the pixel rain
+   ===================================================== */
+(function hero(){
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 0.4, 12); camera.lookAt(0, 0.2, 0);
+  addLights(scene);
+
+  const umbrella = new THREE.Group(); scene.add(umbrella);
+  const tilt = new THREE.Group(); umbrella.add(tilt);
+
+  // canopy: 8 panels whose vertices are rebuilt from an "openness" value
+  const N = 8, U = 6, S = 10, L = 3.0;
+  const rho = new Float32Array(S+1), hy = new Float32Array(S+1);
+  const matA = std(C.yellow, {side:THREE.DoubleSide, roughness:.55});
+  const matB = std(C.yellow2, {side:THREE.DoubleSide, roughness:.55});
+  const index = [];
+  for (let k=0;k<S;k++) for (let u=0;u<U;u++){
+    const a=k*(U+1)+u, b=a+1, c=a+U+1, d=c+1; index.push(a,c,b, b,c,d);
+  }
+  const panels = [];
+  for (let i=0;i<N;i++){
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array((S+1)*(U+1)*3), 3));
+    geo.setIndex(index);
+    const m = new THREE.Mesh(geo, i%2 ? matB : matA); tilt.add(m); panels.push(m);
+  }
+  function buildCanopy(o){
+    let r=0, y=0; rho[0]=0; hy[0]=0; const ds=L/S;
+    for (let k=1;k<=S;k++){
+      const s=(k-.5)/S;
+      const bOpen = 1.36 + (0.88-1.36)*Math.pow(s,1.4), bClosed = 0.09;
+      const b = bClosed + (bOpen-bClosed)*o;
+      r += Math.sin(b)*ds; y -= Math.cos(b)*ds; rho[k]=r; hy[k]=y;
+    }
+    const half = Math.PI/N*(0.3+0.7*Math.min(o,1));
+    for (let i=0;i<N;i++){
+      const arr = panels[i].geometry.attributes.position.array, th0 = i*2*Math.PI/N;
+      let p=0;
+      for (let k=0;k<=S;k++){
+        const kk=k/S;
+        for (let u=0;u<=U;u++){
+          const uu=u/U, sag=Math.sin(Math.PI*uu), th=th0+(uu*2-1)*half;
+          const rr = rho[k]*(1-0.06*sag*o*kk);
+          arr[p++]=Math.cos(th)*rr; arr[p++]=hy[k]+0.17*sag*o*kk*kk*kk; arr[p++]=Math.sin(th)*rr;
+        }
+      }
+      const g = panels[i].geometry;
+      g.attributes.position.needsUpdate = true; g.computeVertexNormals(); g.computeBoundingSphere();
+    }
+  }
+  function canopyHeightAt(r){
+    for (let k=0;k<S;k++) if (r>=rho[k] && r<=rho[k+1]){
+      const f=(r-rho[k])/((rho[k+1]-rho[k])||1); return hy[k]+(hy[k+1]-hy[k])*f;
+    }
+    return -99;
+  }
+
+  const inkMat = std(C.ink, {roughness:.35, flatShading:false});
+  const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.045,.045,3.9,12), inkMat); shaft.position.y=-1.75; tilt.add(shaft);
+  const tip = new THREE.Mesh(new THREE.CylinderGeometry(.018,.05,.38,10), inkMat); tip.position.y=.18; tilt.add(tip);
+  const hook = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0,-3.6,0), new THREE.Vector3(0,-4.0,0), new THREE.Vector3(.08,-4.32,0),
+    new THREE.Vector3(.32,-4.44,0), new THREE.Vector3(.54,-4.3,0), new THREE.Vector3(.58,-4.08,0)]);
+  const handle = new THREE.Mesh(new THREE.TubeGeometry(hook,40,.075,12), std(C.ink, {roughness:.3, flatShading:false})); tilt.add(handle);
+
+  // things kept dry underneath
+  const dry = [];
+  function addDry(mesh, ang, rad, y, spin){ umbrella.add(mesh); dry.push({mesh, ang, rad, y, spin, off:0}); }
+  addDry(new THREE.Mesh(new THREE.BoxGeometry(.46,.46,.46), std(C.canal)), 0, 1.45, -2.1, 1);
+  const vasePts=[]; for(let i=0;i<=10;i++){const f=i/10; vasePts.push(new THREE.Vector2(.14+.16*Math.sin(f*Math.PI*1.1)+.03, f*.7-.35));}
+  addDry(new THREE.Mesh(new THREE.LatheGeometry(vasePts,14), std(C.paper,{side:THREE.DoubleSide})), 1.6, 1.55, -2.5, .6);
+  addDry(new THREE.Mesh(new THREE.TorusGeometry(.2,.09,10,20), std(C.signal)), 3.2, 1.35, -1.9, 1.4);
+  const vox = new THREE.Group(); const vm = std(C.ink);
+  [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1]].forEach(([x,y])=>{const c=new THREE.Mesh(new THREE.BoxGeometry(.15,.15,.15),vm); c.position.set(x*.16,y*.16,0); vox.add(c);});
+  addDry(vox, 4.7, 1.5, -2.35, .8);
+
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1,1), new THREE.MeshBasicMaterial({map:softShadowTexture(), transparent:true, depthWrite:false}));
+  shadow.rotation.x = -Math.PI/2; shadow.position.y = -4.75; umbrella.add(shadow);
+
+  // pixel rain
+  const DROPS = RM ? 0 : (innerWidth < 760 ? 260 : 540);
+  const drops = new THREE.InstancedMesh(new THREE.BoxGeometry(.022,.22,.022), new THREE.MeshBasicMaterial({color:lin(C.canal), transparent:true, opacity:.3}), Math.max(DROPS,1));
+  drops.frustumCulled = false; drops.count = DROPS; scene.add(drops);
+  const dp = new Float32Array(DROPS*3), dv = new Float32Array(DROPS);
+  function spawn(i, anywhere){
+    dp[i*3] = (Math.random()*2-1)*9.5; dp[i*3+1] = anywhere ? -5+Math.random()*12 : 6.5+Math.random()*2.5;
+    dp[i*3+2] = -4+Math.random()*6; dv[i] = 7+Math.random()*4;
+  }
+  for (let i=0;i<DROPS;i++) spawn(i,true);
+
+  const SPL = 210;
+  const splash = new THREE.InstancedMesh(new THREE.BoxGeometry(.04,.04,.04), new THREE.MeshBasicMaterial({color:lin(C.canal), transparent:true, opacity:.7}), SPL);
+  splash.frustumCulled = false; scene.add(splash);
+  const sp = new Float32Array(SPL*3), sv = new Float32Array(SPL*3), sl = new Float32Array(SPL); let sNext = 0;
+  function emit(x,y,z,dx,dz){
+    for (let n=0;n<3;n++){
+      const j = sNext; sNext = (sNext+1)%SPL;
+      sp[j*3]=x; sp[j*3+1]=y; sp[j*3+2]=z;
+      sv[j*3]=dx*1.6+(Math.random()-.5)*1.2; sv[j*3+1]=1.4+Math.random()*1.4; sv[j*3+2]=dz*1.6+(Math.random()-.5)*1.2;
+      sl[j]=.45;
+    }
+  }
+
+  // state
+  let openAmt = RM ? 1 : 0, openVel = 0, openTarget = RM ? 1 : 0, builtAt = -1;
+  let px = 0, py = 0, baseY = 1.9;
+  const btn = document.getElementById('umbrella-toggle');
+  function setOpen(v){
+    openTarget = v ? 1 : 0;
+    btn.setAttribute('aria-pressed', String(!!v));
+    btn.querySelector('.lbl').innerHTML = (v ? 'Close' : 'Open') + '<span class="long"> the umbrella</span>';
+  }
+  btn.addEventListener('click', () => setOpen(openTarget < .5));
+  if (!RM) setTimeout(() => setOpen(true), 380); else setOpen(true);
+
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  const hitTargets = [...panels, shaft, handle];
+  function hitUmbrella(e){
+    const r = canvas.getBoundingClientRect();
+    ndc.set((e.clientX-r.left)/r.width*2-1, -((e.clientY-r.top)/r.height*2-1));
+    ray.setFromCamera(ndc, camera);
+    return ray.intersectObjects(hitTargets).length > 0;
+  }
+  addEventListener('pointermove', e => {
+    px = e.clientX/innerWidth*2-1; py = e.clientY/innerHeight*2-1;
+    if (e.target === canvas) canvas.style.cursor = hitUmbrella(e) ? 'pointer' : 'default';
+  }, {passive:true});
+  canvas.addEventListener('click', e => { if (hitUmbrella(e)) setOpen(openTarget < .5); });
+
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w/h; camera.updateProjectionMatrix();
+    const a = w/h;
+    if (a > 1.05){ umbrella.position.x = Math.min(3.3, 1.75*a); baseY = 1.85; umbrella.scale.setScalar(.92); }
+    else {
+      // portrait: fit the umbrella into the band above the headline (see .hero-content padding-top)
+      const ppu = h / (2*Math.tan(THREE.MathUtils.degToRad(17.5))*12);
+      const top = 108, bottom = Math.min(w*0.95, 460) + 62;   // px band between nav and headline
+      const sc = Math.min((bottom-top)/(4.9*ppu), w*0.86/(5.8*ppu));
+      umbrella.scale.setScalar(sc); umbrella.position.x = -0.04*w/ppu;
+      baseY = 0.2 + (h/2 - top)/ppu - 0.4*sc;
+    }
+  }
+  new ResizeObserver(resize).observe(canvas); resize();
+
+  let visible = true;
+  new IntersectionObserver(([en]) => visible = en.isIntersecting).observe(canvas);
+
+  const dummy = new THREE.Object3D(), inv = new THREE.Matrix4(), v = new THREE.Vector3(), uWorld = new THREE.Vector3();
+  const clock = new THREE.Clock();
+  function frame(){
+    requestAnimationFrame(frame);
+    const dt = Math.min(clock.getDelta(), .05), t = clock.elapsedTime;
+    if (!visible) return;
+
+    // spring the canopy toward open/closed
+    if (!RM){
+      openVel += (openTarget-openAmt)*70*dt; openVel *= Math.exp(-10*dt);
+      openAmt = Math.max(0, Math.min(1.08, openAmt + openVel*dt));
+    } else openAmt = openTarget;
+    if (Math.abs(openAmt-builtAt) > 1e-4){ buildCanopy(openAmt); builtAt = openAmt; }
+
+    // tilt toward the pointer, slow spin, gentle bob
+    const k = Math.min(1, dt*3);
+    tilt.rotation.z += ((-px*.22) - tilt.rotation.z)*k;
+    tilt.rotation.x += ((py*.14) - tilt.rotation.x)*k;
+    if (!RM) tilt.rotation.y += dt*.12;
+    umbrella.position.y = baseY + (RM ? 0 : Math.sin(t*1.1)*.06);
+
+    const o = Math.min(openAmt,1);
+    shadow.scale.set(1.2+4.6*o, 1.2+4.6*o, 1);
+    dry.forEach((d,i) => {
+      d.off += (((1-o)*-.55) - d.off)*Math.min(1,dt*4);
+      const a = d.ang + (RM?0:t*.25);
+      d.mesh.position.set(Math.cos(a)*d.rad, d.y + d.off + (RM?0:Math.sin(t*1.6+i)*.07), Math.sin(a)*d.rad);
+      if (!RM){ d.mesh.rotation.x += dt*d.spin*.6; d.mesh.rotation.y += dt*d.spin; }
+      if (o < .5 && !RM) d.mesh.position.x += Math.sin(t*40+i)*.008*(1-o); // a shiver when it rains on them
+    });
+
+    // rain
+    if (DROPS){
+      umbrella.updateMatrixWorld(true);
+      inv.copy(tilt.matrixWorld).invert();
+      uWorld.setFromMatrixPosition(tilt.matrixWorld);
+      const rim = rho[S];
+      for (let i=0;i<DROPS;i++){
+        let x=dp[i*3], y=dp[i*3+1], z=dp[i*3+2];
+        y -= dv[i]*dt; x -= .7*dt;
+        if (o > .45){
+          v.set(x,y,z).applyMatrix4(inv);
+          const r = Math.hypot(v.x, v.z);
+          if (r < rim){
+            const hgt = canopyHeightAt(r);
+            if (v.y < hgt && v.y > hgt-.7){
+              const dx=x-uWorld.x, dz=z-uWorld.z, len=Math.hypot(dx,dz)||1;
+              emit(x,y,z,dx/len,dz/len); spawn(i,false); continue;
+            }
+          }
+        }
+        if (y < -5.2) { spawn(i,false); continue; }
+        dp[i*3]=x; dp[i*3+1]=y;
+        dummy.position.set(x,y,z); dummy.rotation.set(0,0,.07); dummy.scale.setScalar(1); dummy.updateMatrix();
+        drops.setMatrixAt(i, dummy.matrix);
+      }
+      drops.instanceMatrix.needsUpdate = true;
+
+      for (let j=0;j<SPL;j++){
+        if (sl[j] > 0){
+          sl[j] -= dt; sv[j*3+1] -= 9*dt;
+          sp[j*3]+=sv[j*3]*dt; sp[j*3+1]+=sv[j*3+1]*dt; sp[j*3+2]+=sv[j*3+2]*dt;
+          dummy.position.set(sp[j*3],sp[j*3+1],sp[j*3+2]); dummy.scale.setScalar(Math.max(0,sl[j]/.45));
+        } else dummy.scale.setScalar(0);
+        dummy.rotation.set(0,0,0); dummy.updateMatrix(); splash.setMatrixAt(j, dummy.matrix);
+      }
+      splash.instanceMatrix.needsUpdate = true;
+    }
+    renderer.render(scene, camera);
+  }
+  frame();
+})();
+
+/* =====================================================
+   SERVICE VIEWER: one object per service
+   ===================================================== */
+(function services(){
+  const canvas = document.getElementById('svc-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, .1, 50);
+  camera.position.set(0, 1.1, 8.2); camera.lookAt(0, 0, 0);
+  addLights(scene);
+
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(4.2,4.2), new THREE.MeshBasicMaterial({map:softShadowTexture(), transparent:true, depthWrite:false}));
+  shadow.rotation.x = -Math.PI/2; shadow.position.y = -1.75; scene.add(shadow);
+
+  const makers = {
+    capture(){
+      const g = new THREE.Group(), room = makeSplatRoom(innerWidth < 760 ? 2600 : 4200);
+      room.points.scale.setScalar(.8); room.points.position.y = -.55; g.add(room.points);
+      return {group:g, update(t){
+        g.rotation.y = .6 + Math.sin(t*.4)*.3;
+        room.update(t, camera, renderer);
+      }};
+    },
+    floorplans(){
+      // A plan drawing whose walls rise into a furnished cutaway, then settle back.
+      const g = new THREE.Group(), plan = new THREE.Group(); g.add(plan);
+      plan.rotation.x = .62; plan.position.y = -.05;
+      const floor = new THREE.Mesh(new THREE.BoxGeometry(3,.08,2.2), std(C.yellow2, {roughness:.8}));
+      floor.position.y = -.04; plan.add(floor);
+      const segs = [
+        [-1.4,-1, 1.4,-1], [1.4,-1, 1.4,1], [1.4,1, -.2,1], [-.75,1, -1.4,1], [-1.4,1, -1.4,-1],
+        [-.3,-1, -.3,-.15], [-.3,.4, -.3,1], [.6,-1, .6,-.3], [.6,-.3, .9,-.3], [1.2,-.3, 1.4,-.3]
+      ];
+      const wallGeo = new THREE.BoxGeometry(1,1,1); wallGeo.translate(0,.5,0);
+      const wallMat = std(C.paper), walls = [], lines = [];
+      segs.forEach(([x1,z1,x2,z2]) => {
+        const dx = x2-x1, dz = z2-z1, w = new THREE.Mesh(wallGeo, wallMat);
+        w.scale.set(Math.hypot(dx,dz) + .07, .02, .07);
+        w.position.set((x1+x2)/2, 0, (z1+z2)/2); w.rotation.y = -Math.atan2(dz, dx);
+        plan.add(w); walls.push(w);
+        lines.push(x1,.006,z1, x2,.006,z2);
+      });
+      const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.Float32BufferAttribute(lines, 3));
+      plan.add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color:lin(C.ink)})));
+      const furniture = [];
+      const piece = (w,h,d,x,z,col,y=0) => {
+        const p = new THREE.Group(), m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), std(col));
+        m.position.y = y + h/2; p.add(m); p.position.set(x,0,z); plan.add(p); furniture.push(p); return p;
+      };
+      const part = (w,h,d,col,x,y,z) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), std(col)); m.position.set(x,y,z); return m; };
+      piece(.56,.13,.76,-.85,-.5,C.paper).add(part(.58,.05,.36,C.canal, 0,.15,.18));   // bed + blanket
+      piece(.72,.14,.24,.35,.72,C.canal).add(part(.72,.18,.07,C.canal, 0,.2,.1));      // sofa + back
+      const table = new THREE.Group(), top = new THREE.Mesh(new THREE.CylinderGeometry(.2,.2,.04,24), std(C.yellow));
+      top.position.y = .22; table.add(top);
+      const leg = new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.22,8), std(C.ink)); leg.position.y = .11; table.add(leg);
+      table.position.set(.3,0,.05); plan.add(table); furniture.push(table);
+      piece(.52,.24,.18,.05,-.88,C.ink2);
+      piece(.38,.14,.52,1.15,-.66,C.paper);
+      const ss = (a,b,x) => { const k = Math.min(1, Math.max(0, (x-a)/(b-a))); return k*k*(3-2*k); };
+      const pop = x => { x = Math.min(1, Math.max(0, x)); const c1 = 1.7, c3 = c1+1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); };
+      return {group:g, update(t){
+        const c = RM ? 4 : t % 8, down = 1 - ss(6.9,7.8,c);
+        const h = .02 + .36*ss(.8,2.3,c)*down;
+        walls.forEach(w => w.scale.y = h);
+        furniture.forEach((f,i) => f.scale.setScalar(Math.max(.001, pop((c - 2.3 - i*.16)/.5) * (1 - ss(6.6,7.1,c)))));
+        g.rotation.y = -.35 + Math.sin(t*.4)*.3;
+      }};
+    },
+    games(){
+      const g = new THREE.Group(), bot = new THREE.Group(); g.add(bot);
+      const s = .3, cube = new THREE.BoxGeometry(s*.96,s*.96,s*.96);
+      const put = (x,y,z,col) => { const m = new THREE.Mesh(cube, std(col)); m.position.set(x*s,y*s,z*s); bot.add(m); };
+      for (let x=-1;x<=1;x++) for (let y=0;y<3;y++) for (let z=-1;z<=1;z++) put(x,y+2,z,C.yellow);  // head
+      put(-.5,3,1.35,C.ink); put(.5,3,1.35,C.ink);                                                   // eyes
+      put(0,5,0,C.ink);                                                                              // antenna
+      for (let x=-1;x<=1;x++) for (let y=0;y<2;y++) for (let z=-.5;z<=.5;z++) put(x,y,z,C.canal);    // body
+      put(-2,1,0,C.yellow); put(2,1,0,C.yellow); put(-2,0,0,C.yellow); put(2,0,0,C.yellow);          // arms
+      put(-1,-1,0,C.ink); put(1,-1,0,C.ink);                                                         // legs
+      const bulb = new THREE.Mesh(new THREE.SphereGeometry(.1,10,8), new THREE.MeshBasicMaterial({color:lin(C.signal)})); bulb.position.y = 6*s; bot.add(bulb);
+      bot.position.y = -.9;
+      const coins = [];
+      for (let i=0;i<3;i++){
+        const c = new THREE.Mesh(new THREE.CylinderGeometry(.2,.2,.06,18), std(C.yellow2, {metalness:.3, roughness:.35}));
+        c.rotation.x = Math.PI/2; g.add(c); coins.push(c);
+      }
+      return {group:g, update(t){
+        const hop = Math.abs(Math.sin(t*3));
+        bot.position.y = -1.05 + hop*.45; bot.scale.set(1+(1-hop)*.06, 1-(1-hop)*.08, 1+(1-hop)*.06);
+        bot.rotation.y = Math.sin(t*.8)*.6;
+        coins.forEach((c,i) => { const a=t*.9+i*2.09; c.position.set(Math.cos(a)*1.7, .2+Math.sin(t*2+i)*.2, Math.sin(a)*1.7); c.rotation.z = t*3; });
+      }};
+    },
+    modeling(){
+      const g = new THREE.Group();
+      const ico = new THREE.IcosahedronGeometry(1.45, 1);
+      g.add(new THREE.LineSegments(new THREE.EdgesGeometry(ico), new THREE.LineBasicMaterial({color:lin(C.ink)})));
+      const inner = new THREE.Mesh(new THREE.IcosahedronGeometry(1.3, 0), std(C.yellow)); g.add(inner);
+      const seen = new Set(), pts = [], pa = ico.attributes.position;
+      for (let i=0;i<pa.count;i++){
+        const key = [pa.getX(i),pa.getY(i),pa.getZ(i)].map(n=>n.toFixed(3)).join();
+        if (!seen.has(key)){ seen.add(key); pts.push(new THREE.Vector3(pa.getX(i),pa.getY(i),pa.getZ(i))); }
+      }
+      const dots = new THREE.InstancedMesh(new THREE.SphereGeometry(.055,8,6), new THREE.MeshBasicMaterial({color:lin(C.canal)}), pts.length);
+      g.add(dots);
+      const d = new THREE.Object3D();
+      return {group:g, update(t){
+        g.rotation.y = t*.45; g.rotation.x = Math.sin(t*.4)*.25;
+        inner.scale.setScalar(1 + Math.sin(t*1.6)*.05); inner.rotation.y = -t*.3;
+        pts.forEach((p,i) => { d.position.copy(p); d.scale.setScalar(1 + .5*Math.max(0,Math.sin(t*3 - i*.4))); d.updateMatrix(); dots.setMatrixAt(i, d.matrix); });
+        dots.instanceMatrix.needsUpdate = true;
+      }};
+    },
+    printing(){
+      const g = new THREE.Group(), NL = 46, H = .05, layers = [];
+      const bed = new THREE.Mesh(new THREE.BoxGeometry(2.6,.1,2.6), std(C.ink, {roughness:.4})); bed.position.y = -1.2; g.add(bed);
+      const white = std(C.paper), hot = std(C.signal);
+      const radius = f => .55 + .38*Math.sin(f*Math.PI*1.05) + .05*Math.sin(f*Math.PI*7);
+      for (let i=0;i<NL;i++){
+        const r = radius(i/NL);
+        const m = new THREE.Mesh(new THREE.CylinderGeometry(r, radius((i+1)/NL), H*.92, 40), white);
+        m.position.y = -1.15 + H/2 + i*H; g.add(m); layers.push(m);
+      }
+      const nozzle = new THREE.Group();
+      const cone = new THREE.Mesh(new THREE.ConeGeometry(.08,.18,12), std(C.ink)); cone.rotation.x = Math.PI; nozzle.add(cone);
+      const block = new THREE.Mesh(new THREE.BoxGeometry(.3,.22,.3), std(C.ink2)); block.position.y = .2; nozzle.add(block);
+      g.add(nozzle);
+      return {group:g, update(t){
+        const cyc = t % 6.5, f = Math.min(1, cyc/5), n = Math.floor(f*NL);
+        layers.forEach((l,i) => { l.visible = i < n || (RM); l.material = (i === n-1 && f < 1) ? hot : white; });
+        const top = RM ? NL : n, r = radius(Math.min(top,NL-1)/NL), a = t*9;
+        nozzle.position.set(Math.cos(a)*r, -1.15 + top*H + .12, Math.sin(a)*r);
+        nozzle.visible = f < 1 && !RM;
+        g.rotation.y = t*.3;
+      }};
+    },
+    large(){
+      const g = new THREE.Group();
+      const c = document.createElement('canvas'); c.width = 1024; c.height = 576;
+      const tex = new THREE.CanvasTexture(c); tex.encoding = THREE.sRGBEncoding; tex.anisotropy = 4;
+      function paint(){
+        const x = c.getContext('2d');
+        x.fillStyle = '#FFC61A'; x.fillRect(0,0,1024,576);
+        x.fillStyle = '#161D38'; x.font = '800 168px "Bricolage Grotesque", system-ui, sans-serif';
+        x.textBaseline = 'alphabetic'; x.fillText('Print it', 70, 260); x.fillText('big.', 70, 420);
+        ['#00AEEF','#EC008C','#FFF200','#161D38'].forEach((col,i) => { x.fillStyle = col; x.fillRect(760+i*52, 470, 44, 44); });
+        x.strokeStyle = '#161D38'; x.lineWidth = 3;
+        [[40,40,1,1],[984,40,-1,1],[40,536,1,-1],[984,536,-1,-1]].forEach(([px,py,sx,sy]) => {
+          x.beginPath(); x.moveTo(px, py+sy*30); x.lineTo(px, py); x.lineTo(px+sx*30, py); x.stroke();
+        });
+        tex.needsUpdate = true;
+      }
+      paint(); if (document.fonts) document.fonts.ready.then(paint);
+      const W = 3.4, Hh = 1.9;
+      const geo = new THREE.PlaneGeometry(W, Hh, 40, 20), base = geo.attributes.position.array.slice();
+      const banner = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({map:tex, side:THREE.DoubleSide, roughness:.85})); g.add(banner);
+      const grom = [], gm = std(0xC9CFDD, {metalness:.6, roughness:.3, flatShading:false});
+      [[-1,1],[0,1],[1,1],[-1,-1],[0,-1],[1,-1]].forEach(([sx,sy]) => {
+        const tr = new THREE.Mesh(new THREE.TorusGeometry(.05,.018,8,16), gm);
+        tr.userData = {x:sx*(W/2-.1), y:sy*(Hh/2-.1)}; g.add(tr); grom.push(tr);
+      });
+      const wave = (x,y,t) => Math.sin(x*1.7 - t*2.4)*.15*((x+W/2)/W) + Math.sin(y*2.1 + t*1.3)*.03;
+      return {group:g, update(t){
+        const p = geo.attributes.position.array;
+        for (let i=0;i<p.length;i+=3) p[i+2] = wave(base[i], base[i+1], t);
+        geo.attributes.position.needsUpdate = true; geo.computeVertexNormals();
+        grom.forEach(gr => gr.position.set(gr.userData.x, gr.userData.y, wave(gr.userData.x, gr.userData.y, t)+.02));
+        g.rotation.y = -.3 + Math.sin(t*.5)*.25; g.position.y = .15;
+      }};
+    }
+  };
+
+  const items = {};
+  Object.keys(makers).forEach(k => { items[k] = makers[k](); items[k].group.visible = false; scene.add(items[k].group); });
+  let current = 'capture', target = 'capture', sc = RM ? 1 : 0;
+  items.capture.group.visible = true;
+
+  const rows = document.querySelectorAll('.svc');
+  function choose(key){
+    target = key;
+    rows.forEach(r => { const on = r.dataset.key === key; r.classList.toggle('active', on); r.setAttribute('aria-pressed', String(on)); });
+  }
+  rows.forEach(r => {
+    r.addEventListener('mouseenter', () => choose(r.dataset.key));
+    r.addEventListener('focus', () => choose(r.dataset.key));
+    r.addEventListener('click', () => choose(r.dataset.key));
+  });
+
+  // drag to turn
+  const holder = new THREE.Group(); scene.add(holder);
+  Object.values(items).forEach(it => holder.add(it.group));
+  let drag = null, spinY = 0, spinV = 0;
+  canvas.addEventListener('pointerdown', e => { drag = e.clientX; canvas.setPointerCapture(e.pointerId); canvas.style.cursor='grabbing'; });
+  canvas.addEventListener('pointermove', e => { if (drag !== null){ spinV = (e.clientX-drag)*.012; spinY += spinV; drag = e.clientX; } });
+  const end = () => { drag = null; canvas.style.cursor='grab'; };
+  canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end);
+
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w/h;
+    camera.position.z = w/h < 1.1 ? 8.2 : 7.6; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(canvas); resize();
+
+  let visible = false;
+  new IntersectionObserver(([en]) => visible = en.isIntersecting).observe(canvas);
+
+  const backOut = x => { const c1=1.7, c3=c1+1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); };
+  const clock = new THREE.Clock();
+  function frame(){
+    requestAnimationFrame(frame);
+    const dt = Math.min(clock.getDelta(), .05), t = RM ? 1.2 : clock.elapsedTime;
+    if (!visible) return;
+    if (target !== current){
+      sc -= dt*7;
+      if (sc <= 0 || RM){ items[current].group.visible = false; current = target; items[current].group.visible = true; sc = RM ? 1 : 0; }
+    } else sc = Math.min(1, sc + dt*(RM?99:3.2));
+    items[current].group.scale.setScalar(Math.max(.001, target !== current ? sc : backOut(sc)));
+    items[current].update(t);
+    if (drag === null){ spinV *= .94; spinY += spinV; }
+    holder.rotation.y = spinY;
+    renderer.render(scene, camera);
+  }
+  frame();
+})();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#DCE4F2">
+<title>Interactive 3D Floor Plans for Apartments &amp; Leasing | Yellow Umbrella Group</title>
+<meta name="description" content="We turn the 2D floor plans in your brochure or price list into furnished, interactive 3D residences that renters can turn, compare, and walk through from a link. No site visit needed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#DCE4F2; --paper:#F6F8FC; --ink:#161D38; --ink-2:#3B4466;
+  --umbrella:#FFC61A; --canal:#2D5BE3; --signal:#FF5B3A;
+  --display:"Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --body:"Figtree", ui-sans-serif, system-ui, sans-serif;
+  --pad:clamp(20px,4vw,56px); --max:1240px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{-webkit-tap-highlight-color:transparent;font-family:var(--body);font-size:18px;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%}
+:focus-visible{outline:3px solid var(--canal);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{scroll-margin-top:74px;padding:clamp(88px,11vw,140px) 0}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.2vw,4.6rem);line-height:.95;letter-spacing:-.03em;font-variation-settings:"opsz" 96}
+.sub{max-width:52ch;margin-top:22px;color:var(--ink-2)}
+.kicker{display:block;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:30;transition:background .3s, box-shadow .3s}
+.nav.scrolled{background:rgba(246,248,252,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(22,29,56,.1)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.nav ul{display:flex;gap:30px;list-style:none;padding:0;align-items:center}
+.nav ul a:not(.btn){text-decoration:none;font-weight:500;font-size:16px;white-space:nowrap}
+.nav ul a:not(.btn):hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;font:600 16px/1 var(--body);padding:15px 24px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1), background .2s, color .2s}
+@media (hover:hover){.btn:hover{transform:translateY(-3px) rotate(-1.5deg)}}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.small{padding:11px 18px;font-size:15px}
+@media (max-width:1040px){.nav ul li:not(:last-child){display:none}.brand{font-size:17px}}
+@media (max-width:420px){.nav .wrap{gap:10px}.nav .brand{font-size:15px;gap:7px;white-space:nowrap}.nav .brand svg{width:26px;height:26px}.nav .btn.small{padding:9px 12px;font-size:13px}}
+
+/* hero */
+.hero{background:var(--sky);padding:74px 0 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,4vw,64px);align-items:center;min-height:calc(100svh - 74px);padding:clamp(32px,5vh,64px) 0 clamp(48px,7vh,88px)}
+.eyebrow{display:inline-block;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;background:var(--umbrella);padding:7px 12px;border-radius:999px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3rem,7vw,6.6rem);line-height:.9;letter-spacing:-.04em;margin-top:22px;font-variation-settings:"opsz" 96}
+.lede{max-width:40ch;font-size:clamp(18px,1.55vw,21px);margin-top:26px;color:var(--ink-2)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.where{margin-top:22px;font-size:15px;font-weight:600}
+
+/* before -> after stack */
+.morph{position:relative;aspect-ratio:1/.86;width:100%}
+.morph figure{position:absolute;border:2px solid var(--ink);border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 24px 40px -24px rgba(22,29,56,.45)}
+.morph img{display:block;width:100%;height:100%;object-fit:cover}
+.morph .before{left:3%;top:3%;width:46%;aspect-ratio:1;transform:rotate(-4deg);z-index:2;padding:12px}
+.morph .before img{object-fit:contain}
+.morph .after{right:0;bottom:0;width:80%;aspect-ratio:1160/920;background:#F2F2EC}
+.morph figcaption{position:absolute;left:12px;bottom:12px;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:6px 11px}
+.morph .arrow{position:absolute;z-index:3;left:39%;top:44%;width:clamp(56px,7vw,84px);height:clamp(56px,7vw,84px);border-radius:50%;background:var(--umbrella);border:2px solid var(--ink);display:grid;place-items:center}
+.morph .arrow svg{width:46%;height:46%}
+@media (prefers-reduced-motion: no-preference){
+  .morph .before{animation:settle 1s .2s cubic-bezier(.3,1.5,.5,1) both}
+  .morph .after{animation:rise 1s .45s cubic-bezier(.3,1.3,.5,1) both}
+  .morph .arrow{animation:pop .6s 1s cubic-bezier(.3,1.8,.5,1) both}
+}
+@keyframes settle{from{opacity:0;transform:translate(-24px,-18px) rotate(-12deg)}to{opacity:1;transform:rotate(-4deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;min-height:0;padding-top:16px}
+  .morph{order:-1;max-width:560px;margin:0 auto}
+}
+
+/* demo */
+.demo-head{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end}
+.demo-head .sub{margin-top:0}
+.player{position:relative;width:100%;aspect-ratio:16/10;margin-top:clamp(36px,5vw,56px);border:2px solid var(--ink);border-radius:30px;overflow:hidden;background:#F2F2EC;scroll-margin-top:96px}
+.player > img,.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.player > img{object-fit:cover}
+.player-cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;background:linear-gradient(to top, rgba(22,29,56,.7), rgba(22,29,56,.08) 70%);color:var(--paper)}
+.player-cover .btn{background:var(--umbrella);color:var(--ink);border-color:var(--umbrella);font-size:18px;padding:18px 28px}
+.player-cover small{font-size:15px;font-weight:500;max-width:40ch}
+.player.on{aspect-ratio:auto;height:clamp(600px,84svh,880px)}
+.player.on > img,.player.on .player-cover{display:none}
+.player:fullscreen{border:0;border-radius:0;height:100%}
+.player:-webkit-full-screen{border:0;border-radius:0;height:100%}
+.player-bar{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;margin-top:18px}
+.tips{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;padding:0;font-size:15px;color:var(--ink-2)}
+.tips b{color:var(--ink)}
+.player-actions{display:flex;gap:10px;flex-wrap:wrap}
+.player-actions [hidden]{display:none}
+.credit{margin-top:22px;font-size:14px;color:var(--ink-2);max-width:78ch}
+@media (max-width:900px){.demo-head{grid-template-columns:1fr}}
+@media (max-width:640px){.player{aspect-ratio:4/5}.player.on{height:82svh}}
+
+/* features */
+.features{background:var(--ink);color:var(--paper)}
+.features .sub{color:rgba(246,248,252,.75)}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,24px);margin-top:clamp(40px,5vw,64px);list-style:none;padding:0}
+.feat{border:2px solid rgba(246,248,252,.22);border-radius:26px;padding:clamp(22px,2.4vw,30px)}
+.feat svg{width:40px;height:40px;fill:none;stroke:var(--umbrella);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-family:var(--display);font-weight:700;font-size:25px;letter-spacing:-.01em;line-height:1.1;margin-top:18px}
+.feat p{margin-top:10px;color:rgba(246,248,252,.75);font-size:17px}
+@media (max-width:980px){.feat-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.feat-grid{grid-template-columns:1fr}}
+
+/* who */
+.who-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(32px,6vw,88px);align-items:start}
+.who-list{list-style:none;padding:0;border-top:2px solid var(--ink)}
+.who-list li{padding:20px 4px;border-bottom:2px solid var(--ink)}
+.who-list b{display:block;font-family:var(--display);font-size:clamp(22px,2.2vw,28px);letter-spacing:-.01em;line-height:1.15}
+.who-list span{display:block;margin-top:6px;color:var(--ink-2);font-size:17px}
+@media (max-width:900px){.who-grid{grid-template-columns:1fr}}
+
+/* how */
+.how{background:var(--sky)}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,40px);margin-top:clamp(48px,6vw,80px)}
+.steps li{position:relative;padding-top:28px;border-top:2px dashed rgba(22,29,56,.35)}
+.steps .n{display:block;font-family:var(--display);font-weight:800;font-size:clamp(64px,7vw,104px);line-height:.9;color:var(--canal);letter-spacing:-.04em}
+.steps h3{font-family:var(--display);font-weight:700;font-size:24px;margin-top:18px;letter-spacing:-.01em}
+.steps p{margin-top:8px;color:var(--ink-2);font-size:17px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* honest note */
+.note{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,36px);align-items:start;border:2px solid var(--ink);border-radius:30px;padding:clamp(24px,3.4vw,44px)}
+.note .mark{width:64px;height:64px;border-radius:50%;background:var(--umbrella);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:34px;border:2px solid var(--ink)}
+.note h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,3vw,38px);letter-spacing:-.02em;line-height:1.05}
+.note p{margin-top:12px;color:var(--ink-2);max-width:70ch}
+.note a{font-weight:700}
+.honest{padding-top:0}
+@media (max-width:560px){.note{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--umbrella);padding:clamp(96px,13vw,170px) 0}
+.contact h2{font-size:clamp(3rem,8vw,7.4rem);max-width:10ch}
+.contact p{max-width:46ch;margin-top:26px;font-size:20px}
+.contact ul{margin-top:18px;padding-left:1.1em;max-width:46ch;font-size:18px}
+.email{display:inline-block;margin-top:40px;font-family:var(--display);font-weight:700;font-size:clamp(22px,3.6vw,46px);letter-spacing:-.02em;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:8px;overflow-wrap:anywhere}
+.email:hover{text-decoration-thickness:6px}
+.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;align-items:center}
+
+/* footer */
+footer{background:var(--ink);color:var(--paper);padding:48px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+footer small{font-size:15px;color:rgba(246,248,252,.7)}
+footer nav{display:flex;gap:24px;flex-wrap:wrap}
+footer nav a{text-decoration:none;font-size:15px}
+footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Yellow Umbrella Group, home">
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A" stroke="#161D38" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#161D38" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#demo">Demo</a></li>
+      <li><a href="#features">What you get</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a class="btn small" href="#contact">Send us your plans</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">3D floor plans</span>
+      <h1>Floor plans people can walk into.</h1>
+      <p class="lede">Send us the floor plans from your brochure or price list. We turn every layout into a furnished 3D residence that renters and buyers can turn, compare, and walk through from a link, on any phone or computer.</p>
+      <div class="hero-actions">
+        <a class="btn" href="flatiron/">Explore 9 floor plans</a>
+        <a class="btn ghost" href="#contact">Send us your plans</a>
+      </div>
+      <p class="where">No site visit needed. We work from the plans you already have.</p>
+    </div>
+    <div class="morph" aria-label="A brochure floor plan and the 3D residence built from it">
+      <figure class="before">
+        <img src="floorplans/grotto-brochure.webp" alt="The original two-bedroom floor plan from the property's price list" width="648" height="654">
+        <figcaption>Your plan</figcaption>
+      </figure>
+      <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#161D38" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      <figure class="after">
+        <img src="floorplans/grotto-3d.webp" alt="The same two-bedroom layout as a furnished 3D model with cutaway walls" width="1160" height="920">
+        <figcaption>Your 3D residence</figcaption>
+      </figure>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="demo" aria-labelledby="demo-title">
+    <div class="wrap">
+      <div class="demo-head">
+        <div>
+          <span class="kicker">Live sample</span>
+          <h2 id="demo-title" style="margin-top:14px">Explore nine residences.</h2>
+        </div>
+        <p class="sub">Choose a residence, then switch between a furnished 3D view, a clean floor plan, and the original brochure drawing. It runs right here on this page.</p>
+      </div>
+
+      <div class="player" id="player" data-src="flatiron/">
+        <img src="floorplans/poster.webp" alt="The Grotto, a furnished two-bedroom residence shown in 3D from above" width="1600" height="1000" loading="lazy">
+        <div class="player-cover">
+          <button class="btn" type="button" id="player-load">Start exploring</button>
+          <small>Nine residences. Runs in your browser, nothing to install.</small>
+        </div>
+      </div>
+
+      <div class="player-bar">
+        <ul class="tips">
+          <li><b>Drag</b> to turn it</li>
+          <li><b>Scroll or pinch</b> to zoom</li>
+          <li><b>Walk the Grotto</b> from the top bar</li>
+        </ul>
+        <div class="player-actions">
+          <button class="btn ghost small" type="button" id="player-full" hidden>Full screen</button>
+          <button class="btn ghost small" type="button" id="player-reset" hidden>Start over</button>
+        </div>
+      </div>
+      <p class="credit">Flatiron LV is a presentation piece we built for the property's management. Each layout is scaled to its advertised square footage; ceiling heights, furniture sizes, and finishes are our estimates.</p>
+    </div>
+  </section>
+
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <h2 id="features-title">What comes with every layout</h2>
+      <p class="sub">One interactive viewer for the whole property, plus still images for everywhere a viewer can't go.</p>
+      <ul class="feat-grid">
+        <li class="feat">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5 34 13v14L20 35 6 27V13z"/><path d="M6 13l14 8 14-8M20 21v14"/></svg>
+          <h3>A 3D residence</h3>
+          <p>Turn it, zoom in, and focus on one room at a time. Show it furnished or empty, with cutaway or full-height walls, in warm evening light or daylight.</p>
+        </li>
+        <li class="feat">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="28" rx="2"/><path d="M6 20h14V6M20 26v8M26 20h8"/></svg>
+          <h3>A clean plan view</h3>
+          <p>A top-down plan with room labels, drawn in the same finishes, so the layout reads at a glance.</p>
+        </li>
+        <li class="feat">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="8" width="14" height="24" rx="2"/><rect x="22" y="8" width="14" height="24" rx="2"/><path d="M8 14h6M8 19h6M26 14h6M26 19h6"/></svg>
+          <h3>Compare with the original</h3>
+          <p>Put the 3D version next to your brochure drawing, so nobody has to wonder whether it matches.</p>
+        </li>
+        <li class="feat">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="21" cy="7.5" r="3"/><path d="M19 13l-4 9 6 3-2 10M19 13l6 4 5 1M15 22l-4 5M21 25l6 10"/></svg>
+          <h3>Walk inside</h3>
+          <p>A first-person walkthrough with a guided tour from the front door through every room. Add it to the layouts you want to feature.</p>
+        </li>
+        <li class="feat">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="8" width="30" height="22" rx="2"/><circle cx="14" cy="16" r="3"/><path d="M5 26l9-7 7 6 5-4 9 7M20 34v-4"/></svg>
+          <h3>Images for listings and print</h3>
+          <p>A hero image and a labeled plan for every layout at 2400 &times; 1800, ready for listing sites, flyers, and your price sheet. Save more from any angle.</p>
+        </li>
+        <li class="feat">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="7" width="24" height="17" rx="2"/><path d="M11 30h10M16 24v6"/><rect x="27" y="15" width="10" height="18" rx="2"/><path d="M31 29.5h2"/></svg>
+          <h3>Works wherever renters are</h3>
+          <p>Phones, tablets, and computers. Share it as a link, put it on your own website, or take an offline copy to a leasing appointment.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="who" aria-labelledby="who-title">
+    <div class="wrap who-grid">
+      <div>
+        <h2 id="who-title">Made for leasing and sales teams</h2>
+        <p class="sub">Most people can't picture a room from a line drawing. A 3D layout answers "will my couch fit?" before the tour, and keeps selling after it.</p>
+      </div>
+      <ul class="who-list">
+        <li><b>Apartment communities</b><span>Every floor plan on your website and in your listings, not just the model unit.</span></li>
+        <li><b>New construction and pre-leasing</b><span>Show finished, furnished homes before the building is ready to tour.</span></li>
+        <li><b>Condo and townhome sales</b><span>Give buyers something to explore from out of town and share with family.</span></li>
+        <li><b>Student, senior, and short-stay housing</b><span>Help people choose a layout without a trip to see it.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title">How it works</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><h3>Send your plans</h3><p>A brochure, price list, PDF, or CAD file, plus a few photos of your finishes if you have them.</p></li>
+        <li><span class="n">2</span><h3>We build each layout</h3><p>Walls, doors, windows, fixtures, and furniture traced from your drawings and scaled to your square footage.</p></li>
+        <li><span class="n">3</span><h3>You check it</h3><p>Review every layout next to the original and mark anything that should change before it goes live.</p></li>
+        <li><span class="n">4</span><h3>It goes live</h3><p>You get a link, a version for your website, an offline copy, and the image set.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="how honest" aria-labelledby="honest-title">
+    <div class="wrap">
+      <div class="note">
+        <span class="mark" aria-hidden="true">i</span>
+        <div>
+          <h3 id="honest-title">Built for marketing, not for measuring.</h3>
+          <p>These are faithful visualizations of your plans, not measured drawings. Layouts follow your source drawings and are scaled to your advertised square footage. Anything the drawing doesn't show, like ceiling height or furniture size, is our estimate, and every viewer says so.</p>
+          <p>Need the real thing, as it stands today? Our <a href="capture.html">3D spatial capture</a> records the actual rooms on site.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 id="contact-title">Send us your plans.</h2>
+      <p>Tell us about the property and we'll reply with a quote and timeline. It helps to include:</p>
+      <ul>
+        <li>How many floor plans you have</li>
+        <li>The plans themselves, in any format</li>
+        <li>Photos of your finishes, if you'd like them matched</li>
+        <li>Where the floorplans will live: your website, listings, or both</li>
+      </ul>
+      <a class="email" href="mailto:yellowumbrellagroup@gmail.com?subject=3D%20floorplans">yellowumbrellagroup@gmail.com</a>
+      <div class="contact-actions">
+        <a class="btn" href="mailto:yellowumbrellagroup@gmail.com?subject=3D%20floorplans">Email us</a>
+        <button class="btn ghost" id="copy-email" type="button">Copy email address</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Yellow Umbrella Group, home">
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#F6F8FC" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <nav aria-label="Footer">
+      <a href="index.html">Home</a><a href="index.html#services">Services</a><a href="capture.html">3D Capture</a><a href="#demo">Demo</a><a href="#how">How it works</a><a href="#contact">Contact</a>
+    </nav>
+    <small>© <span id="year">2026</span> Yellow Umbrella Group, LLC. Since 2018.</small>
+  </div>
+</footer>
+
+<script>
+(() => {
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// The demo loads in place: nothing heavy downloads until someone asks for it.
+const player = document.getElementById('player');
+const full = document.getElementById('player-full');
+const reset = document.getElementById('player-reset');
+let frame = null;
+function load(){
+  if (frame) frame.remove();
+  frame = document.createElement('iframe');
+  frame.src = player.dataset.src;
+  frame.title = 'Flatiron LV residence collection, interactive 3D floorplans';
+  frame.allow = 'fullscreen';
+  player.appendChild(frame);
+  player.classList.add('on');
+  reset.hidden = false;
+  full.hidden = !(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  frame.addEventListener('load', () => frame.focus({preventScroll:true}), {once:true});
+}
+document.getElementById('player-load').addEventListener('click', load);
+reset.addEventListener('click', load);
+full.addEventListener('click', () => {
+  if (player.requestFullscreen) player.requestFullscreen();
+  else if (player.webkitRequestFullscreen) player.webkitRequestFullscreen();
+});
+
+document.getElementById('copy-email').addEventListener('click', async e => {
+  const b = e.currentTarget, was = b.textContent;
+  try { await navigator.clipboard.writeText('yellowumbrellagroup@gmail.com'); b.textContent = 'Copied'; }
+  catch { b.textContent = 'yellowumbrellagroup@gmail.com'; }
+  setTimeout(() => b.textContent = was, 1800);
+});
+})();
+</script>
+</body>
+</html>

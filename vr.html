@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#DCE4F2">
+<title>See the 3D samples in VR | Yellow Umbrella Group</title>
+<meta name="description" content="Open the Yellow Umbrella Group 3D sample scenes in a VR headset. Scan a code with a Meta Quest, Apple Vision Pro, or any WebXR headset and walk through the space at full size.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yellow Umbrella Group">
+<meta property="og:title" content="See the 3D samples in VR">
+<meta property="og:description" content="Scan a code with your headset and walk through a captured space at full size. No app, no account.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z' fill='%23FFC61A' stroke='%23161D38' stroke-width='1.5'/%3E%3Cpath d='M12 13V19.5a2 2 0 0 1-4 0' fill='none' stroke='%23161D38' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#DCE4F2; --paper:#F6F8FC; --ink:#161D38; --ink-2:#3B4466;
+  --umbrella:#FFC61A; --canal:#2D5BE3; --signal:#FF5B3A;
+  --display:"Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --body:"Figtree", ui-sans-serif, system-ui, sans-serif;
+  --pad:clamp(20px,4vw,56px); --max:1240px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{-webkit-tap-highlight-color:transparent;font-family:var(--body);font-size:18px;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--canal);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{scroll-margin-top:74px;padding:clamp(56px,7vw,96px) 0}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1;letter-spacing:-.03em;font-variation-settings:"opsz" 96}
+.sub{max-width:52ch;margin-top:20px;color:var(--ink-2)}
+.kicker{display:block;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:30;transition:background .3s, box-shadow .3s}
+.nav.scrolled{background:rgba(246,248,252,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(22,29,56,.1)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.nav ul{display:flex;gap:30px;list-style:none;padding:0;align-items:center}
+.nav ul a:not(.btn){text-decoration:none;font-weight:500;font-size:16px}
+.nav ul a:not(.btn):hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;font:600 16px/1 var(--body);padding:15px 24px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1), background .2s, color .2s}
+@media (hover:hover){.btn:hover{transform:translateY(-3px) rotate(-1.5deg)}}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.small{padding:11px 18px;font-size:15px}
+.btn.go{background:var(--umbrella);border-color:var(--umbrella);color:var(--ink)}
+@media (max-width:1040px){.nav ul li:not(:last-child){display:none}.brand{font-size:17px}}
+@media (max-width:420px){.nav .wrap{gap:10px}.nav .brand{font-size:15px;gap:7px;white-space:nowrap}.nav .brand svg{width:26px;height:26px}.nav .btn.small{padding:9px 12px;font-size:13px}}
+
+/* hero */
+.hero{background:var(--sky);padding:calc(74px + clamp(40px,6vw,72px)) 0 clamp(40px,6vw,72px)}
+.eyebrow{display:inline-block;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;background:var(--umbrella);padding:7px 12px;border-radius:999px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,6vw,5.2rem);line-height:.92;letter-spacing:-.04em;margin-top:20px;max-width:16ch;font-variation-settings:"opsz" 96}
+.lede{max-width:52ch;font-size:clamp(18px,1.55vw,21px);margin-top:24px;color:var(--ink-2)}
+
+/* The banner and the per-scene actions swap with what this device can actually do.
+   Everything defaults to the scan path, so a browser that has no WebXR at all still
+   gets the usable half of the page. */
+.status{margin-top:28px;padding:16px 20px;border-radius:18px;background:var(--paper);border:2px solid var(--ink);max-width:56ch;font-size:16px}
+.status b{font-weight:700}
+.only-headset{display:none}
+[data-headset="yes"] .only-headset{display:revert}
+[data-headset="yes"] .only-screen{display:none}
+
+/* scene cards */
+.cards{display:grid;gap:clamp(20px,3vw,32px);margin-top:clamp(32px,4vw,48px)}
+.card{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(18px,2.4vw,30px);align-items:stretch;padding:clamp(18px,2.2vw,26px);border-radius:30px;background:var(--sky)}
+.card-shot{position:relative;display:block;width:100%;min-width:0;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:2px solid var(--ink);background:var(--ink)}
+.card-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.card-body{display:flex;flex-direction:column;gap:12px}
+.card-body h3{font-family:var(--display);font-weight:700;font-size:clamp(24px,2.3vw,32px);line-height:1.05;letter-spacing:-.02em}
+.card-body p{color:var(--ink-2);font-size:16px}
+.scan{display:flex;gap:18px;align-items:center;margin-top:auto;padding-top:16px;border-top:2px solid var(--ink)}
+.qr{width:clamp(104px,13vw,132px);height:auto;flex:none;border-radius:12px;border:2px solid var(--ink);background:var(--paper);display:block}
+.scan-note{font-size:15px;color:var(--ink-2)}
+.scan-note b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+.scan-url{display:block;margin-top:8px;font:500 13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all;color:var(--ink-2)}
+.enter{margin-top:auto;padding-top:16px;border-top:2px solid var(--ink)}
+@media (max-width:900px){.card{grid-template-columns:1fr}}
+@media (max-width:520px){.scan{flex-direction:column;align-items:flex-start;gap:14px}}
+
+/* needs */
+.needs{background:var(--sky)}
+.need-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(18px,2.4vw,28px);margin-top:clamp(28px,3.5vw,44px);list-style:none;padding:0}
+.need-list li{padding:22px;border-radius:22px;background:var(--paper)}
+.need-list b{display:block;font-family:var(--display);font-weight:700;font-size:19px;margin-bottom:6px}
+.need-list span{color:var(--ink-2);font-size:16px}
+
+footer{background:var(--ink);color:var(--paper);padding:clamp(40px,5vw,64px) 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+footer nav{display:flex;flex-wrap:wrap;gap:18px}
+footer a{text-decoration:none;font-size:15px}
+footer a:hover{text-decoration:underline;text-underline-offset:4px}
+footer small{opacity:.7;font-size:14px}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Yellow Umbrella Group, home">
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A" stroke="#161D38" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#161D38" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="capture.html">3D Capture</a></li>
+      <li><a href="capture.html#demos">Demos</a></li>
+      <li><a href="capture.html#pricing">Pricing</a></li>
+      <li><a class="btn small" href="capture.html#contact">Plan a capture</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">3D spatial capture &middot; VR</span>
+    <h1>Walk in at full size.</h1>
+    <p class="lede">The same sample scenes from the demos page, in a headset instead of a window. You stand in the room at its real scale and walk around with the thumbsticks. It runs in the headset&rsquo;s own browser &mdash; no app, no store, no account.</p>
+    <p class="status">
+      <span class="only-screen"><b>You&rsquo;re on a screen right now.</b> Scan one of the codes below with your headset to open that scene in it. If you&rsquo;re already wearing one, open this page there instead and the buttons will appear.</span>
+      <span class="only-headset"><b>Headset detected.</b> Pick a scene and press Enter VR. The room starts streaming in around you as soon as the session opens.</span>
+    </p>
+  </div>
+</header>
+
+<main>
+<section aria-labelledby="scenes-title">
+  <div class="wrap">
+    <h2 id="scenes-title">Two sample scenes</h2>
+    <p class="sub">Both are third-party captures we compressed for streaming, so you can try the experience before booking one of your own space.</p>
+
+    <div class="cards">
+      <article class="card">
+        <a class="card-shot" href="demos/apartment/index.html?vr">
+          <img src="demos/apartment/thumb.jpg" alt="Living room of the sample apartment, seen from the entry" width="800" height="450" loading="lazy">
+        </a>
+        <div class="card-body">
+          <span class="kicker">Sample scene &middot; Apartment</span>
+          <h3>A two-bedroom apartment</h3>
+          <p>Living room, kitchen, hallway, bathroom, and both bedrooms. Standing in a doorway at real scale is the part a screen cannot give you.</p>
+          <div class="enter only-headset">
+            <a class="btn go" href="demos/apartment/index.html?vr">Enter VR &mdash; apartment</a>
+          </div>
+          <div class="scan only-screen">
+            <img class="qr" src="demos/apartment/vr-qr.svg" alt="QR code that opens the apartment scene in VR" width="132" height="132" loading="lazy">
+            <span class="scan-note">
+              <b>Scan with your headset</b>
+              Point the headset&rsquo;s camera at this code, or type the address into its browser.
+              <code class="scan-url">yellowumbrella.group/demos/apartment/index.html?vr</code>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="card-shot" href="demos/engineroom/index.html?vr">
+          <img src="demos/engineroom/thumb.jpg" alt="Engine room of a cruise boat: twin green diesel engines either side of a white generator" width="800" height="450" loading="lazy">
+        </a>
+        <div class="card-body">
+          <span class="kicker">Sample scene &middot; Industrial</span>
+          <h3>A working engine room</h3>
+          <p>Twin main engines, generator set, tanks, and manifolds in a tight machinery space. The clearances read properly once you are standing between them.</p>
+          <div class="enter only-headset">
+            <a class="btn go" href="demos/engineroom/index.html?vr">Enter VR &mdash; engine room</a>
+          </div>
+          <div class="scan only-screen">
+            <img class="qr" src="demos/engineroom/vr-qr.svg" alt="QR code that opens the engine room scene in VR" width="132" height="132" loading="lazy">
+            <span class="scan-note">
+              <b>Scan with your headset</b>
+              Point the headset&rsquo;s camera at this code, or type the address into its browser.
+              <code class="scan-url">yellowumbrella.group/demos/engineroom/index.html?vr</code>
+            </span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p class="sub">Prefer to stay on this screen? Both scenes also run in an ordinary browser window on the <a href="capture.html#demos">demos page</a>.</p>
+  </div>
+</section>
+
+<section class="needs" aria-labelledby="needs-title">
+  <div class="wrap">
+    <h2 id="needs-title">What you need</h2>
+    <p class="sub">Anything that speaks WebXR. You are not installing anything.</p>
+    <ul class="need-list">
+      <li><b>A headset with a browser</b><span>Meta Quest 2, 3, or Pro through the Meta Horizon browser; Apple Vision Pro through Safari; Pico and other WebXR headsets through their own browsers.</span></li>
+      <li><b>A decent connection</b><span>The scene streams in while you look around, pulling only the detail your view needs. Wi-Fi is much happier than a phone hotspot.</span></li>
+      <li><b>Room to turn around</b><span>You can stay seated and use the thumbsticks, but a clear couple of metres makes it much better. Left stick moves, right stick turns.</span></li>
+      <li><b>Nothing else</b><span>No app, no store page, no account, no download to manage. It is a link, and it opens in the browser that came with the headset.</span></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Yellow Umbrella Group, home">
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#F6F8FC" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <nav aria-label="Footer">
+      <a href="index.html">Home</a><a href="capture.html">3D Capture</a><a href="capture.html#demos">Demos</a><a href="capture.html#pricing">Pricing</a><a href="capture.html#contact">Contact</a>
+    </nav>
+    <small>&copy; <span id="year">2026</span> Yellow Umbrella Group, LLC. Since 2018.</small>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// Swap the scan codes for direct links when the page is already being read through a
+// headset. The attribute only ever turns the headset half on, so a browser with no
+// WebXR -- or one that refuses to answer -- keeps the scan codes it started with.
+(async () => {
+  const headset = await navigator.xr?.isSessionSupported('immersive-vr').catch(() => false);
+  document.documentElement.dataset.headset = headset ? 'yes' : 'no';
+})();
+</script>
+</body>
+</html>

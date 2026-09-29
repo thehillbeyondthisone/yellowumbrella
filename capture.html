@@ -1,0 +1,1911 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#DCE4F2">
+<title>Gaussian Splatting &amp; 3D Spatial Capture in St. Louis | Yellow Umbrella Group</title>
+<meta name="description" content="Photorealistic 3D spatial capture and Gaussian splatting in St. Louis for real estate, historic buildings, construction, architecture, restoration, film, venues, museums, industrial sites, and travel projects.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="canonical" href="https://yellowumbrella.group/capture.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yellow Umbrella Group">
+<meta property="og:title" content="Gaussian Splatting &amp; 3D Spatial Capture in St. Louis">
+<meta property="og:description" content="Photorealistic 3D scenes of real places you can explore from a link. Historic spaces, apartments, construction, restoration, and film locations. Based in St. Louis, travel projects welcome.">
+<meta property="og:url" content="https://yellowumbrella.group/capture.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Yellow Umbrella Group",
+  "legalName": "Yellow Umbrella Group, LLC",
+  "url": "https://yellowumbrella.group/capture.html",
+  "foundingDate": "2018",
+  "email": "yellowumbrellagroup@gmail.com",
+  "description": "Photorealistic 3D spatial capture and Gaussian splatting for historic buildings, apartments, construction, restoration, film locations, and commercial property.",
+  "address": {"@type": "PostalAddress", "addressLocality": "St. Louis", "addressRegion": "MO", "addressCountry": "US"},
+  "areaServed": ["St. Louis, MO", "United States", "Europe"],
+  "makesOffer": {
+    "@type": "Offer",
+    "itemOffered": {"@type": "Service", "name": "3D spatial capture (Gaussian splatting)"},
+    "priceSpecification": {"@type": "PriceSpecification", "minPrice": 495, "priceCurrency": "USD"}
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#DCE4F2; --paper:#F6F8FC; --ink:#161D38; --ink-2:#3B4466;
+  --umbrella:#FFC61A; --canal:#2D5BE3; --signal:#FF5B3A;
+  --display:"Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --body:"Figtree", ui-sans-serif, system-ui, sans-serif;
+  --pad:clamp(20px,4vw,56px); --max:1240px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{-webkit-tap-highlight-color:transparent;font-family:var(--body);font-size:18px;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--canal);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{scroll-margin-top:74px;padding:clamp(88px,11vw,140px) 0}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.2vw,4.6rem);line-height:.95;letter-spacing:-.03em;font-variation-settings:"opsz" 96}
+.sub{max-width:48ch;margin-top:22px;color:var(--ink-2)}
+.kicker{display:block;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:30;transition:background .3s, box-shadow .3s}
+.nav.scrolled{background:rgba(246,248,252,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(22,29,56,.1)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.nav ul{display:flex;gap:30px;list-style:none;padding:0;align-items:center}
+.nav ul a:not(.btn){text-decoration:none;font-weight:500;font-size:16px;white-space:nowrap}
+.nav ul a:not(.btn):hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;font:600 16px/1 var(--body);padding:15px 24px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1), background .2s, color .2s}
+@media (hover:hover){.btn:hover{transform:translateY(-3px) rotate(-1.5deg)}}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.small{padding:11px 18px;font-size:15px}
+@media (max-width:1180px){.nav ul{gap:22px}.nav ul li:first-child{display:none}}
+@media (max-width:1040px){.nav ul li:not(:last-child){display:none}.brand{font-size:17px}}
+@media (max-width:420px){.nav .wrap{gap:10px}.nav .brand{font-size:15px;gap:7px;white-space:nowrap}.nav .brand svg{width:26px;height:26px}.nav .btn.small{padding:9px 12px;font-size:13px}}
+
+/* hero */
+.hero{background:var(--sky);padding:74px 0 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;min-height:calc(100svh - 74px);padding-bottom:clamp(40px,6vh,80px)}
+.eyebrow{display:inline-block;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;background:var(--umbrella);padding:7px 12px;border-radius:999px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3rem,7vw,6.8rem);line-height:.9;letter-spacing:-.04em;margin-top:22px;font-variation-settings:"opsz" 96}
+.lede{max-width:40ch;font-size:clamp(18px,1.55vw,21px);margin-top:26px;color:var(--ink-2)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.where{margin-top:22px;font-size:15px;font-weight:600}
+.stage{position:relative;aspect-ratio:1;width:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.stage-cap{position:absolute;left:0;right:0;bottom:4%;text-align:center;font-size:14px;color:var(--ink-2);pointer-events:none}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;min-height:0;padding-top:8px}
+  .stage{order:-1;aspect-ratio:auto;height:min(52svh,440px)}
+}
+
+/* demos */
+.credit{margin-top:22px;font-size:14px;color:var(--ink-2);max-width:70ch}
+.feature{display:grid;grid-template-columns:1.7fr 1fr;gap:clamp(14px,2vw,24px);margin-top:clamp(40px,5vw,64px);align-items:stretch}
+.feature-info{display:flex;flex-direction:column;gap:14px;padding:clamp(22px,2.6vw,32px);border-radius:30px;background:var(--sky)}
+.feature-info .kicker{color:var(--ink-2)}
+.feature-info h3{font-family:var(--display);font-weight:700;font-size:clamp(26px,2.5vw,34px);line-height:1.05;letter-spacing:-.02em}
+.feature-info p{color:var(--ink-2);font-size:17px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:0 16px;border-top:2px solid var(--ink);margin-top:4px;font-size:15px}
+.facts dt,.facts dd{padding:9px 0;border-bottom:2px solid var(--ink)}
+.facts dt{font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding-top:12px}
+.facts dd{margin:0}
+.feature-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
+.feature-info .btn{align-self:flex-start}
+@media (max-width:980px){.feature{grid-template-columns:1fr}}
+
+.player{position:relative;aspect-ratio:4/3;width:100%;min-width:0;border:2px solid var(--ink);border-radius:30px;overflow:hidden;background:var(--ink);scroll-margin-top:96px}
+.player img,.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.player img{object-fit:cover}
+.player-cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;background:linear-gradient(to top, rgba(22,29,56,.72), rgba(22,29,56,.2));color:var(--paper)}
+.player-cover .btn{background:var(--umbrella);color:var(--ink);border-color:var(--umbrella)}
+.player-cover small{font-size:15px;font-weight:500;max-width:36ch}
+.player.on .player-cover,.player.on img{display:none}
+/* Phones keep the desktop 4:3 crop, so the poster frames the scene the same way;
+   the live viewer then takes the extra height a portrait screen can give it. */
+@media (max-width:640px){.player.on{aspect-ratio:3/4}}
+
+/* what is a splat */
+.explain{background:var(--ink);color:var(--paper)}
+.explain :focus-visible{outline-color:var(--umbrella)}
+.explain-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,88px);align-items:end}
+.explain-head .kicker{color:var(--umbrella);margin-bottom:18px}
+.explain-head p{color:rgba(246,248,252,.78);max-width:46ch}
+.explain-head p + p{margin-top:14px}
+.diagram{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,32px);margin-top:clamp(48px,6vw,72px)}
+.diagram li{border-top:2px dashed rgba(246,248,252,.35);padding-top:20px}
+.diagram svg{display:block;width:100%;height:auto}
+.diagram b{display:block;font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em;margin-top:14px}
+.diagram b span{color:var(--umbrella);margin-right:8px}
+.diagram p{font-size:16px;color:rgba(246,248,252,.72);margin-top:4px}
+.splat-dot{animation:pop 6s ease-out infinite both}
+@keyframes pop{0%{opacity:0;transform:scale(.2)}12%,88%{opacity:.9;transform:scale(1)}100%{opacity:0}}
+.walker{offset-path:path("M40 158 C80 140 90 120 120 124 S175 150 200 138");animation:walk 7s ease-in-out infinite alternate}
+@keyframes walk{from{offset-distance:0%}to{offset-distance:100%}}
+@media (max-width:900px){.explain-head{grid-template-columns:1fr}}
+@media (max-width:700px){.diagram{grid-template-columns:1fr}.diagram svg{max-width:360px}}
+
+/* archive */
+.archive-head{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,6vw,88px);align-items:end;padding-bottom:clamp(32px,4vw,48px);border-bottom:4px solid var(--ink)}
+.archive-head .kicker{margin-bottom:18px}
+.archive-head .kicker span{background:var(--umbrella);padding:5px 10px;border-radius:999px}
+.archive-head p{color:var(--ink-2);max-width:46ch}
+.archive-head p + p{margin-top:14px}
+.archive-motto{font-family:var(--display);font-weight:600;font-style:italic;font-size:clamp(20px,2vw,26px);letter-spacing:-.01em;color:var(--ink) !important}
+.archive-body{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,88px);margin-top:clamp(36px,4.5vw,56px);align-items:start}
+.archive-body h3{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.015em}
+.ticks{list-style:none;padding:0;margin-top:14px;border-top:2px solid var(--ink)}
+.ticks li{position:relative;padding:14px 0 14px 34px;border-bottom:2px solid var(--ink);font-size:17px}
+.ticks li::before{content:"";position:absolute;left:4px;top:21px;width:14px;height:14px;border-radius:50%;background:var(--umbrella);box-shadow:0 0 0 2px var(--ink)}
+.archive-body > div{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.archive-body > div p{color:var(--ink-2);font-size:17px;max-width:40ch}
+.archive-body .ticks{margin-top:0}
+@media (max-width:900px){.archive-head,.archive-body{grid-template-columns:1fr}}
+
+/* uses: industry explorer. One industry's rundown at a time, beside a splat scene of it. */
+.uses{background:var(--sky)}
+.ind-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,88px);align-items:end}
+.ind-head .sub{margin-top:0}
+.ind-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(36px,4.5vw,56px);scroll-margin-top:96px}
+.ind-tab{display:inline-flex;align-items:center;gap:8px;font:600 15px/1.1 var(--body);color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:9px 16px 9px 11px;cursor:pointer;transition:background .2s,color .2s,transform .25s cubic-bezier(.3,1.6,.5,1)}
+.ind-tab svg{width:21px;height:21px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media (hover:hover){.ind-tab:hover{background:#FFE7A3;transform:translateY(-2px)}}
+.ind-tab[aria-selected="true"]{background:var(--ink);color:var(--paper);transform:none}
+.ind-tab[aria-selected="true"] svg{stroke:var(--umbrella)}
+.ind-stage{display:grid;grid-template-columns:1.12fr 1fr;gap:clamp(14px,2vw,24px);margin-top:clamp(18px,2.2vw,26px);align-items:stretch}
+.ind-panels{display:grid;background:var(--paper);border-radius:30px;min-width:0}
+.ind-panel{display:flex;flex-direction:column;gap:14px;padding:clamp(24px,2.8vw,36px);min-width:0}
+/* Panels share one grid cell, so the box keeps the tallest panel's height and nothing below jumps. */
+.js .ind-panel{grid-area:1/1;visibility:hidden}
+.js .ind-panel.on{visibility:visible;animation:ind-in .45s cubic-bezier(.2,.9,.2,1) both}
+@keyframes ind-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ind-who{font-weight:600;font-size:15px;color:var(--ink-2)}
+.ind-panel h3{font-family:var(--display);font-weight:800;font-size:clamp(28px,3vw,40px);line-height:1;letter-spacing:-.03em;font-variation-settings:"opsz" 96;max-width:20ch}
+.ind-intro{color:var(--ink-2);font-size:17px;max-width:54ch}
+.ind-panel .ticks{margin-top:2px}
+.ind-panel .ticks li{font-size:16px;padding:10px 0 10px 32px;color:var(--ink-2)}
+.ind-panel .ticks li::before{top:15px}
+.ind-panel .ticks b{color:var(--ink)}
+.ind-get{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.ind-get > span{font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-right:4px}
+.ind-get ul{display:contents;list-style:none}
+.ind-get li{font-weight:600;font-size:13px;background:var(--sky);border-radius:999px;padding:5px 11px}
+.ind-note{font-size:14px;color:var(--ink-2);padding-left:14px;border-left:3px solid var(--umbrella)}
+.ind-note a{font-weight:600}
+.ind-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:auto;padding-top:8px}
+.ind-actions .more{font-weight:600;font-size:16px;text-decoration-thickness:2px;text-underline-offset:5px}
+.ind-actions .more:hover{text-decoration-thickness:4px}
+.ind-visual{position:relative;min-height:440px;min-width:0;border:2px solid var(--ink);border-radius:30px;overflow:hidden;color:var(--paper);background:radial-gradient(110% 80% at 50% 40%,#2B3668 0%,#1B2346 55%,var(--ink) 100%)}
+.ind-visual :focus-visible{outline-color:var(--umbrella)}
+.ind-visual canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.ind-tag{position:absolute;top:18px;left:18px;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;background:var(--umbrella);color:var(--ink);padding:6px 11px;border-radius:999px;pointer-events:none}
+.ind-cap{position:absolute;left:20px;right:122px;bottom:20px;font-size:13px;line-height:1.35;color:rgba(246,248,252,.66);pointer-events:none}
+.ind-arrows{position:absolute;right:14px;bottom:14px;display:flex;gap:8px}
+.ind-arrow{width:44px;height:44px;border-radius:50%;border:2px solid rgba(246,248,252,.45);background:rgba(22,29,56,.45);color:var(--paper);display:grid;place-items:center;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.ind-arrow:hover{background:var(--umbrella);border-color:var(--umbrella);color:var(--ink)}
+.ind-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.aside{margin-top:clamp(28px,3.5vw,44px);font-size:17px;color:var(--ink-2)}
+.aside a{font-weight:600;text-decoration-thickness:2px;text-underline-offset:4px}
+/* Without scripts every rundown shows, one after another. If the 3D library can't load, the text takes the full width. */
+html:not(.js) .ind-tabs,html:not(.js) .ind-visual{display:none}
+html:not(.js) .ind-panels{background:none;gap:14px}
+html:not(.js) .ind-panel{background:var(--paper);border-radius:30px}
+.no-3d .ind-visual{display:none}
+.no-3d .ind-stage{grid-template-columns:1fr}
+@media (max-width:980px){
+  .ind-head{grid-template-columns:1fr;gap:0}
+  .ind-head .sub{margin-top:22px}
+  .ind-stage{grid-template-columns:1fr}
+  .ind-visual{order:-1;min-height:0;height:min(46svh,340px)}
+  .ind-actions{margin-top:0}
+}
+@media (max-width:560px){
+  .ind-tabs{gap:8px}
+  .ind-tab{font-size:14px;padding:8px 13px 8px 9px;gap:6px}
+  .ind-tab svg{width:18px;height:18px}
+  .ind-cap{display:none}
+}
+
+/* how */
+.how{background:var(--ink);color:var(--paper)}
+.how :focus-visible{outline-color:var(--umbrella)}
+.how .sub{color:rgba(246,248,252,.75)}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(40px,5vw,64px) clamp(24px,3vw,40px);margin-top:clamp(48px,6vw,72px)}
+.steps li{position:relative;padding-top:28px}
+.steps li::before{content:"";position:absolute;top:0;left:0;right:-40px;border-top:2px dashed rgba(246,248,252,.35)}
+.steps li:nth-child(3n)::before{right:0}
+.steps .when{display:block;margin-top:14px;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,248,252,.6)}
+.steps .n{display:block;font-family:var(--display);font-weight:800;font-size:clamp(56px,6vw,84px);line-height:.9;color:var(--umbrella);letter-spacing:-.04em}
+.steps h3{font-family:var(--display);font-weight:700;font-size:24px;margin-top:6px;letter-spacing:-.01em}
+.steps p{margin-top:8px;color:rgba(246,248,252,.75);font-size:17px}
+.how-foot{margin-top:clamp(48px,6vw,72px);padding-top:24px;border-top:2px dashed rgba(246,248,252,.35);max-width:62ch;color:rgba(246,248,252,.75);font-size:17px}
+.how-foot a{color:var(--paper);font-weight:600;text-decoration-color:var(--umbrella);text-decoration-thickness:2px;text-underline-offset:4px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}.steps li::before{right:0}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* deliverables */
+.get-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(32px,6vw,88px);align-items:start;margin-top:clamp(40px,5vw,64px)}
+.get-list{list-style:none;padding:0;border-top:2px solid var(--ink)}
+.get-list li{display:grid;grid-template-columns:minmax(120px,.8fr) 1.6fr;gap:16px;padding:20px 0;border-bottom:2px solid var(--ink)}
+.get-list b{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em;line-height:1.2}
+.get-list b small{display:block;font:600 13px/1.4 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+.get-list span{color:var(--ink-2)}
+.get-foot{margin-top:18px;font-size:15px;color:var(--ink-2)}
+.side{display:grid;gap:clamp(16px,2vw,24px)}
+.note{background:var(--sky);border-radius:30px;padding:clamp(24px,3vw,36px)}
+.note h3{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.015em}
+.note p{margin-top:12px;color:var(--ink-2);font-size:17px}
+.note.master{background:transparent;border:2px dashed var(--ink)}
+@media (max-width:900px){.get-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.get-list li{grid-template-columns:1fr;gap:4px}}
+
+/* pricing */
+#pricing{background:var(--sky)}
+.price-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,88px);align-items:start;margin-top:clamp(40px,5vw,64px)}
+.price{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.4vw,3.6rem);line-height:1;letter-spacing:-.03em;font-variation-settings:"opsz" 96}
+.price mark{background:var(--umbrella);color:inherit;padding:0 .12em;border-radius:12px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.price-copy{margin-top:22px;color:var(--ink-2);max-width:46ch}
+.price-grid .where{margin-top:26px}
+.scope{list-style:none;padding:0;border-top:2px solid var(--ink)}
+.scope-title{font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.scope li{display:flex;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:2px solid var(--ink);font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em}
+.scope li span{font:600 14px/1.9 var(--body);color:var(--ink-2);white-space:nowrap}
+@media (max-width:900px){.price-grid{grid-template-columns:1fr}}
+
+/* paperwork */
+.papers{padding:clamp(56px,7vw,96px) 0}
+.papers-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.papers .kicker{color:var(--ink-2);margin-bottom:14px}
+.papers h2{font-size:clamp(2rem,4vw,3.4rem)}
+.papers .sub{margin-top:16px}
+.papers .btn{margin-top:26px}
+.doc-list{list-style:none;padding:0;border-top:2px solid var(--ink);counter-reset:doc}
+.doc-list li{display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:2px solid var(--ink);font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;counter-increment:doc}
+.doc-list li::before{content:"0" counter(doc);font-weight:800;color:var(--umbrella);-webkit-text-stroke:1.5px var(--ink);min-width:1.6em}
+.doc-list li span{margin-left:auto;font:600 14px/1.9 var(--body);color:var(--ink-2);white-space:nowrap}
+@media (max-width:900px){.papers-grid{grid-template-columns:1fr}}
+@media (max-width:460px){.doc-list li{flex-wrap:wrap;gap:0 16px}.doc-list li span{margin-left:calc(1.6em + 16px);width:100%}}
+
+/* contact + intake */
+.contact{background:var(--umbrella)}
+.contact h2{font-size:clamp(3rem,7.4vw,6.8rem);max-width:12ch}
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,5vw,72px);align-items:start}
+.contact-grid > div > p{max-width:34ch;margin-top:26px;font-size:20px}
+.email{display:inline-block;margin-top:6px;white-space:nowrap;font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:8px;overflow-wrap:anywhere}
+.email:hover{text-decoration-thickness:6px}
+.contact .alt{margin-top:32px;font-size:16px}
+.contact .next{margin-top:32px;padding-top:20px;border-top:2px solid var(--ink);font-size:16px;max-width:34ch}
+.contact .next a{font-weight:600;text-decoration-thickness:2px;text-underline-offset:4px}
+@media (max-width:360px){.email{white-space:normal;overflow-wrap:anywhere}}
+.intake{background:var(--paper);border:2px solid var(--ink);border-radius:30px;padding:clamp(22px,3vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label,.field legend{font-weight:600;font-size:15px}
+.field label i,.field legend i{font-style:normal;font-weight:500;color:var(--ink-2)}
+.intake input[type=text],.intake input[type=email],.intake select,.intake textarea{width:100%;font:500 17px/1.4 var(--body);color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:14px;padding:11px 14px;transition:box-shadow .2s}
+.intake textarea{min-height:92px;resize:vertical}
+.intake select{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23161D38' stroke-width='2.2'/%3E%3C/svg%3E") no-repeat right 14px center;padding-right:40px}
+.intake input:focus,.intake select:focus,.intake textarea:focus{outline:none;box-shadow:0 0 0 4px var(--canal)}
+.intake ::placeholder{color:#6C7391}
+fieldset.field{border:0;padding:0}
+fieldset.field legend{margin-bottom:6px;padding:0}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills label{position:relative;font-weight:600;font-size:15px}
+.pills input{position:absolute;opacity:0;width:1px;height:1px}
+.pills span{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer;background:#fff;transition:background .2s}
+.pills input:checked + span{background:var(--ink);color:var(--paper)}
+.pills input:focus-visible + span{outline:3px solid var(--canal);outline-offset:3px}
+.form-foot{grid-column:1/-1;display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;margin-top:6px}
+.form-foot small{font-size:14px;color:var(--ink-2);max-width:40ch}
+.form-status{grid-column:1/-1;font-weight:600;font-size:16px}
+.form-status:empty{display:none}
+@media (max-width:980px){.contact-grid{grid-template-columns:1fr}}
+@media (max-width:600px){.intake{grid-template-columns:1fr}}
+
+footer{background:var(--ink);color:var(--paper)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-top:48px;padding-bottom:48px}
+footer :focus-visible{outline-color:var(--umbrella)}
+footer small{font-size:15px;color:rgba(246,248,252,.7)}
+footer nav{display:flex;gap:24px;flex-wrap:wrap}
+footer nav a{text-decoration:none;font-size:15px}
+footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .btn:hover{transform:none}
+  .splat-dot{animation:none;opacity:.9}
+  .walker{animation:none;offset-distance:55%}
+  .js .ind-panel.on{animation:none}
+  .ind-tab{transition:none}
+  .ind-tab:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Yellow Umbrella Group, home">
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A" stroke="#161D38" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#161D38" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#demos">Demos</a></li>
+      <li><a href="#uses">Who it's for</a></li>
+      <li><a href="#archive">Archive</a></li>
+      <li><a href="#how">Capture day</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="paperwork.html">Paperwork</a></li>
+      <li><a class="btn small" href="#contact">Plan a capture</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">3D spatial capture · St. Louis</span>
+      <h1>Walk through it from anywhere.</h1>
+      <p class="lede">We capture real places as photorealistic 3D scenes using modern Gaussian splatting. Open them in a browser, share them with a team, explore them in VR, or keep a place exactly as it looked on capture day.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contact">Plan a capture</a>
+        <a class="btn ghost" href="#demos">Try a demo</a>
+      </div>
+      <p class="where">Based in St. Louis. Available for projects across the U.S. and Europe.</p>
+    </div>
+    <div class="stage">
+      <canvas id="stage-canvas" aria-label="Animated illustration of a room being captured as 3D splats" role="img"></canvas>
+      <p class="stage-cap">Drag to turn</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="explain" id="splats" aria-labelledby="splats-title">
+    <div class="wrap">
+      <div class="explain-head">
+        <div>
+          <span class="kicker">What is a Gaussian splat?</span>
+          <h2 id="splats-title">A photograph you can move through</h2>
+        </div>
+        <div>
+          <p>Gaussian splatting turns many views of a real place into a photorealistic 3D scene. Instead of looking at a set of fixed 360° panoramas, you can move through the captured space and see it from new angles.</p>
+          <p>The capture combines imagery, camera position, and spatial data into a scene designed for realistic viewing and reuse in modern 3D workflows.</p>
+        </div>
+      </div>
+      <ol class="diagram">
+        <li>
+          <svg viewBox="0 0 240 180" role="img" aria-label="Camera positions around a room, each looking toward its center">
+            <g stroke="#F6F8FC" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="3 5">
+              <path d="M22 30L120 95M218 30L120 95M16 160L120 95M224 160L120 95M120 12L120 95"/>
+            </g>
+            <g fill="none" stroke="#F6F8FC" stroke-width="2" stroke-linejoin="round">
+              <rect x="50" y="30" width="140" height="100"/>
+              <path d="M50 130L15 165H225L190 130M100 110V75A20 20 0 0 1 140 75V110Z"/>
+            </g>
+            <g fill="#FFC61A" stroke="#161D38" stroke-width="1.5" stroke-linejoin="round">
+              <g transform="translate(22 30) rotate(33.6)"><rect x="-9" y="-6" width="14" height="12" rx="3"/><path d="M5-4L11-7V7L5 4Z"/></g>
+              <g transform="translate(218 30) rotate(146.4)"><rect x="-9" y="-6" width="14" height="12" rx="3"/><path d="M5-4L11-7V7L5 4Z"/></g>
+              <g transform="translate(16 160) rotate(-32)"><rect x="-9" y="-6" width="14" height="12" rx="3"/><path d="M5-4L11-7V7L5 4Z"/></g>
+              <g transform="translate(224 160) rotate(-148)"><rect x="-9" y="-6" width="14" height="12" rx="3"/><path d="M5-4L11-7V7L5 4Z"/></g>
+              <g transform="translate(120 12) rotate(90)"><rect x="-9" y="-6" width="14" height="12" rx="3"/><path d="M5-4L11-7V7L5 4Z"/></g>
+            </g>
+          </svg>
+          <b><span>1</span>Many views</b>
+          <p>We walk the space and record it from lots of positions.</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 240 180" role="img" aria-label="The same room rebuilt from thousands of soft colored splats">
+            <g id="splat-dots"></g>
+          </svg>
+          <b><span>2</span>Soft 3D splats</b>
+          <p>Those views become millions of tiny, soft points of color placed in space.</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 240 180" role="img" aria-label="The finished room with a path showing a visitor moving through it">
+            <defs><linearGradient id="win" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FFE3A0"/><stop offset="1" stop-color="#8FB4E8"/></linearGradient></defs>
+            <rect x="50" y="30" width="140" height="100" fill="#EDE6DA"/>
+            <path d="M50 130L15 165H225L190 130Z" fill="#C99A63"/>
+            <path d="M100 110V75A20 20 0 0 1 140 75V110Z" fill="url(#win)" stroke="#161D38" stroke-width="4"/>
+            <rect x="56" y="58" width="26" height="34" fill="#2D5BE3" stroke="#FFC61A" stroke-width="3"/>
+            <ellipse cx="120" cy="147" rx="46" ry="9" fill="#FF5B3A"/>
+            <path d="M40 158 C80 140 90 120 120 124 S175 150 200 138" fill="none" stroke="#161D38" stroke-width="2" stroke-dasharray="4 5"/>
+            <g class="walker">
+              <path d="M-9 0A9 9 0 0 1 9 0Z" fill="#FFC61A" stroke="#161D38" stroke-width="1.5" transform="translate(0 -8)"/>
+              <path d="M0 -8v8" stroke="#161D38" stroke-width="1.5"/>
+            </g>
+          </svg>
+          <b><span>3</span>Move through it</b>
+          <p>You open a link and look around from angles no one photographed.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="demos" aria-labelledby="demos-title">
+    <div class="wrap">
+      <h2 id="demos-title">Try one yourself</h2>
+      <p class="sub">Walking around inside one explains it faster than we can. Both samples load right here on the page: a home, and a working machinery space.</p>
+      <!-- When an original Yellow Umbrella capture is ready, feature it here first and keep the third-party sample after it. -->
+      <div class="feature">
+        <!-- The 3D viewer is only created when someone asks for it, so the page stays light. -->
+        <div class="player" id="player" data-demo="https://yellowumbrella.group/demos/apartment/index.html" data-frame="Sample apartment, interactive 3D scene">
+          <img src="demos/apartment/poster.jpg" alt="Living room of the sample apartment, seen from the entry" width="1600" height="900" loading="lazy">
+          <div class="player-cover">
+            <button class="btn" id="player-load" type="button" data-load>Load the 3D apartment</button>
+            <small>The scene streams in as you look around. Best on Wi-Fi.</small>
+          </div>
+        </div>
+        <div class="feature-info">
+          <span class="kicker">Sample scene · Apartment</span>
+          <h3>A two-bedroom apartment, room by room</h3>
+          <p>Living room, kitchen, hallway, bathroom, and both bedrooms. Drag to look around, or use the room labels to jump straight to each space.</p>
+          <dl class="facts">
+            <dt>Opens in</dt><dd>Any modern browser, no app or account</dd>
+            <dt>Works on</dt><dd>Computers, phones, tablets, and <a href="vr.html">VR headsets</a></dd>
+            <dt>Room stops</dt><dd>Six labeled views</dd>
+          </dl>
+          <div class="feature-actions">
+            <a class="btn ghost" href="https://yellowumbrella.group/demos/apartment/index.html" target="_blank" rel="noopener">Open full screen <span aria-hidden="true">&nearr;</span></a>
+            <a class="btn ghost" href="vr.html">View in VR</a>
+          </div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="player" id="player-engineroom" data-demo="https://yellowumbrella.group/demos/engineroom/index.html" data-frame="Sample engine room, interactive 3D scene">
+          <img src="demos/engineroom/poster.jpg" alt="Engine room of a cruise boat: twin green diesel engines either side of a white generator" width="1600" height="900" loading="lazy">
+          <div class="player-cover">
+            <button class="btn" type="button" data-load>Load the 3D engine room</button>
+            <small>The scene streams in as you look around. Best on Wi-Fi.</small>
+          </div>
+        </div>
+        <div class="feature-info">
+          <span class="kicker">Sample scene &middot; Industrial</span>
+          <h3>An engine room, machine by machine</h3>
+          <p>The twin main engines, generator set, tanks, manifolds, and panels of a working boat&rsquo;s engine room: the kind of tight machinery space that photographs badly and describes worse. Drag to look around, or use the labels to jump to each machine.</p>
+          <dl class="facts">
+            <dt>Opens in</dt><dd>Any modern browser, no app or account</dd>
+            <dt>Works on</dt><dd>Computers, phones, tablets, and <a href="vr.html">VR headsets</a></dd>
+            <dt>Labeled stops</dt><dd>Six machines and areas</dd>
+          </dl>
+          <div class="feature-actions">
+            <a class="btn ghost" href="https://yellowumbrella.group/demos/engineroom/index.html" target="_blank" rel="noopener">Open full screen <span aria-hidden="true">&nearr;</span></a>
+            <a class="btn ghost" href="vr.html">View in VR</a>
+          </div>
+        </div>
+      </div>
+      <p class="credit">Both samples are by other creators, licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> and compressed by us for web streaming: <a href="https://superspl.at/scene/1a55cdea" target="_blank" rel="noopener">&ldquo;Apartment 07&rdquo;</a> by <a href="https://superspl.at/user/milanoski" target="_blank" rel="noopener">Goce Milanoski</a>, and <a href="https://superspl.at/scene/ae149bd3" target="_blank" rel="noopener">&ldquo;Engine room of Croatian cruise boat&rdquo;</a> by <a href="https://superspl.at/user/tosolini" target="_blank" rel="noopener">Paolo Tosolini</a>. Our own captures will be added alongside them.</p>
+    </div>
+  </section>
+
+  <section class="uses" id="uses" aria-labelledby="uses-title">
+    <div class="wrap">
+      <div class="ind-head">
+        <h2 id="uses-title">Who it's for</h2>
+        <p class="sub">Anyone who needs people to understand a place without standing in it. Pick your line of work to see what a capture does for it.</p>
+      </div>
+
+      <!-- Industry explorer. Each rundown can be linked to directly, e.g. capture.html#for-film.
+           The buttons' data-type must match an option in the intake form's "Property or project type". -->
+      <div class="explorer" id="explorer">
+        <div class="ind-tabs" role="tablist" aria-label="Industries">
+          <button class="ind-tab" role="tab" id="tab-real-estate" aria-controls="for-real-estate" aria-selected="true" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg>Real estate</button>
+          <button class="ind-tab" role="tab" id="tab-historic" aria-controls="for-historic" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 9.5h16"/><path d="M6.5 12v6M10.5 12v6M13.5 12v6M17.5 12v6"/><path d="M3.5 20.5h17"/></svg>Historic places</button>
+          <button class="ind-tab" role="tab" id="tab-construction" aria-controls="for-construction" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21V3.5"/><path d="M3 5h18"/><path d="M7 9l5-4"/><path d="M17.5 5v5.5"/><path d="M16 10.5h3V13h-3z"/><path d="M4 21h7"/></svg>Construction</button>
+          <button class="ind-tab" role="tab" id="tab-architecture" aria-controls="for-architecture" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V5l15 15z"/><path d="M8 16v-4.5l4.5 4.5z"/></svg>Architecture</button>
+          <button class="ind-tab" role="tab" id="tab-restoration" aria-controls="for-restoration" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c.5 3 4.5 4.8 4.5 9.5a4.5 4.5 0 0 1-9 0c0-2.2 1.2-3.7 2.2-4.6.2 1.6 1 2.6 2 2.6-.6-2.5-.4-5.3.3-7.5z"/></svg>Restoration &amp; claims</button>
+          <button class="ind-tab" role="tab" id="tab-film" aria-controls="for-film" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5h16v9H4z"/><path d="M3.6 10.5l-.8-3.2L18.4 3.6l.8 3.2"/><path d="M7.6 6.3l2.3 3.1M12.4 5.2l2.3 3.1"/></svg>Film &amp; TV</button>
+          <button class="ind-tab" role="tab" id="tab-industrial" aria-controls="for-industrial" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20.5V11l5 3.2V11l5 3.2V11l5 3.2V4h3v16.5z"/></svg>Industrial</button>
+          <button class="ind-tab" role="tab" id="tab-hospitality" aria-controls="for-hospitality" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 17a7.5 7.5 0 0 1 15 0"/><path d="M3 17h18"/><path d="M12 9.5V7M10 7h4"/><path d="M4 20h16"/></svg>Hospitality</button>
+          <button class="ind-tab" role="tab" id="tab-museums" aria-controls="for-museums" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1"/><path d="M3.5 16l5-5 4 4 2.5-2.5 5.5 5.5"/><circle cx="15.5" cy="9" r="1.6"/></svg>Museums</button>
+          <button class="ind-tab" role="tab" id="tab-retail" aria-controls="for-retail" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5V20h15v-9.5"/><path d="M3 7.5 5 4h14l2 3.5"/><path d="M3 7.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M10 20v-5h4v5"/></svg>Retail &amp; offices</button>
+          <button class="ind-tab" role="tab" id="tab-education" aria-controls="for-education" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9 12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.5c0 1.4 2.5 3 5.5 3s5.5-1.6 5.5-3V11"/><path d="M21.5 9v5.5"/></svg>Education</button>
+          <button class="ind-tab" role="tab" id="tab-games" aria-controls="for-games" aria-selected="false" tabindex="-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7.5h14a2.5 2.5 0 0 1 2.5 2.5v5a2.5 2.5 0 0 1-2.5 2.5h-3.6l-1.8-2.6h-3.2l-1.8 2.6H5A2.5 2.5 0 0 1 2.5 15v-5A2.5 2.5 0 0 1 5 7.5z"/></svg>Games &amp; VR</button>
+        </div>
+
+        <div class="ind-stage">
+          <div class="ind-panels">
+            <article class="ind-panel on" id="for-real-estate" role="tabpanel" aria-labelledby="tab-real-estate">
+              <p class="ind-who">For owners, property managers, leasing teams, and agents</p>
+              <h3>Let them tour the unit before they drive over.</h3>
+              <p class="ind-intro">Photos show the best corners. A 3D scene shows how the rooms connect and how big they really feel, so the people who book a visit already like the layout.</p>
+              <ul class="ticks">
+                <li><b>Listings and model units.</b> One link on the listing lets out-of-town renters and buyers walk the whole place from their phone.</li>
+                <li><b>Amenities and common areas.</b> Show the lobby, gym, pool deck, and clubhouse the way they feel in person, not as five cropped photos.</li>
+                <li><b>Move-in and move-out records.</b> A dated record of a unit's condition you can walk back through when there's a question about what changed.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Shareable link</li><li>QR code</li><li>Website embed</li><li>Room labels</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Real estate / multifamily">Plan a property capture</a>
+                <a class="more" href="#player">Try the sample apartment</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-historic" role="tabpanel" aria-labelledby="tab-historic">
+              <p class="ind-who">For owners, preservation groups, congregations, and historical societies</p>
+              <h3>Keep the place, not just the pictures.</h3>
+              <p class="ind-intro">Plaster, millwork, stained glass, and the way a room fits together can change for good once work begins. A capture keeps an explorable record of exactly how it stood.</p>
+              <ul class="ticks">
+                <li><b>Before work begins.</b> Record the building as found, so nothing is left to memory once the scaffolding goes up.</li>
+                <li><b>Restoration timelines.</b> Return at each stage and line the captures up into a before, during, and after anyone can walk through.</li>
+                <li><b>Access for everyone.</b> Let people explore rooms that are too fragile, too private, or too hard to reach for public tours.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Dated timeline</li><li>Archival photos</li><li>Annotations</li><li>Archival master</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Historic / preservation">Plan a historic capture</a>
+                <a class="more" href="#archive">About the Spatial Archive</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-construction" role="tabpanel" aria-labelledby="tab-construction">
+              <p class="ind-who">For developers, general contractors, owners, and lenders</p>
+              <h3>Walk the job site without the drive.</h3>
+              <p class="ind-intro">Capture the site on a schedule, and anyone on the project can go back to exactly what it looked like on each date. No hard hat, no site visit.</p>
+              <ul class="ticks">
+                <li><b>Progress on a schedule.</b> Weekly or monthly captures on the same route, lined up by date for owners, lenders, and remote teams.</li>
+                <li><b>Before the walls close.</b> Record the pipes, conduit, and framing before drywall, so nobody has to guess what's behind it later.</li>
+                <li><b>Handover.</b> Give the owner a walkable record of the finished building to keep with the closeout documents.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Dated timeline</li><li>Before &amp; after</li><li>To-scale point cloud</li><li>Shareable link</li></ul></div>
+              <p class="ind-note">A visual record, not a survey. Need measured drawings? Tell us early.</p>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Construction">Plan a job-site capture</a>
+                <a class="more" href="#how">How a capture day goes</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-architecture" role="tabpanel" aria-labelledby="tab-architecture">
+              <p class="ind-who">For architects, interior designers, and design-build teams</p>
+              <h3>Existing conditions, open on your screen.</h3>
+              <p class="ind-intro">Every renovation starts with what's already there. Walk the space again whenever a question comes up, instead of booking another site visit or digging through phone photos.</p>
+              <ul class="ticks">
+                <li><b>Check it from your desk.</b> See how the corners meet, where the radiators sit, and what the light does, weeks after the site visit.</li>
+                <li><b>A to-scale starting point.</b> The scanner records true scale, so a point cloud of the space can go into your modeling software as a reference.</li>
+                <li><b>Present to clients.</b> Walk clients through the space they have now while you talk them through what it could become.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>To-scale point cloud</li><li>Shareable link</li><li>VR walkthrough</li><li>3D files</li></ul></div>
+              <p class="ind-note">A planning reference, not a licensed survey or measured drawings.</p>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Architecture / design">Capture an existing space</a>
+                <a class="more" href="#get">What you get</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-restoration" role="tabpanel" aria-labelledby="tab-restoration">
+              <p class="ind-who">For restoration companies, adjusters, and property owners</p>
+              <h3>Record the damage before cleanup changes it.</h3>
+              <p class="ind-intro">Once the site is safe and access is authorized in writing, a capture keeps a complete, dated record of every room before demolition or drying starts.</p>
+              <ul class="ticks">
+                <li><b>The whole scene, dated.</b> Everyone reviews the same rooms from every angle, not a handful of photos taken in a hurry.</li>
+                <li><b>Remote review.</b> Adjusters, owners, and contractors can walk the loss from wherever they are, as often as they need.</li>
+                <li><b>Before and after.</b> Capture again when the work is done, and show the finished job next to the damage.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Dated record</li><li>Private link</li><li>Before &amp; after</li><li>Labels &amp; notes</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Restoration / damage documentation">Plan a damage capture</a>
+                <a class="more" href="paperwork.html#documents">See the access paperwork</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-film" role="tabpanel" aria-labelledby="tab-film">
+              <p class="ind-who">For location managers, directors, production designers, and VFX teams</p>
+              <h3>Scout it once. Let every department walk it.</h3>
+              <p class="ind-intro">Capture a location, and the director, DP, and art department can explore it remotely, plan around the real space, and come back to it without another tech scout.</p>
+              <ul class="ticks">
+                <li><b>Remote scouting.</b> Share one link instead of a folder of photos, and look around from angles no one photographed.</li>
+                <li><b>Shot and set planning.</b> Check sightlines, block scenes, and plan where lights and gear go before the trucks arrive.</li>
+                <li><b>Previs and virtual production.</b> Use the capture as a real environment for previs, as VFX set reference, or as a starting point for a virtual set.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Shareable link</li><li>3D files</li><li>VR walkthrough</li><li>Confidential capture</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Film / location">Plan a location capture</a>
+                <a class="more" href="paperwork.html#optional">Confidential captures</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-industrial" role="tabpanel" aria-labelledby="tab-industrial">
+              <p class="ind-who">For plant managers, facilities teams, operators, and trainers</p>
+              <h3>The whole facility, one link away.</h3>
+              <p class="ind-intro">Machinery spaces photograph badly and describe worse. A capture lets engineers, vendors, and managers look around the real thing without flying in.</p>
+              <ul class="ticks">
+                <li><b>Remote support and quotes.</b> Vendors and specialists can see the equipment, the access, and what's around it before they quote or travel.</li>
+                <li><b>Planning changes.</b> Check routes, clearances, and what's in the way before an install or a layout change, from a to-scale record.</li>
+                <li><b>Training and onboarding.</b> Walk new staff through the real site, including areas that are loud, restricted, or hard to reach.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Private link</li><li>Labels &amp; hotspots</li><li>To-scale point cloud</li><li>Dated timeline</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Industrial / facilities">Plan a facility capture</a>
+                <a class="more" href="#player-engineroom">Try the sample engine room</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-hospitality" role="tabpanel" aria-labelledby="tab-hospitality">
+              <p class="ind-who">For hotels, event venues, restaurants, and planners</p>
+              <h3>Let planners book the room without the site visit.</h3>
+              <p class="ind-intro">Planners, couples, and travelers want to know how a space feels before they commit. A capture lets them stand in it from anywhere, at any hour.</p>
+              <ul class="ticks">
+                <li><b>Venue and event sales.</b> Send planners a walkthrough of each room so they can picture layouts, stages, and seating before they visit.</li>
+                <li><b>Rooms and suites.</b> Let guests see the actual room they're booking, not a wide-angle photo of its nicest corner.</li>
+                <li><b>The room, fully set.</b> Capture the space dressed for a wedding, gala, or launch before the doors open, and keep it as a keepsake.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Website embed</li><li>QR code</li><li>Shareable link</li><li>VR walkthrough</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Hospitality / venue">Plan a venue capture</a>
+                <a class="more" href="#demos">Try a sample scene</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-museums" role="tabpanel" aria-labelledby="tab-museums">
+              <p class="ind-who">For museums, galleries, curators, and exhibit designers</p>
+              <h3>Keep the exhibit open after it closes.</h3>
+              <p class="ind-intro">Exhibitions are built to come down. A capture keeps the whole installation explorable online, the way visitors walked it, long after the walls are repainted.</p>
+              <ul class="ticks">
+                <li><b>Virtual visits.</b> Open a show to people who can't travel to it, from classrooms nearby to members around the world.</li>
+                <li><b>A record of the installation.</b> Keep the layout, lighting, and hang on file for your archive, your lenders, and planning the next show.</li>
+                <li><b>Tours with context.</b> Place labels and archival images inside the scene so visitors explore with the story beside them.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Website embed</li><li>Annotations</li><li>Archival photos</li><li>Archival master</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Museum / exhibit">Plan an exhibit capture</a>
+                <a class="more" href="#archive">About the Spatial Archive</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-retail" role="tabpanel" aria-labelledby="tab-retail">
+              <p class="ind-who">For brokers, landlords, retailers, and store-planning teams</p>
+              <h3>Show the space to people who aren't in town.</h3>
+              <p class="ind-intro">Offices, storefronts, showrooms, and warehouses are hard to judge from a floor plan. A capture lets tenants, buyers, and head office walk them from anywhere.</p>
+              <ul class="ticks">
+                <li><b>Commercial leasing.</b> Let prospective tenants walk an office, storefront, or warehouse before they book a tour.</li>
+                <li><b>Showrooms online.</b> Put your showroom or flagship store on your website so customers can browse the real space.</li>
+                <li><b>Store planning.</b> Give remote planning and merchandising teams the actual store to work from, not a stack of photos.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Website embed</li><li>QR code</li><li>Shareable link</li><li>3D files</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Commercial / retail">Plan a commercial capture</a>
+                <a class="more" href="#pricing">See pricing</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-education" role="tabpanel" aria-labelledby="tab-education">
+              <p class="ind-who">For schools, universities, admissions teams, and trainers</p>
+              <h3>Field trips and campus tours, from anywhere.</h3>
+              <p class="ind-intro">Some places are too far, too fragile, or too restricted for a class to visit. A capture brings the real place into the classroom, and prospective students onto campus.</p>
+              <ul class="ticks">
+                <li><b>Campus tours.</b> Let prospective students and families walk the dorms, labs, and studios before they visit.</li>
+                <li><b>Virtual field trips.</b> Take a class inside a historic site, a plant floor, or a lab, on a laptop or a VR headset.</li>
+                <li><b>Training in the real space.</b> Teach procedures and safety inside a capture of the actual room before anyone sets foot in it.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>Shareable link</li><li>VR walkthrough</li><li>Labels &amp; hotspots</li><li>Website embed</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Education / training">Plan a campus capture</a>
+                <a class="more" href="vr.html">See it in VR</a>
+              </div>
+            </article>
+
+            <article class="ind-panel" id="for-games" role="tabpanel" aria-labelledby="tab-games">
+              <p class="ind-who">For game studios, VR developers, and research teams</p>
+              <h3>Real places, ready for real-time 3D.</h3>
+              <p class="ind-intro">We build games too, so we capture with the pipeline in mind: real environments for VR, game prototypes, research datasets, and immersive demos.</p>
+              <ul class="ticks">
+                <li><b>Levels and backdrops.</b> Use a captured location as a playable space, a backdrop, or a reference for building one by hand.</li>
+                <li><b>Research datasets.</b> Captures with camera imagery and LiDAR scans, for teams working on reconstruction, robotics, or spatial computing.</li>
+                <li><b>Fast immersive demos.</b> Put someone in a headset inside a real place quickly, then decide what to build around it.</li>
+              </ul>
+              <div class="ind-get"><span>What you get</span><ul><li>PLY &amp; mesh files</li><li>Unity &amp; Unreal</li><li>VR walkthrough</li><li>Research data</li></ul></div>
+              <div class="ind-actions">
+                <a class="btn" href="#contact" data-type="Games / VR / research">Talk about a project</a>
+                <a class="more" href="index.html#services">What else we make</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="ind-visual">
+            <canvas id="ind-canvas" aria-hidden="true"></canvas>
+            <span class="ind-tag" id="ind-tag" aria-live="polite">Real estate</span>
+            <p class="ind-cap">An illustration drawn live from <span id="ind-count">7,000</span> splats. Drag to turn it.</p>
+            <div class="ind-arrows">
+              <button class="ind-arrow" type="button" data-step="-1" aria-label="Previous industry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button class="ind-arrow" type="button" data-step="1" aria-label="Next industry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="aside">Don't see your field? If people need to understand a place without standing in it, <a href="#contact">tell us about it</a>.</p>
+    </div>
+  </section>
+
+  <section id="archive" aria-labelledby="archive-title">
+    <div class="wrap">
+      <div class="archive-head">
+        <div>
+          <span class="kicker"><span>The St. Louis Spatial Archive</span></span>
+          <h2 id="archive-title">Some places deserve more than photographs.</h2>
+        </div>
+        <div>
+          <p class="archive-motto">Historic places, preserved as places.</p>
+          <p>St. Louis is full of rooms, homes, factories, churches, theaters, and details that may never look exactly the same again. We are building an evolving spatial archive of remarkable local places, from active restorations to intact time capsules, so people can experience them as spaces rather than only as photographs.</p>
+          <p>A capture can preserve a building before work begins, document each stage of a restoration, or create a permanent interactive record of a finished space.</p>
+        </div>
+      </div>
+
+      <div class="archive-body">
+        <div>
+          <h3>What an archive capture includes</h3>
+          <p>Know a building that belongs in the archive but isn't yours? Tell us about it too.</p>
+          <a class="btn" href="#contact" data-type="Historic / preservation">Plan an archive capture</a>
+        </div>
+        <ul class="ticks">
+          <li>A walkable 3D record of the interior, exterior, or both, dated to capture day</li>
+          <li>Closer passes around the details worth a second look: millwork, tile, plaster, stained glass, hardware</li>
+          <li>A private or public link for owners, architects, preservation groups, and neighbors</li>
+          <li>Optional return visits, so a restoration builds into a before, during, and after timeline</li>
+          <li>Optional annotations and archival photographs placed inside the scene</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title">How a capture day goes</h2>
+      <p class="sub">A capture is a slow, methodical walk through the space. Here's what to expect, from planning to the link in your inbox. How long the day takes depends on size and complexity, and we'll estimate it when we quote.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><span class="when">Before the day</span><h3>Plan the visit</h3><p>We confirm the address, which areas are in scope, keys and access, parking, and who we'll meet on site. For occupied spaces we agree on any rooms that are off limits.</p></li>
+        <li><span class="n">2</span><span class="when">The day before</span><h3>Get the space ready</h3><p>Lights on, blinds set how you want them seen, interior doors open, and anything private put away. Whatever is in the room on the day is what ends up in the scene.</p></li>
+        <li><span class="n">3</span><span class="when">On arrival</span><h3>Walk it together</h3><p>We walk the space with you or your site contact, flag tricky spots like mirrors, glass, tight stairs, and bright windows, and plan a route through every area.</p></li>
+        <li><span class="n">4</span><span class="when">Capture</span><h3>Room by room</h3><p>We move slowly through each area with a handheld capture rig, overlapping passes so every surface is seen from several angles. People and pets stay out of the room being captured; work can carry on elsewhere.</p></li>
+        <li><span class="n">5</span><span class="when">Before we leave</span><h3>Check coverage</h3><p>We review what we captured while we're still on site and go back for any gaps, so a missed corner gets caught before we pack up.</p></li>
+        <li><span class="n">6</span><span class="when">After</span><h3>Process and deliver</h3><p>The capture is reconstructed, reviewed for missing areas and visual problems, cleaned up, and delivered as a link with any agreed files. Recurring projects repeat the same route so dated captures line up.</p></li>
+      </ol>
+      <p class="how-foot">Everything in step 1 is written down before the day: scope, access, no-capture areas, and price. <a href="paperwork.html">See the paperwork, in plain English</a>, and the <a href="checklist.html">site prep checklist</a> you can tick off online.</p>
+    </div>
+  </section>
+
+  <section id="get" aria-labelledby="get-title">
+    <div class="wrap">
+      <h2 id="get-title">What you get</h2>
+      <div class="get-grid">
+        <div>
+          <ul class="get-list">
+            <li><b>Shareable web scene</b><span>A link you can send to anyone. Opens in a browser on a computer, phone, tablet, or VR headset.</span></li>
+            <li><b>QR code</b><span>For leasing offices, exhibits, signage, project trailers, printed material, and trade shows.</span></li>
+            <li><b>Website embed</b><span>For client sites and project pages, where it's technically a good fit.</span></li>
+            <li><b>Master &amp; interchange files</b><span>According to project scope, for 3D, game, film, preservation, or other downstream work.</span></li>
+            <li><b>Archive timeline<small>Optional</small></b><span>Dated captures lined up in order, for restoration, construction, and long-running projects.</span></li>
+            <li><b>Custom interactive experience<small>Optional</small></b><span>Historic annotations, archival photographs, before-and-after states, hotspots, room labels, restoration notes, a branded interface, a project microsite, or a VR presentation.</span></li>
+          </ul>
+          <p class="get-foot">What's included on a given project is agreed in writing before the capture. <a href="paperwork.html#documents">Here's what that looks like.</a></p>
+        </div>
+        <div class="side">
+          <div class="note">
+            <h3>Good to know</h3>
+            <p>These are photorealistic spatial captures intended for viewing, documentation, presentation, preservation, and creative 3D workflows. They are not licensed land surveys, code inspections, engineering measurements, or a substitute for survey-grade point clouds or CAD documentation.</p>
+            <p>If a project requires measured drawings, engineering-grade accuracy, BIM, or certified survey work, flag that during intake so the correct workflow can be recommended.</p>
+          </div>
+          <div class="note master">
+            <h3>Need an archival master?</h3>
+            <p>Ask about preserving the project's source and master capture data for future reuse or reprocessing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" aria-labelledby="pricing-title">
+    <div class="wrap">
+      <h2 id="pricing-title">Straightforward starting point</h2>
+      <div class="price-grid">
+        <div>
+          <p class="price">Spatial captures start at <mark>$495</mark>.</p>
+          <p class="price-copy">Historic buildings start at $595, whether it's a house, church, storefront, theater, or factory floor. Full-property, heritage, restoration timeline, recurring, film, and travel projects are quoted to scope. Send the address or location, approximate size, and what you want the capture to accomplish, and we'll send a project price before anything is booked.</p>
+          <p class="where">Based in St. Louis. Travel projects welcome.</p>
+        </div>
+        <div>
+          <p class="scope-title">Quoted to scope</p>
+          <ul class="scope">
+            <li>Individual spaces &amp; small properties <span>from $495</span></li>
+            <li>Full-property &amp; multifamily packages</li>
+            <li>Restoration &amp; construction timelines</li>
+            <li>Historic buildings &amp; interiors <span>from $595</span></li>
+            <li>Heritage buildings &amp; archive projects</li>
+            <li>Film &amp; production capture</li>
+            <li>Travel projects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="papers" id="paperwork" aria-labelledby="paperwork-title">
+    <div class="wrap papers-grid">
+      <div>
+        <span class="kicker">Before anything is booked</span>
+        <h2 id="paperwork-title">Know what you're signing.</h2>
+        <p class="sub">Once you approve a price, a short set of documents turns it into a booked day. Each one does one job, and we've explained them all in plain English.</p>
+        <a class="btn" href="paperwork.html">See the paperwork</a>
+      </div>
+      <ol class="doc-list" aria-label="Documents every first project needs">
+        <li>Services Agreement <span>Signed once</span></li>
+        <li>Capture Order <span>One per job</span></li>
+        <li>Property Access Authorization <span>Before the day</span></li>
+        <li>Site Prep &amp; Privacy Checklist <span>The week of</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-grid">
+      <div>
+        <h2 id="contact-title">Tell us about the site.</h2>
+        <p>Share what you know, even roughly. We'll reply with questions and a straightforward project price.</p>
+        <p class="alt">Rather write it yourself?</p>
+        <a class="email" href="mailto:yellowumbrellagroup@gmail.com?subject=3D%20capture">yellowumbrellagroup@gmail.com</a>
+        <p class="next">Once you approve a price, we send a short set of documents to sign. <a href="paperwork.html">See what's in it</a>.</p>
+      </div>
+
+      <!-- To send submissions through a static-form provider (e.g. Formspree), put its endpoint in data-endpoint.
+           With no endpoint, the form opens the visitor's email app with everything filled in. -->
+      <form class="intake" id="intake" data-endpoint="" novalidate>
+        <div class="field"><label for="f-name">Name</label><input id="f-name" name="Name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-org">Company or organization <i>(optional)</i></label><input id="f-org" name="Organization" type="text" autocomplete="organization"></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="Email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-loc">Project location</label><input id="f-loc" name="Location" type="text" placeholder="Address, neighborhood, or city" required></div>
+        <div class="field"><label for="f-type">Property or project type</label>
+          <select id="f-type" name="Project type" required>
+            <option value="">Choose one</option>
+            <option>Real estate / multifamily</option>
+            <option>Historic / preservation</option>
+            <option>Construction</option>
+            <option>Architecture / design</option>
+            <option>Restoration / damage documentation</option>
+            <option>Film / location</option>
+            <option>Industrial / facilities</option>
+            <option>Hospitality / venue</option>
+            <option>Museum / exhibit</option>
+            <option>Commercial / retail</option>
+            <option>Education / training</option>
+            <option>Games / VR / research</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-size">Approximate size</label><input id="f-size" name="Approximate size" type="text" placeholder="e.g. 2,400 sq ft, three floors"></div>
+        <fieldset class="field"><legend>Interior, exterior, or both?</legend>
+          <div class="pills">
+            <label><input type="radio" name="Interior / exterior" value="Interior"><span>Interior</span></label>
+            <label><input type="radio" name="Interior / exterior" value="Exterior"><span>Exterior</span></label>
+            <label><input type="radio" name="Interior / exterior" value="Both"><span>Both</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field"><legend>One-time or recurring?</legend>
+          <div class="pills">
+            <label><input type="radio" name="Frequency" value="One-time"><span>One-time</span></label>
+            <label><input type="radio" name="Frequency" value="Recurring"><span>Recurring</span></label>
+            <label><input type="radio" name="Frequency" value="Not sure yet"><span>Not sure</span></label>
+          </div>
+        </fieldset>
+        <div class="field full"><label for="f-use">What do you want to use the capture for?</label><textarea id="f-use" name="Purpose" rows="3" placeholder="Leasing, preserving a building before work starts, remote scouting for a shoot..."></textarea></div>
+        <div class="field"><label for="f-date">Preferred date or window</label><input id="f-date" name="Preferred date" type="text" placeholder="e.g. early November"></div>
+        <div class="field"><label for="f-notes">Notes <i>(optional)</i></label><input id="f-notes" name="Notes" type="text" placeholder="Access, parking, anything else"></div>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        <div class="form-foot">
+          <button class="btn" type="submit">Get a project quote</button>
+          <small id="form-hint">This opens your email app with the details filled in, ready to send.</small>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Yellow Umbrella Group, home">
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z" fill="#FFC61A"/>
+        <path d="M12 13V19.5a2 2 0 0 1-4 0" fill="none" stroke="#F6F8FC" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Yellow Umbrella Group
+    </a>
+    <nav aria-label="Footer">
+      <a href="index.html">Home</a><a href="#demos">Demos</a><a href="#uses">Who it's for</a><a href="#archive">Spatial Archive</a><a href="#how">Capture day</a><a href="#pricing">Pricing</a><a href="paperwork.html">Paperwork</a><a href="#contact">Contact</a>
+    </nav>
+    <small>© <span id="year">2026</span> Yellow Umbrella Group, LLC. Since 2018.</small>
+  </div>
+</footer>
+
+<script>
+(() => {
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('year').textContent = new Date().getFullYear();
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// In-page demos: each viewer (and its scene data) only loads when asked for.
+document.querySelectorAll('.player[data-demo]').forEach(player => {
+  player.querySelector('[data-load]').addEventListener('click', () => {
+    if (player.classList.contains('on')) return;
+    const f = document.createElement('iframe');
+    f.src = player.dataset.demo;
+    f.title = player.dataset.frame;
+    f.allow = 'fullscreen; xr-spatial-tracking';
+    f.allowFullscreen = true;
+    player.appendChild(f);
+    player.classList.add('on');
+    f.focus({preventScroll:true});
+  });
+});
+
+// Step 2 of the diagram: the room from step 3, redrawn as soft splats.
+(function dots(){
+  const g = document.getElementById('splat-dots'); if (!g) return;
+  let s = 7; const R = () => (s = (s*16807) % 2147483647) / 2147483647;
+  const NS = 'http://www.w3.org/2000/svg', out = [];
+  const pick = a => a[Math.floor(R()*a.length)];
+  const inWin = (x,y) => x > 100 && x < 140 && y < 110 && (y > 75 || Math.hypot(x-120, y-75) < 20);
+  for (let i=0; i<640; i++){
+    let x, y, c;
+    if (i < 400){
+      x = 50 + R()*140; y = 30 + R()*100;
+      c = inWin(x,y) ? (y < 85 ? '#8FB4E8' : '#FFE3A0') : (x > 56 && x < 82 && y > 58 && y < 92) ? (x < 60 || x > 78 || y < 62 || y > 88 ? '#FFC61A' : '#2D5BE3') : pick(['#EDE6DA','#E3D5BF','#F6F8FC']);
+    } else {
+      y = 130 + R()*35; const k = (y-130)/35; x = 50 - 35*k + R()*(140 + 70*k);
+      c = ((x-120)/46)**2 + ((y-147)/9)**2 < 1 ? '#FF5B3A' : pick(['#C99A63','#B5824E','#D8AE78']);
+    }
+    const d = document.createElementNS(NS, 'circle');
+    d.setAttribute('cx', x.toFixed(1)); d.setAttribute('cy', y.toFixed(1));
+    d.setAttribute('r', (1.5 + R()*2.3).toFixed(1)); d.setAttribute('fill', c);
+    d.setAttribute('class', 'splat-dot');
+    d.style.transformOrigin = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
+    d.style.animationDelay = (Math.hypot(x-120, y-95)/150*1.2 + R()*.3).toFixed(2) + 's';
+    out.push(d);
+  }
+  g.append(...out);
+})();
+
+// Industry explorer: one rundown at a time. Links like capture.html#for-film open straight to one.
+// The 3D scene (industryStage, below) follows along through explorer.onChange.
+const explorer = (function(){
+  const root = document.getElementById('explorer'); if (!root) return null;
+  const tabs = [...root.querySelectorAll('[role=tab]')];
+  const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+  const list = root.querySelector('.ind-tabs'), tag = document.getElementById('ind-tag');
+  const api = {index: 0, key: panels[0].id.slice(4), onChange: null};
+  function select(i, {focus = false, share = true} = {}){
+    i = (i + tabs.length) % tabs.length;
+    tabs.forEach((t, j) => {
+      t.setAttribute('aria-selected', String(j === i)); t.tabIndex = j === i ? 0 : -1;
+      panels[j].classList.toggle('on', j === i);
+    });
+    if (focus) tabs[i].focus();
+    if (i === api.index) return;
+    api.index = i; api.key = panels[i].id.slice(4);
+    tag.textContent = tabs[i].textContent.trim();
+    if (share) history.replaceState(null, '', '#' + panels[i].id);
+    if (api.onChange) api.onChange(api.key);
+  }
+  tabs.forEach((t, i) => t.addEventListener('click', () => select(i)));
+  list.addEventListener('keydown', e => {
+    const i = tabs.indexOf(document.activeElement); if (i < 0) return;
+    const to = {ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1}[e.key];
+    if (to === undefined) return;
+    e.preventDefault(); select(to, {focus: true});
+  });
+  root.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => select(api.index + Number(b.dataset.step))));
+  function fromHash(){
+    const i = panels.findIndex(p => '#' + p.id === location.hash); if (i < 0) return false;
+    select(i, {share: false});
+    list.scrollIntoView({block: 'start'});
+    return true;
+  }
+  addEventListener('hashchange', fromHash);
+  // The browser's own jump to the anchor lands after this runs, so line the pills up again once loaded.
+  if (fromHash()) addEventListener('load', () => setTimeout(() => list.scrollIntoView({block: 'start'})), {once: true});
+  return api;
+})();
+
+// Archive "suggest a place" links preselect the project type.
+const typeSel = document.getElementById('f-type');
+document.querySelectorAll('a[data-type]').forEach(a => a.addEventListener('click', () => { typeSel.value = a.dataset.type; }));
+
+// Project intake: posts to a form provider when one is configured, otherwise composes an email.
+(function intake(){
+  const form = document.getElementById('intake'), status = document.getElementById('form-status');
+  const hint = document.getElementById('form-hint');
+  const endpoint = form.dataset.endpoint.trim();
+  if (endpoint) hint.textContent = "We'll reply by email, usually within a couple of business days.";
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const bad = [...form.querySelectorAll('[required]')].find(el => !el.checkValidity());
+    if (bad){
+      const label = form.querySelector(`label[for="${bad.id}"]`).textContent;
+      status.textContent = `Please check "${label}".`;
+      bad.focus(); return;
+    }
+    const data = new FormData(form);
+    if (endpoint){
+      status.textContent = 'Sending...';
+      try {
+        const r = await fetch(endpoint, {method:'POST', body:data, headers:{Accept:'application/json'}});
+        if (!r.ok) throw new Error(r.status);
+        form.reset(); status.textContent = "Thanks. We've got it and will reply by email.";
+        return;
+      } catch { status.textContent = "That didn't send, so we've opened an email instead."; }
+    }
+    const lines = [...data.entries()].filter(([, v]) => String(v).trim()).map(([k, v]) => `${k}: ${v}`);
+    const subject = `3D capture: ${data.get('Project type')} in ${data.get('Location')}`;
+    location.href = `mailto:yellowumbrellagroup@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    if (!endpoint) status.textContent = "Your email app should open with the details filled in. If it doesn't, email yellowumbrellagroup@gmail.com.";
+  });
+})();
+
+// Hero illustration. Three.js is loaded after first paint so the page is usable without it.
+const three = document.createElement('script');
+three.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+const noScene = () => { const ex = document.getElementById('explorer'); if (ex) ex.classList.add('no-3d'); };
+three.onload = () => {
+  if (!window.THREE) return noScene();
+  try { heroStage(); } catch (e) { console.error(e); }
+  try { industryStage(); } catch (e) { console.error(e); noScene(); }
+};
+three.onerror = noScene;
+document.body.appendChild(three);
+
+// A little room built from soft "splats" that appear in the order a scanner would reach them.
+function makeSplatRoom(n){
+  const R = Math.random, W = 1.5, Y0 = -1.1, H = 2.2;
+  const rgb = h => [(h>>16&255)/255, (h>>8&255)/255, (h&255)/255];
+  const mix = (a,b,t) => a.map((v,i) => v + (b[i]-v)*t);
+  const INK = rgb(0x161D38), pos = [], col = [], size = [], seed = [];
+  function add(x,y,z,c,s){
+    pos.push(x,y,z);
+    c.forEach(v => col.push(Math.min(1, Math.max(0, v + (R()-.5)*.07))));
+    size.push(s*(.9 + R()*.7));
+    seed.push(Math.min(1, Math.hypot(x-1.3, (y-Y0)*.5, z-1.3)/4.1 + R()*.1));
+  }
+  const loop = (f, fn) => { for (let i=0, m=Math.round(n*f); i<m; i++) fn(); };
+  loop(.3, () => {   // floorboards and a rug
+    const x = (R()*2-1)*W, z = (R()*2-1)*W, e = (x-.2)**2/.75 + (z-.35)**2/.4;
+    add(x, Y0, z, e < 1 ? rgb(e > .75 ? 0xFF5B3A : 0x2D5BE3) : rgb([0xC99A63,0xB5824E,0xD8AE78][Math.floor((x+W)*3.3)%3]), .15);
+  });
+  loop(.3, () => {   // back wall with an arched window
+    const x = (R()*2-1)*W, y = Y0 + R()*H, dx = x-.3;
+    const inWin = r => Math.abs(dx) < r && y > -.35-(r-.42) && (y < .3 || Math.hypot(dx, y-.3) < r);
+    let c = y < Y0+.14 ? INK : rgb(0xEDE6DA);
+    if (inWin(.42)) c = mix(rgb(0xFFE3A0), rgb(0x8FB4E8), Math.min(1, (y+.35)/1.1));
+    else if (inWin(.5)) c = INK;
+    add(x, y, -W, c, .14);
+  });
+  loop(.24, () => {  // side wall with a framed print
+    const z = (R()*2-1)*W, y = Y0 + R()*H, fz = Math.abs(z+.15), fy = Math.abs(y-.25);
+    let c = y < Y0+.14 ? INK : rgb(0xE3D5BF);
+    if (fz < .46 && fy < .34) c = (fz > .38 || fy > .26) ? rgb(0xFFC61A) : mix(rgb(0x2D5BE3), rgb(0x36D399), (y+.01)/.52);
+    add(-W, y, z, c, .14);
+  });
+  loop(.05, () => {  // plant pot
+    const a = R()*Math.PI*2, h = R()*.42, r = .14 + h*.12;
+    add(-.95 + Math.cos(a)*r, Y0 + h, -.95 + Math.sin(a)*r, rgb(0xFF5B3A), .1);
+  });
+  loop(.08, () => {  // leaves
+    const u = R()*2-1, a = R()*Math.PI*2, s = Math.sqrt(1-u*u), r = .36*(.75 + R()*.25);
+    add(-.95 + Math.cos(a)*s*r, Y0 + .8 + u*r*1.1, -.95 + Math.sin(a)*s*r, mix(rgb(0x36D399), rgb(0x1F7A55), R()), .12);
+  });
+  loop(.03, () => {  // round side table
+    const a = R()*Math.PI*2;
+    if (R() < .7){ const r = Math.sqrt(R())*.4; add(.55 + Math.cos(a)*r, Y0 + .6, .15 + Math.sin(a)*r, INK, .11); }
+    else add(.55 + Math.cos(a)*.05, Y0 + R()*.6, .15 + Math.sin(a)*.05, INK, .09);
+  });
+
+  const N = seed.length, geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('aCol', new THREE.Float32BufferAttribute(col, 3));
+  geo.setAttribute('aSize', new THREE.Float32BufferAttribute(size, 1));
+  geo.setAttribute('aSeed', new THREE.Float32BufferAttribute(seed, 1));
+  const order = new Uint16Array(N).map((_, i) => i), idx = new THREE.BufferAttribute(order, 1);
+  idx.setUsage(THREE.DynamicDrawUsage); geo.setIndex(idx);
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {uT:{value:0}, uFade:{value:1}, uPx:{value:500}},
+    vertexShader: `
+      uniform float uT, uPx;
+      attribute vec3 aCol; attribute float aSize, aSeed;
+      varying vec3 vC; varying float vA;
+      void main(){
+        float k = clamp((uT - aSeed) / .06, 0., 1.);
+        vec4 mv = modelViewMatrix * vec4(position, 1.);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = aSize * length(modelMatrix[0].xyz) * uPx * (k + 1.6*k*(1.-k)) / -mv.z;
+        vC = aCol + (1.-k) * .35; vA = k;
+      }`,
+    fragmentShader: `
+      uniform float uFade;
+      varying vec3 vC; varying float vA;
+      void main(){
+        vec2 d = gl_PointCoord - .5;
+        float a = exp(-dot(d, d) * 14.) * vA * uFade;
+        if (a < .015) discard;
+        gl_FragColor = vec4(vC, a);
+      }`,
+    transparent: true, depthWrite: false
+  });
+  const points = new THREE.Points(geo, mat); points.frustumCulled = false;
+  const depth = new Float32Array(N), cam = new THREE.Vector3(); let frameNo = 0;
+  return {points, update(t, camera, renderer){
+    const u = mat.uniforms;
+    u.uPx.value = renderer.domElement.height / (2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+    if (RM){ u.uT.value = 2; u.uFade.value = 1; }
+    else { const c = t % 11; u.uT.value = c/6; u.uFade.value = Math.min(1, (11-c)*2); }
+    if (frameNo++ % 4 === 0){   // back-to-front so the soft edges blend correctly
+      cam.copy(camera.position); points.worldToLocal(cam);
+      for (let i=0; i<N; i++){ const j = i*3; depth[i] = (pos[j]-cam.x)**2 + (pos[j+1]-cam.y)**2 + (pos[j+2]-cam.z)**2; }
+      order.sort((a, b) => depth[b] - depth[a]); idx.needsUpdate = true;
+    }
+  }};
+}
+
+function heroStage(){
+  const canvas = document.getElementById('stage-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, .1, 50);
+  camera.position.set(0, 1.3, 7); camera.lookAt(0, -.1, 0);
+  const room = makeSplatRoom(innerWidth < 760 ? 3200 : 5200);
+  const holder = new THREE.Group(); holder.add(room.points); scene.add(holder);
+
+  let drag = null, spinY = 0, spinV = 0;
+  canvas.addEventListener('pointerdown', e => { drag = e.clientX; canvas.setPointerCapture(e.pointerId); canvas.style.cursor = 'grabbing'; });
+  canvas.addEventListener('pointermove', e => { if (drag !== null){ spinV = (e.clientX-drag)*.01; spinY += spinV; drag = e.clientX; } });
+  const end = () => { drag = null; canvas.style.cursor = 'grab'; };
+  canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end);
+
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w/h;
+    camera.position.z = w/h < 1 ? 7/Math.max(w/h, .6) : 7;
+    camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(canvas); resize();
+
+  let visible = true;
+  new IntersectionObserver(([en]) => visible = en.isIntersecting).observe(canvas);
+  const clock = new THREE.Clock();
+  function frame(){
+    requestAnimationFrame(frame);
+    const dt = Math.min(clock.getDelta(), .05), t = clock.elapsedTime;
+    if (!visible) return;
+    if (drag === null){ spinV *= .94; spinY += spinV; }
+    holder.rotation.y = .6 + spinY + (RM ? 0 : Math.sin(t*.35)*.3);
+    room.update(t, camera, renderer);
+    renderer.render(scene, camera);
+  }
+  frame();
+}
+
+// Industry explorer scene: each line of work is a small diorama made of splats. Picking another
+// industry flies the same points into the next one, settling front to back like a capture pass.
+function industryStage(){
+  const canvas = document.getElementById('ind-canvas');
+  if (!canvas || !explorer) return;
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, .1, 60);
+  const N = innerWidth < 760 ? 4200 : 7000;
+  document.getElementById('ind-count').textContent = N.toLocaleString('en-US');
+
+  const pos = new Float32Array(N*3), col = new Float32Array(N*3), size = new Float32Array(N), glow = new Float32Array(N);
+  const fromP = new Float32Array(N*3), fromC = new Float32Array(N*3), fromS = new Float32Array(N);
+  const delay = new Float32Array(N), lift = new Float32Array(N);
+  for (let i=0; i<N; i++){   // until the section is first seen, the points wait as a loose cloud
+    const u = Math.random()*2-1, a = Math.random()*Math.PI*2, r = 2.3*Math.cbrt(Math.random()), s = Math.sqrt(1-u*u);
+    pos[i*3] = Math.cos(a)*s*r; pos[i*3+1] = u*r*.6; pos[i*3+2] = Math.sin(a)*s*r;
+    col[i*3] = .56; col[i*3+1] = .64; col[i*3+2] = .9; size[i] = .05;
+  }
+  const geo = new THREE.BufferGeometry();
+  const attr = (a, n) => new THREE.BufferAttribute(a, n).setUsage(THREE.DynamicDrawUsage);
+  const aPos = attr(pos, 3), aCol = attr(col, 3), aSize = attr(size, 1), aGlow = attr(glow, 1);
+  geo.setAttribute('position', aPos); geo.setAttribute('aCol', aCol); geo.setAttribute('aSize', aSize); geo.setAttribute('aGlow', aGlow);
+  const order = new Uint16Array(N).map((_, i) => i), idx = new THREE.BufferAttribute(order, 1);
+  idx.setUsage(THREE.DynamicDrawUsage); geo.setIndex(idx);
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {uPx:{value:500}},
+    vertexShader: `
+      uniform float uPx;
+      attribute vec3 aCol; attribute float aSize, aGlow;
+      varying vec3 vC;
+      void main(){
+        vec4 mv = modelViewMatrix * vec4(position, 1.);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = aSize * uPx / -mv.z;
+        vC = aCol + aGlow * .35;
+      }`,
+    fragmentShader: `
+      varying vec3 vC;
+      void main(){
+        vec2 d = gl_PointCoord - .5;
+        float a = .8 * exp(-dot(d, d) * 11.);
+        if (a < .015) discard;
+        gl_FragColor = vec4(vC, a);
+      }`,
+    transparent: true, depthWrite: false
+  });
+  const points = new THREE.Points(geo, mat); points.frustumCulled = false;
+  const holder = new THREE.Group(); holder.add(points); scene.add(holder);
+  const flag = () => { aPos.needsUpdate = aCol.needsUpdate = aSize.needsUpdate = aGlow.needsUpdate = true; };
+
+  const cache = {}, clock = new THREE.Clock(), FLY = .45, DUR = 1.1;
+  let target = null, t0 = -1;
+  function morph(key){
+    const S = cache[key] || (cache[key] = buildIndustryScene(INDUSTRY_SCENES[key], N));
+    target = S;
+    fromP.set(pos); fromC.set(col); fromS.set(size);
+    for (let i=0; i<N; i++){
+      delay[i] = Math.min(1, Math.max(0, (3.2 - S.pos[i*3] - S.pos[i*3+2])/6.4))*.6 + Math.random()*.2;
+      lift[i] = .15 + Math.random()*.6;
+    }
+    if (RM){ pos.set(S.pos); col.set(S.col); size.set(S.size); glow.fill(0); flag(); t0 = -1; return; }
+    t0 = clock.getElapsedTime();
+  }
+  function step(t){
+    const e = (t - t0)/DUR, T = target;
+    for (let i=0; i<N; i++){
+      let k = (e - delay[i])/FLY; k = k < 0 ? 0 : k > 1 ? 1 : k;
+      const q = k < .5 ? 4*k*k*k : 1 - Math.pow(2 - 2*k, 3)/2, j = i*3;
+      for (let c=0; c<3; c++){
+        pos[j+c] = fromP[j+c] + (T.pos[j+c] - fromP[j+c])*q;
+        col[j+c] = fromC[j+c] + (T.col[j+c] - fromC[j+c])*q;
+      }
+      pos[j+1] += Math.sin(Math.PI*q)*lift[i];
+      size[i] = (fromS[i] + (T.size[i] - fromS[i])*q)*(1 + 1.6*q*(1-q));
+      glow[i] = 4*q*(1-q);
+    }
+    flag();
+    if (e > 1 + FLY) t0 = -1;
+  }
+
+  let drag = null, spinY = 0, spinV = 0;
+  canvas.addEventListener('pointerdown', e => { drag = e.clientX; canvas.setPointerCapture(e.pointerId); canvas.style.cursor = 'grabbing'; });
+  canvas.addEventListener('pointermove', e => { if (drag !== null){ spinV = (e.clientX-drag)*.01; spinY += spinV; drag = e.clientX; } });
+  const end = () => { drag = null; canvas.style.cursor = 'grab'; };
+  canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end);
+
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;
+    renderer.setSize(w, h, false); camera.aspect = w/h;
+    // Close enough that a diorama (about 4.8 wide as it turns, 3.8 tall) fills the box either way.
+    const t = Math.tan(THREE.MathUtils.degToRad(camera.fov/2)), d = Math.max(2.4/(t*camera.aspect), 1.9/t);
+    camera.position.set(0, -.45 + d*.47, d*.88); camera.lookAt(0, -.45, 0);
+    camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(canvas); resize();
+
+  let visible = false, seen = false;
+  new IntersectionObserver(([en]) => {   // build the first scene once enough of the box is on screen to watch it
+    visible = en.isIntersecting;
+    if (!seen && en.intersectionRatio >= .35){ seen = true; morph(explorer.key); }
+  }, {threshold: [0, .35]}).observe(canvas);
+  explorer.onChange = key => { if (seen) morph(key); };
+
+  const depth = new Float32Array(N), cam = new THREE.Vector3(); let frameNo = 0;
+  function frame(){
+    requestAnimationFrame(frame);
+    const t = clock.getElapsedTime();
+    if (!visible) return;
+    if (t0 >= 0) step(t);
+    if (drag === null){ spinV *= .94; spinY += spinV; }
+    holder.rotation.y = -.55 + spinY + (RM ? 0 : Math.sin(t*.3)*.22);   // looking into the open corner
+    mat.uniforms.uPx.value = renderer.domElement.height/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+    if (frameNo++ % 3 === 0){   // back-to-front so the soft edges blend correctly
+      cam.copy(camera.position); points.worldToLocal(cam);
+      for (let i=0; i<N; i++){ const j = i*3; depth[i] = (pos[j]-cam.x)**2 + (pos[j+1]-cam.y)**2 + (pos[j+2]-cam.z)**2; }
+      order.sort((a, b) => depth[b] - depth[a]); idx.needsUpdate = true;
+    }
+    renderer.render(scene, camera);
+  }
+  frame();
+}
+
+// Shape kit for the industry dioramas. Points are shared out by surface area, so a scene is just a
+// list of shapes. A color is a hex number, or a function of the shape's (a, b) coordinates, 0 to 1
+// across each face, that may return -1 to leave a hole.
+function buildIndustryScene(draw, N){
+  const R = Math.random, parts = [], TAU = Math.PI*2;
+  const fn = c => typeof c === 'function' ? c : () => c;
+  const cross = (a, b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+  // Each part maps (a, b), both 0 to 1, onto its surface. k is its width-to-height ratio in (a, b),
+  // so its points can be laid on an even, jittered grid instead of falling in random clumps.
+  const part = (area, s, k, gen) => parts.push({area, s, k, gen});
+  const kit = {
+    quad(o, u, v, c, s=1){
+      const f = fn(c);
+      part(Math.hypot(...cross(u, v)), s, Math.hypot(...u)/Math.max(1e-6, Math.hypot(...v)), (a, b) => {
+        const h = f(a, b);
+        return h < 0 ? null : [o[0]+a*u[0]+b*v[0], o[1]+a*u[1]+b*v[1], o[2]+a*u[2]+b*v[2], h];
+      });
+    },
+    tri(p, q, r, c, s=1){
+      const f = fn(c), u = q.map((x, i) => x - p[i]), v = r.map((x, i) => x - p[i]);
+      part(Math.hypot(...cross(u, v))/2, s, 1, (a, b) => {
+        if (a + b > 1){ a = 1-a; b = 1-b; }
+        const h = f(a, b);
+        return h < 0 ? null : [p[0]+a*u[0]+b*v[0], p[1]+a*u[1]+b*v[1], p[2]+a*u[2]+b*v[2], h];
+      });
+    },
+    // Axis-aligned box. c can also be {top, front, back, left, right, side}; a and b run along x or z, then up.
+    box(x0, y0, z0, x1, y1, z1, c, s=1, skip='bottom'){
+      const w = x1-x0, h = y1-y0, d = z1-z0;
+      const pick = n => (c && typeof c === 'object') ? (c[n] ?? c.side) : c;
+      const face = (n, o, u, v) => { if (!skip.includes(n)) kit.quad(o, u, v, pick(n), s); };
+      face('top', [x0,y1,z0], [w,0,0], [0,0,d]);
+      face('bottom', [x0,y0,z0], [w,0,0], [0,0,d]);
+      face('front', [x0,y0,z1], [w,0,0], [0,h,0]);
+      face('back', [x0,y0,z0], [w,0,0], [0,h,0]);
+      face('left', [x0,y0,z0], [0,0,d], [0,h,0]);
+      face('right', [x1,y0,z0], [0,0,d], [0,h,0]);
+    },
+    // Cylinder, or a cone with r1, from (x, y, z) along an axis. c gets (angle, height), 0 to 1.
+    cyl(x, y, z, r0, h, c, s=1, {r1 = r0, axis = 'y', caps = true} = {}){
+      const f = fn(c), slant = Math.hypot(h, r0-r1);
+      const at = axis === 'y' ? (p, q, w) => [x+p, y+q, z+w] : axis === 'x' ? (p, q, w) => [x+q, y+p, z+w] : (p, q, w) => [x+p, y+w, z+q];
+      part(Math.PI*(r0+r1)*slant, s, Math.PI*(r0+r1)/Math.max(1e-6, slant), (a, b) => {
+        const r = r0 + (r1-r0)*b, t = a*TAU, hh = f(a, b);
+        return hh < 0 ? null : [...at(Math.cos(t)*r, b*h, Math.sin(t)*r), hh];
+      });
+      if (caps) [[0, r0], [h, r1]].forEach(([q, r]) => {
+        if (r > 0) part(Math.PI*r*r, s, 4, (a, b) => {
+          const t = a*TAU, rr = r*Math.sqrt(b), hh = typeof caps === 'number' ? caps : f(a, q ? 1 : 0);
+          return hh < 0 ? null : [...at(Math.cos(t)*rr, q, Math.sin(t)*rr), hh];
+        });
+      });
+    },
+    // Sphere, squashed by [sx, sy, sz]. c gets (height from -1 to 1, angle 0 to 1).
+    ball(x, y, z, r, c, s=1, [sx, sy, sz] = [1, 1, 1]){
+      const f = fn(c);
+      part(4*Math.PI*r*r*(sx*sy + sy*sz + sx*sz)/3, s, Math.PI, (a, b) => {
+        const u = b*2-1, t = a*TAU, q = Math.sqrt(1-u*u), h = f(u, a);
+        return h < 0 ? null : [x+Math.cos(t)*q*r*sx, y+u*r*sy, z+Math.sin(t)*q*r*sz, h];
+      });
+    },
+    // Flat disc facing along an axis. c gets (radius 0 to 1, angle 0 to 1).
+    disc(x, y, z, r, c, s=1, axis='y'){
+      const f = fn(c);
+      part(Math.PI*r*r, s, 4, (a, b) => {
+        const t = a*TAU, rr = r*Math.sqrt(b), h = f(Math.sqrt(b), a);
+        if (h < 0) return null;
+        const p = Math.cos(t)*rr, q = Math.sin(t)*rr;
+        return axis === 'y' ? [x+p, y, z+q, h] : axis === 'x' ? [x, y+q, z+p, h] : [x+p, y+q, z, h];
+      });
+    },
+    // Rod or pipe between two points. Thin ones get a minimum share of points so they stay visible.
+    tube(p, q, r, c, s=.8, w=1){
+      const f = fn(c), d = q.map((x, i) => x - p[i]), L = Math.hypot(...d), ax = d.map(x => x/L);
+      let e1 = cross(ax, Math.abs(ax[1]) < .9 ? [0,1,0] : [1,0,0]); const l1 = Math.hypot(...e1); e1 = e1.map(x => x/l1);
+      const e2 = cross(ax, e1);
+      part(Math.max(TAU*r, .1)*L*w, s, L/Math.max(.02, TAU*r), (a, b) => {
+        const t = b*TAU, h = f(a, b), cs = Math.cos(t)*r, sn = Math.sin(t)*r;
+        return h < 0 ? null : [0, 1, 2].map(i => p[i] + d[i]*a + e1[i]*cs + e2[i]*sn).concat(h);
+      });
+    },
+    // Points along a path; at(t) gives [x, y, z] for t from 0 to 1.
+    path(at, len, c, s=.8, w=1, jitter=.015){
+      const f = fn(c);
+      part(len*.1*w, s, 1e3, a => {
+        const p = at(a), h = f(a, 0);
+        return h < 0 ? null : [p[0]+(R()-.5)*jitter*2, p[1]+(R()-.5)*jitter*2, p[2]+(R()-.5)*jitter*2, h];
+      });
+    },
+    pipe(pts, r, c, s=.9){   // straight runs with round elbows
+      for (let i=1; i<pts.length; i++) kit.tube(pts[i-1], pts[i], r, c, s);
+      for (let i=1; i<pts.length-1; i++) kit.ball(...pts[i], r*1.2, c, s);
+    },
+    ring(x, y, z, r, c, s=.8, axis='y', w=1){
+      kit.path(t => {
+        const a = t*Math.PI*2, p = Math.cos(a)*r, q = Math.sin(a)*r;
+        return axis === 'y' ? [x+p, y, z+q] : axis === 'x' ? [x, y+q, z+p] : [x+p, y+q, z];
+      }, 2*Math.PI*r, c, s, w, .01);
+    }
+  };
+  draw(kit, R);
+
+  const total = parts.reduce((a, p) => a + p.area, 0);
+  const want = parts.map(p => p.area/total*N), cnt = want.map(Math.floor);
+  const rest = N - cnt.reduce((a, b) => a + b, 0);
+  want.map((w, j) => [w - cnt[j], j]).sort((a, b) => b[0] - a[0]).slice(0, rest).forEach(([, j]) => cnt[j]++);
+  const pts = []; let last = [0, -1.1, 0, 0xFFFFFF];
+  parts.forEach((p, j) => {
+    const n = cnt[j]; if (!n) return;
+    const cols = Math.max(1, Math.min(n, Math.round(Math.sqrt(n*p.k)))), rows = Math.ceil(n/cols);
+    const cells = Array.from({length: cols*rows}, (_, i) => i);
+    for (let i = cells.length - 1; i > 0; i--){ const m = Math.floor(R()*(i + 1)); [cells[i], cells[m]] = [cells[m], cells[i]]; }
+    for (let i = 0; i < n; i++){
+      let r = p.gen((cells[i] % cols + R())/cols, (Math.floor(cells[i]/cols) + R())/rows);
+      for (let tries = 0; !r && tries < 40; tries++) r = p.gen(R(), R());   // landed in a hole: try anywhere
+      if (r) last = r;
+      pts.push([last, p.s]);
+    }
+  });
+  // Splat size follows point spacing, the way a denser capture uses smaller splats.
+  const base = Math.min(.19, Math.max(.08, 1.9*Math.sqrt(total/N)));
+  // Loosely ranked by height, so each point travels to a similar height in the next scene.
+  const rank = pts.map(([r]) => r[1] + (R()-.5)*.5);
+  const order = pts.map((_, i) => i).sort((a, b) => rank[a] - rank[b]);
+  const out = {pos: new Float32Array(N*3), col: new Float32Array(N*3), size: new Float32Array(N)};
+  order.forEach((src, i) => {
+    const [r, s] = pts[src], h = r[3];
+    out.pos[i*3] = r[0]; out.pos[i*3+1] = r[1]; out.pos[i*3+2] = r[2];
+    for (let c=0; c<3; c++) out.col[i*3+c] = Math.min(1, Math.max(0, ((h >> (16 - 8*c)) & 255)/255 + (R()-.5)*.06));
+    out.size[i] = base*s*(.85 + R()*.5);
+  });
+  return out;
+}
+
+// Palette and helpers shared by the dioramas. Everything sits on a floor at y = -1.1 inside about
+// a 3.2 x 3.2 footprint, fronts face +z, and cutaway rooms keep their back and left walls.
+const Y0 = -1.1;
+const P = {ink:0x4A5580, dark:0x39406A, paper:0xF6F8FC, sky:0xDCE4F2, yellow:0xFFC61A, blue:0x2D5BE3, red:0xFF5B3A,
+  green:0x36D399, green2:0x1F7A55, wall:0xEDE6DA, wall2:0xE3D5BF, glassLo:0xFFE3A0, glassHi:0x8FB4E8, steel:0xB8BCC8, gold:0xE0B040};
+const mixHex = (a, b, t) => {
+  t = Math.min(1, Math.max(0, t));
+  const ch = s => Math.round(((a >> s) & 255) + (((b >> s) & 255) - ((a >> s) & 255))*t);
+  return ch(16) << 16 | ch(8) << 8 | ch(0);
+};
+const WOOD = [0xC99A63, 0xB5824E, 0xD8AE78];
+const wood = (v, n=10) => WOOD[Math.floor(v*n) % 3];
+const pickOne = a => a[Math.floor(Math.random()*a.length)];
+const inBox = (x, y, x0, y0, x1, y1) => x > x0 && x < x1 && y > y0 && y < y1;
+const leafy = () => mixHex(P.green, P.green2, Math.random());
+
+const INDUSTRY_SCENES = {
+  // A dollhouse cut of an apartment: living room, bedroom, and a kitchen island.
+  'real-estate'({quad, box, cyl, ball}, R){
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,0,3], (a, b) => {
+      const x = -1.5 + a*3, z = -1.5 + b*3;
+      if (x > .4 && z < .15) return mixHex(0xE9E3D6, 0xDCD4C3, R());
+      const e = ((x + .65)/.72)**2 + ((z - .05)/.5)**2;
+      if (e < 1) return e > .72 ? P.red : P.blue;
+      return wood(a, 11);
+    });
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,1.45,0], (a, b) => {
+      const x = -1.5 + a*3, y = b*1.45;
+      if (y < .08) return P.ink;
+      for (const cx of [-.7, 1.0]){
+        if (inBox(x, y, cx-.34, .6, cx+.34, 1.2)) return mixHex(P.glassLo, P.glassHi, (y - .6)/.6);
+        if (inBox(x, y, cx-.4, .54, cx+.4, 1.26)) return P.paper;
+      }
+      return P.wall;
+    });
+    quad([-1.5,Y0,-1.5], [0,0,3], [0,1.45,0], (a, b) => {
+      const z = -1.5 + a*3, y = b*1.45;
+      if (y < .08) return P.ink;
+      if (inBox(z, y, .6, 0, 1.1, 1.12)) return 0x9C6B3F;             // front door
+      if (inBox(z, y, .54, 0, 1.16, 1.18)) return P.paper;
+      if (inBox(z, y, -.84, .62, -.16, 1.05)) return mixHex(P.blue, P.green, (y - .62)/.43);   // a print
+      if (inBox(z, y, -.9, .56, -.1, 1.11)) return P.yellow;
+      return P.wall2;
+    });
+    quad([.4,Y0,-1.5], [0,0,1.65], [0,1.45,0], (a, b) => {   // partition with a doorway
+      const z = -1.5 + a*1.65, y = b*1.45;
+      if (z > -.8 && z < -.25 && y < 1.12) return -1;
+      return y < .08 ? P.ink : P.wall;
+    });
+    box(-1.3, Y0, .45, -.1, Y0+.4, .9, P.blue);                       // sofa
+    box(-1.3, Y0, .8, -.1, Y0+.82, .95, 0x2449B8);
+    box(-1.42, Y0, .45, -1.3, Y0+.58, .95, 0x2449B8); box(-.1, Y0, .45, .02, Y0+.58, .95, 0x2449B8);
+    box(-.95, Y0+.3, -.25, -.35, Y0+.36, .2, 0xB5824E);              // coffee table
+    cyl(-1.22, Y0, -1.22, .13, .4, P.red, 1, {r1: .17});              // plant
+    ball(-1.22, Y0+.82, -1.22, .32, leafy);
+    box(.72, Y0, -1.42, 1.42, Y0+.4, -.2, {top: (a, b) => b > .42 ? P.yellow : P.paper, side: P.paper});   // bed
+    box(.8, Y0+.4, -1.36, 1.04, Y0+.5, -1.14, P.paper); box(1.1, Y0+.4, -1.36, 1.34, Y0+.5, -1.14, P.paper);
+    box(.68, Y0, -1.5, 1.46, Y0+.78, -1.42, 0x9C6B3F);
+    box(.46, Y0, -1.44, .64, Y0+.38, -1.2, 0xB5824E);
+    ball(.55, Y0+.52, -1.32, .08, P.glassLo);
+    box(.78, Y0, .55, 1.42, Y0+.88, 1.05, {top: 0xD8AE78, side: P.paper});   // kitchen island and stools
+    [.95, 1.25].forEach(x => { cyl(x, Y0, 1.28, .03, .55, P.ink, .8, {caps: false}); cyl(x, Y0+.55, 1.28, .12, .05, P.yellow); });
+  },
+
+  // A limestone church with a copper roof, a rose window, and a bell tower, on a lawn.
+  historic({quad, tri, box, cyl, ball, disc, tube}, R){
+    quad([-1.6,Y0,-1.6], [3.2,0,0], [0,0,3.2], (a, b) => {
+      const x = -1.6 + a*3.2, z = -1.6 + b*3.2;
+      if (Math.abs(x) < .26 && z > .5) return Math.floor(z*7) % 2 ? 0xD9D4C7 : 0xC4BDAE;
+      return mixHex(0x3E8E5E, 0x62B576, R());
+    });
+    const stone = () => mixHex(0xEADFC8, 0xD2C2A2, R()), trim = 0xF4ECDA;
+    const side = (a, b) => {                                          // arched windows down the nave
+      const z = -1.4 + a*1.9, y = b*1.3;
+      for (const zc of [-1.05, -.45, .1]){
+        const dz = z - zc, arch = r => Math.abs(dz) < r && y > .54 - r && (y < .82 || Math.hypot(dz, y - .82) < r);
+        if (arch(.12)) return mixHex(P.blue, 0x7FA6F0, R()*.8);
+        if (arch(.16)) return trim;
+      }
+      return stone();
+    };
+    quad([-.7,Y0,-1.4], [0,0,1.9], [0,1.3,0], side);
+    quad([.7,Y0,-1.4], [0,0,1.9], [0,1.3,0], side);
+    quad([-.7,Y0,-1.4], [1.4,0,0], [0,1.3,0], stone);
+    quad([-.7,Y0,.5], [1.4,0,0], [0,2,0], (a, b) => {                 // gable front
+      const x = -.7 + a*1.4, y = b*2;
+      if (y > 1.3 && Math.abs(x) > 2 - y) return -1;
+      const rr = Math.hypot(x, y - 1.32);
+      if (rr < .26) return rr < .07 ? P.yellow : [P.yellow, P.red, P.blue, P.green][Math.floor((Math.atan2(y - 1.32, x)/Math.PI + 1)*4) % 4];
+      if (rr < .31) return trim;
+      const door = r => Math.abs(x) < r && (y < .55 || Math.hypot(x, y - .55) < r);
+      if (door(.2)) return 0x8A5A3A;
+      if (door(.25)) return trim;
+      return stone();
+    });
+    const copper = () => mixHex(0x5FB597, 0x3F8F76, R());
+    quad([-.8,Y0+1.25,-1.48], [0,0,2.06], [.8,.8,0], copper);
+    quad([.8,Y0+1.25,-1.48], [0,0,2.06], [-.8,.8,0], copper);
+    box(-1.22, Y0, -.02, -.72, Y0+2.1, .48, {top: stone, side: (a, b) => b*2.1 > 1.62 && b*2.1 < 1.92 && Math.abs(a - .5) < .26 ? 0x2E3558 : stone()});
+    disc(-.97, Y0+1.3, .49, .13, r => r > .8 ? P.dark : P.paper, 1, 'z');
+    tube([-.97, Y0+1.3, .5], [-.97, Y0+1.39, .5], .008, P.dark, .5); tube([-.97, Y0+1.3, .5], [-.9, Y0+1.3, .5], .008, P.dark, .5);
+    const apex = [-.97, Y0+2.95, .23], b0 = [-1.22, Y0+2.1, -.02], b1 = [-.72, Y0+2.1, -.02], b2 = [-.72, Y0+2.1, .48], b3 = [-1.22, Y0+2.1, .48];
+    [[b0, b1], [b1, b2], [b2, b3], [b3, b0]].forEach(([p, q]) => tri(p, q, apex, copper));
+    ball(-.97, Y0+3, .23, .05, P.yellow);
+    [[1.3, .25, .3], [1.25, -.95, .26], [-1.35, -1.15, .24]].forEach(([x, z, r]) => {
+      cyl(x, Y0, z, .05, .35, 0x8A5A3A, .8, {caps: false});
+      ball(x, Y0 + .35 + r*.9, z, r, () => mixHex(0x2F8F5B, 0x57B870, R()));
+    });
+  },
+
+  // A concrete frame going up, a tower crane lifting a beam, and cones along the front.
+  construction({quad, box, cyl, tube}, R){
+    quad([-1.6,Y0,-1.6], [3.2,0,0], [0,0,3.2], () => pickOne([0xB5824E, 0x9C6B3F, 0xC99A63, 0xA87A4F]));
+    const X = [-1.35, -.55, .25], Z = [-1.2, -.35, .5];
+    [0, .72, 1.44].forEach(h => box(-1.45, Y0+h, -1.3, .35, Y0+h+.08, .6, {top: 0xC9CDD7, side: 0xA3A9B8}));
+    [.08, .8].forEach(h => X.forEach(x => Z.forEach(z => box(x-.05, Y0+h, z-.05, x+.05, Y0+h+.64, z+.05, 0xB4B9C6, .8, 'bottom,top'))));
+    X.forEach(x => Z.forEach(z => tube([x, Y0+1.52, z], [x, Y0+1.76, z], .01, 0xC0643A, .6)));   // rebar
+    const cx = 1.05, cz = -.95, jy = Y0+2.35, yl = P.yellow;
+    [[-1,-1], [1,-1], [1,1], [-1,1]].forEach(([i, j]) => tube([cx+i*.09, Y0, cz+j*.09], [cx+i*.09, jy, cz+j*.09], .014, yl, .7));
+    for (let y = Y0; y < jy - .1; y += .22){                         // mast lattice on the faces we see
+      tube([cx-.09, y, cz+.09], [cx+.09, y+.22, cz+.09], .01, yl, .6);
+      tube([cx+.09, y, cz-.09], [cx+.09, y+.22, cz+.09], .01, yl, .6);
+    }
+    [-.07, .07].forEach(dz => tube([1.75, jy, cz+dz], [-1.55, jy, cz+dz], .014, yl, .7));
+    tube([-1.55, jy+.18, cz], [cx, jy+.18, cz], .012, yl, .7);
+    for (let x = -1.55; x < cx - .05; x += .2) tube([x, jy, cz-.07], [x+.1, jy+.18, cz], .009, yl, .5);
+    tube([cx, jy, cz], [cx, jy+.45, cz], .014, yl, .7);               // tower head and ties
+    tube([cx, jy+.45, cz], [-1.1, jy+.18, cz], .006, 0xD9DDE6, .5);
+    tube([cx, jy+.45, cz], [1.7, jy, cz], .006, 0xD9DDE6, .5);
+    box(1.45, jy-.24, cz-.12, 1.72, jy, cz+.12, 0xA3A9B8);          // counterweight
+    box(cx-.22, jy-.2, cz+.1, cx+.02, jy-.02, cz+.28, {front: P.glassHi, side: P.paper});   // cab
+    tube([-.75, jy, cz], [-.75, Y0+1.98, cz], .006, 0xD9DDE6, .5);   // hook, slings, and a beam
+    box(-.8, Y0+1.9, cz-.05, -.7, Y0+1.99, cz+.05, P.red, .8);
+    tube([-.75, Y0+1.9, cz], [-1.1, Y0+1.8, cz], .005, 0xD9DDE6, .5); tube([-.75, Y0+1.9, cz], [-.4, Y0+1.8, cz], .005, 0xD9DDE6, .5);
+    box(-1.15, Y0+1.72, cz-.05, -.35, Y0+1.8, cz+.05, P.red, .9);
+    [[-1.25, 1.2], [-.65, 1.3], [-.05, 1.2]].forEach(([x, z]) => {
+      cyl(x, Y0+.03, z, .12, .36, (a, b) => b > .38 && b < .6 ? P.paper : P.red, .8, {r1: .025, caps: false});
+      box(x-.14, Y0, z-.14, x+.14, Y0+.03, z+.14, P.red, .8);
+    });
+    box(.62, Y0, .85, 1.34, Y0+.11, 1.3, 0xD8AE78); box(.66, Y0+.11, .88, 1.3, Y0+.22, 1.27, 0xC99A63);
+  },
+
+  // A white model on a blueprint base, with dimension lines, scale figures, and a tree.
+  architecture({quad, box, cyl, ball, tube}, R){
+    quad([-1.6,Y0,-1.6], [3.2,0,0], [0,0,3.2], (a, b) => {
+      const line = v => Math.abs((v*3.2) % .4 - .2) > .17;
+      return line(a) || line(b) ? 0x7FA0EC : 0x2446B8;
+    });
+    const glass = (a, b) => mixHex(0x9CC0F2, 0xDCE9FA, (a + b)*.5 + R()*.2);
+    box(-1.2, Y0, -1.0, .5, Y0+.8, -.05, {top: 0xE9ECF3, side: P.paper, front: (a, b) => b > .22 && b < .82 && a > .06 && a < .94 ? glass(a, b) : P.paper});
+    box(-.5, Y0+.8, -.75, 1.25, Y0+1.42, .55, {top: 0xE9ECF3, side: P.paper,
+      front: (a, b) => b > .2 && b < .8 ? glass(a, b) : P.paper, right: (a, b) => b > .2 && b < .8 && a > .1 ? glass(a, b) : P.paper});
+    [[1.15, .45], [1.15, -.65]].forEach(([x, z]) => tube([x, Y0, z], [x, Y0+.8, z], .025, P.paper, .8));
+    tube([-1.2, Y0+.02, 1.05], [1.25, Y0+.02, 1.05], .01, P.yellow, .7, 1.5);   // dimension lines
+    [-1.2, 1.25].forEach(x => {
+      tube([x, Y0+.02, .95], [x, Y0+.02, 1.15], .01, P.yellow, .7, 1.5);
+      tube([x, Y0+.02, x < 0 ? -.05 : .55], [x, Y0+.02, .98], .006, 0xBFD0F5, .5);
+    });
+    tube([1.45, Y0, .55], [1.45, Y0+1.42, .55], .01, P.yellow, .7, 1.5);
+    [Y0, Y0+1.42].forEach(y => tube([1.36, y, .55], [1.54, y, .55], .01, P.yellow, .7, 1.5));
+    [[-.2, .72], [.3, .95]].forEach(([x, z]) => { cyl(x, Y0, z, .045, .3, P.paper, .7, {r1: .035}); ball(x, Y0+.36, z, .05, P.paper, .7); });
+    cyl(-1.35, Y0, .55, .035, .3, 0xD8AE78, .7, {caps: false});
+    ball(-1.35, Y0+.55, .55, .26, leafy);
+  },
+
+  // A room after a fire and a burst pipe: soot, a boarded window, standing water, caution tape.
+  restoration({quad, box, cyl, disc}, R){
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,0,3], (a, b) => {
+      const x = -1.5 + a*3, z = -1.5 + b*3;
+      const e = ((x - .3)/1)**2 + ((z - .25)/.62)**2 + .12*Math.sin(x*6)*Math.sin(z*5);
+      if (e < 1) return mixHex(0x3F74D8, 0xA9C8F5, R()*.6 + (e < .45 ? .25 : 0));
+      return mixHex(wood(a, 11), 0x5C4636, Math.max(0, 1 - e*.55)*.5);
+    });
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,1.9,0], (a, b) => {
+      const x = -1.5 + a*3, y = b*1.9;
+      if (y < .1) return P.ink;
+      if (inBox(x, y, -.2, .75, .8, 1.5)){
+        const u = x + .2, v = (y - .75)/.75;
+        return Math.abs(u - v) < .1 || Math.abs(u - (1 - v)) < .1 || Math.abs(v - .5) < .09 ? 0xD8AE78 : 0x2B3152;
+      }
+      const soot = Math.max(0, 1 - Math.hypot((x - .3)*.75, (y - 1.7)*1.05)/1.15);
+      return mixHex(P.wall, 0x6E5A4B, Math.min(.85, soot*1.3 + R()*.12));
+    });
+    quad([-1.5,Y0,-1.5], [0,0,3], [0,1.9,0], (a, b) => {            // water line on the side wall
+      const y = b*1.9, tide = .5 + .04*Math.sin(a*19);
+      if (y < .1) return P.ink;
+      if (Math.abs(y - tide) < .025) return 0x8C6A45;
+      return y < tide ? mixHex(0xC9B99A, 0xB9A784, R()) : mixHex(P.wall2, 0x6E5A4B, Math.max(0, y - 1.3)*.5);
+    });
+    const tape = a => Math.floor(a*26) % 2 ? P.yellow : 0x232A45;
+    cyl(1.25, Y0, 1.2, .04, .95, P.yellow, .8, {caps: false});
+    quad([-1.5, Y0+.86, .6], [2.75, 0, .6], [0, .09, 0], tape, .8);
+    quad([1.25, Y0+.86, 1.2], [0, 0, -2.7], [0, .09, 0], tape, .8);
+    cyl(-.45, Y0+.28, .75, .27, .3, P.red, 1, {axis: 'z', caps: false});   // air mover drying the floor
+    disc(-.45, Y0+.28, 1.05, .27, r => (r*6) % 1 < .3 ? P.dark : 0xFF7A5E, 1, 'z');
+    box(-.72, Y0, .72, -.18, Y0+.08, 1.08, 0xD9432A);
+    box(-1.38, Y0, -1.38, -1.02, Y0+.55, -1.05, {side: P.paper, top: 0xD5DAE6});   // dehumidifier
+    box(-.5, Y0, -.95, .45, Y0+.04, -.85, 0x5C4636); box(.1, Y0, -.7, .2, Y0+.04, .1, 0x4A3B30);   // fallen boards
+  },
+
+  // A set: a painted flat braced from behind, a camera on sticks, a director's chair, a softbox.
+  film({quad, box, cyl, ball, disc, tube}, R){
+    quad([-1.6,Y0,-1.6], [3.2,0,0], [0,0,3.2], (a, b) => {
+      const x = -1.6 + a*3.2, z = -1.6 + b*3.2;
+      const mark = (cx, cz) => (Math.abs(z - cz) < .03 && Math.abs(x - cx) < .15) || (Math.abs(x - cx) < .03 && z > cz && z < cz + .22);
+      if (mark(.15, .05) || mark(-.55, -.45)) return P.yellow;
+      return Math.floor(b*9) % 2 ? 0x7A5A40 : 0x8C6A4B;
+    });
+    quad([-1.4,Y0,-1.25], [2.8,0,0], [0,1.9,0], (a, b) => {
+      const x = -1.4 + a*2.8, y = b*1.9;
+      if (y < .12) return P.paper;
+      if (inBox(x, y, .35, .8, 1.05, 1.55)){                          // a window onto a painted night
+        if (Math.abs(x - .7) < .025 || Math.abs(y - 1.18) < .025) return P.paper;
+        return Math.hypot(x - .88, y - 1.4) < .1 ? 0xFFF1B8 : mixHex(0x1E3A8A, 0x3558C8, (y - .8)/.75);
+      }
+      if (inBox(x, y, .29, .74, 1.11, 1.61)) return P.paper;
+      if (inBox(x, y, -.95, .95, -.35, 1.4)) return mixHex(P.red, P.yellow, (x + .95)/.6);
+      if (inBox(x, y, -1.01, .89, -.29, 1.46)) return P.yellow;
+      return Math.floor(a*28) % 2 ? 0x2BA59A : 0x31B2A6;
+    });
+    [-.9, .9].forEach(x => { tube([x, Y0+1.5, -1.27], [x, Y0, -1.75], .025, 0xD8AE78, .8); ball(x, Y0+.08, -1.72, .09, 0x9A7B55); });
+    const cx = .9, cz = .65, wd = 0xD8AE78;                            // director's chair
+    box(cx-.2, Y0+.42, cz-.18, cx+.2, Y0+.46, cz+.17, P.red);
+    box(cx-.2, Y0+.62, cz+.15, cx+.2, Y0+.86, cz+.18, P.red);
+    [-.2, .2].forEach(dx => {
+      tube([cx+dx, Y0, cz-.18], [cx+dx, Y0+.44, cz+.17], .015, wd, .7);
+      tube([cx+dx, Y0, cz+.17], [cx+dx, Y0+.44, cz-.18], .015, wd, .7);
+      tube([cx+dx, Y0+.44, cz+.17], [cx+dx, Y0+.88, cz+.17], .015, wd, .7);
+      tube([cx+dx, Y0+.6, cz-.18], [cx+dx, Y0+.6, cz+.17], .015, wd, .7);
+    });
+    const slate = (a, b) => b > .8 ? (Math.floor(a*6 + b*3) % 2 ? P.paper : P.dark) : (Math.abs(b - .45) < .03 || Math.abs(b - .25) < .03 ? P.paper : P.dark);
+    quad([cx-.13, Y0+.46, cz-.05], [.26, 0, 0], [0, .2, -.02], slate);   // clapperboard on the seat
+    quad([cx-.13, Y0+.66, cz-.07], [.26, .08, 0], [0, .04, -.005], a => Math.floor(a*6) % 2 ? P.paper : P.dark);
+    const hx = -.55, hy = Y0+1.05, hz = .6, legs = 0x8A90AA;           // camera on a tripod
+    [[-.32, -.2], [.28, -.25], [0, .38]].forEach(([dx, dz]) => tube([hx, hy, hz], [hx+dx, Y0, hz+dz], .016, legs, .7));
+    box(hx-.13, hy, hz-.25, hx+.13, hy+.28, hz+.25, 0x6A7090);
+    cyl(hx, hy+.14, hz-.45, .1, .2, P.ink, 1, {axis: 'z', caps: false});
+    disc(hx, hy+.14, hz-.45, .1, 0x8FB4E8, 1, 'z');
+    [hz-.12, hz+.14].forEach(z => cyl(hx-.02, hy+.46, z, .17, .04, a => Math.floor(a*6) % 2 ? 0x9AA0BC : 0x767C98, 1, {axis: 'x'}));
+    tube([1.25, Y0, -.35], [1.25, Y0+1.45, -.35], .018, legs, .7);    // softbox on a stand
+    [[-.2, -.15], [.2, -.15], [0, .22]].forEach(([dx, dz]) => tube([1.25, Y0+.3, -.35], [1.25+dx, Y0, -.35+dz], .014, legs, .7));
+    const lit = () => mixHex(0xFFF4D6, 0xFFFFFF, R());
+    box(1.1, Y0+1.4, -.6, 1.4, Y0+1.8, -.1, {left: lit, front: lit, side: P.dark});
+  },
+
+  // Machinery: a green tank on saddles, a pump, pipe runs, gauges, and a yellow safety rail.
+  industrial({quad, box, cyl, ball, disc, tube, pipe, ring}, R){
+    quad([-1.6,Y0,-1.6], [3.2,0,0], [0,0,3.2], (a, b) => {
+      const x = -1.6 + a*3.2, z = -1.6 + b*3.2;
+      if (Math.abs(z - 1.0) < .04 || Math.abs(z - 1.45) < .04) return P.yellow;
+      return (Math.floor(x*8) + Math.floor(z*8)) % 2 ? 0x8C93A8 : 0x7C8398;
+    });
+    cyl(-1.15, Y0+.78, -.7, .52, 2.15, a => mixHex(0x3E9C7A, 0x2C7A5F, R()*.4 + (Math.abs(a - .25) < .02 ? .6 : 0)), 1, {axis: 'x'});
+    [-.75, .55].forEach(x => box(x-.1, Y0, -1.08, x+.1, Y0+.4, -.32, 0x5A6488));
+    box(-.4, Y0, .1, .5, Y0+.14, .6, 0x5A6488);                        // pump and motor on a skid
+    cyl(-.3, Y0+.4, .35, .19, .5, P.blue, 1, {axis: 'x'});
+    ball(.34, Y0+.4, .35, .2, P.blue);
+    pipe([[.34, Y0+.6, .35], [.34, Y0+1.55, .35], [.34, Y0+1.55, -.35], [1.35, Y0+1.55, -.35], [1.35, Y0, -.35]], .06, P.red);
+    pipe([[-.6, Y0+1.3, -.7], [-.6, Y0+1.95, -.7], [-1.5, Y0+1.95, -.7]], .07, P.steel);
+    tube([-1.4, Y0+2.05, -1.25], [1.4, Y0+2.05, -1.25], .08, P.steel);
+    tube([-1.4, Y0+1.85, -1.25], [1.4, Y0+1.85, -1.25], .05, 0xE8A33A);
+    ring(.34, Y0+1.15, .47, .13, P.yellow, .8, 'z', 1.4);             // valve wheel
+    tube([.34, Y0+1.15, .47], [.34, Y0+1.15, .38], .02, P.yellow, .7);
+    [[-.25, Y0+.8], [.3, Y0+.95]].forEach(([x, y]) => disc(x, y, -.17, .1, (r, t) => r > .82 ? P.dark : (Math.abs(t - .12) < .025 && r < .7 ? P.red : P.paper), 1, 'z'));
+    [-1.4, -.7, 0, .7, 1.4].forEach(x => tube([x, Y0, 1.45], [x, Y0+.8, 1.45], .02, P.yellow, .7));
+    [.8, .42].forEach(y => tube([-1.4, Y0+y, 1.45], [1.4, Y0+y, 1.45], .02, P.yellow, .7));
+    box(1.0, Y0, .05, 1.45, Y0+1.1, .4, {side: 0xD5DAE6, front: (a, b) => {   // control cabinet
+      if (inBox(a, b, .15, .62, .85, .86)) return 0x7FD6B0;
+      if (b > .3 && b < .46 && (a*6) % 1 < .5) return [P.red, P.green, P.yellow][Math.floor(a*6) % 3];
+      return 0xD5DAE6;
+    }});
+  },
+
+  // An event room set for dinner: round tables, gold chairs, a velvet drape, and string lights.
+  hospitality({quad, cyl, ball, disc, tube, path}, R){
+    quad([-1.6,Y0,-1.6], [3.2,0,0], [0,0,3.2], (a, b) => (Math.floor(a*14) + Math.floor(b*14)) % 2 ? 0xC99A63 : 0xB5824E);
+    quad([-1.6,Y0,-1.55], [3.2,0,0], [0,2.1,0], a => mixHex(0x8E2A36, 0xD24A55, .5 + .5*Math.sin(a*44)));
+    const table = (x, z) => {
+      cyl(x, Y0, z, .43, .7, a => mixHex(P.paper, 0xCBD6EA, R()*.25 + (Math.sin(a*Math.PI*28) > .7 ? .3 : 0)), 1, {caps: false});
+      disc(x, Y0+.7, z, .45, P.paper);
+      cyl(x, Y0+.7, z, .035, .16, P.sky, .7, {caps: false});
+      ball(x, Y0+.92, z, .08, () => pickOne([P.red, 0xFF8FA3, P.yellow]), .8);
+      for (let i = 0; i < 6; i++){
+        const t = i/6*Math.PI*2 + .3, dx = Math.cos(t), dz = Math.sin(t), cx = x + dx*.64, cz = z + dz*.64;
+        disc(cx, Y0+.42, cz, .11, 0xE0B24A, .8);
+        quad([cx + dx*.1 + dz*.1, Y0+.42, cz + dz*.1 - dx*.1], [-dz*.2, 0, dx*.2], [0, .38, 0], 0xE0B24A, .8);
+        tube([cx, Y0, cz], [cx, Y0+.42, cz], .012, 0xC9962E, .6);
+      }
+    };
+    table(-.75, -.45); table(.7, -.6); table(-.05, .75);
+    const poles = [[-1.5, -1.45], [1.5, -1.45], [1.5, 1.45], [-1.5, 1.45]], py = Y0+2.05;
+    poles.forEach(([x, z]) => tube([x, Y0, z], [x, py, z], .02, 0x8A90AA, .7));
+    const strand = ([x0, z0], [x1, z1], sag) => {
+      const at = t => [x0 + (x1-x0)*t, py - sag*4*t*(1-t), z0 + (z1-z0)*t], len = Math.hypot(x1-x0, z1-z0), nb = Math.round(len*6);
+      path(at, len, 0x5A6488, .5, .6, .004);
+      path(t => at((Math.floor(t*nb) + .5)/nb), len, () => pickOne([0xFFE3A0, 0xFFF4D6, 0xFFD27A]), 1.3, 1.6, .03);
+    };
+    strand(poles[0], poles[2], .45); strand(poles[1], poles[3], .45); strand(poles[0], poles[1], .3); strand(poles[3], poles[2], .3);
+  },
+
+  // A gallery: framed paintings, a bust on a plinth, a bench, and a rope line.
+  museums({quad, box, cyl, ball, disc, tube, path}, R){
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,0,3], a => [0xA87A4F, 0x9C6B3F, 0xB5824E][Math.floor(a*12) % 3]);
+    const frame = (x, y, x0, y0, x1, y1, art) => {
+      if (inBox(x, y, x0, y0, x1, y1)) return art((x - x0)/(x1 - x0), (y - y0)/(y1 - y0));
+      if (inBox(x, y, x0-.05, y0-.05, x1+.05, y1+.05)) return P.gold;
+      return null;
+    };
+    const landscape = (u, v) => v > .45 - .08*Math.sin(u*7)
+      ? (Math.hypot(u - .72, v - .78) < .1 ? P.yellow : mixHex(0x8FB4E8, 0xDCE4F2, v))
+      : mixHex(0x3E8E5E, 0x7CC47F, v*2);
+    const blocks = (u, v) => {
+      if (Math.abs(u - .38) < .03 || Math.abs(v - .6) < .03 || (Math.abs(u - .78) < .03 && v < .6)) return 0x232A45;
+      if (u < .38) return v > .6 ? P.red : P.blue;
+      return v < .6 ? (u > .78 ? P.yellow : P.paper) : 0xF2EFE8;
+    };
+    const flowers = (u, v) => {
+      for (const [fx, fy] of [[.3, .62], [.55, .74], [.74, .55]]){
+        const d = Math.hypot(u - fx, (v - fy)*1.3);
+        if (d < .05) return 0xB5524B;
+        if (d < .12) return P.yellow;
+      }
+      return u > .42 && u < .48 && v < .7 ? P.green2 : mixHex(0x2D5BE3, 0x5A7FE8, v);
+    };
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,1.75,0], (a, b) => {
+      const x = -1.5 + a*3, y = b*1.75;
+      if (y < .08) return 0xC8C2B6;
+      return frame(x, y, -1.25, .6, -.1, 1.4, landscape) ?? frame(x, y, .25, .7, 1.2, 1.38, blocks) ?? 0xF3F0EA;
+    });
+    quad([-1.5,Y0,-1.5], [0,0,3], [0,1.75,0], (a, b) => {
+      const z = -1.5 + a*3, y = b*1.75;
+      if (y < .08) return 0xC8C2B6;
+      return frame(z, y, -1.1, .62, .3, 1.45, flowers) ?? 0xF3F0EA;
+    });
+    const marble = () => mixHex(0xF4F2ED, 0xD6D3CC, R());
+    box(.55, Y0, .15, 1.0, Y0+.85, .6, P.paper);                        // bust on a plinth
+    ball(.775, Y0+1.0, .375, .22, marble, 1, [1, .5, .65]);
+    cyl(.775, Y0+1.05, .375, .06, .14, marble, .8, {caps: false});
+    ball(.775, Y0+1.3, .375, .13, marble, 1, [.85, 1.1, .95]);
+    [-1.1, -.2].forEach(x => { cyl(x, Y0, .3, .03, .68, P.gold, .7, {caps: false}); ball(x, Y0+.7, .3, .045, P.gold, .7); disc(x, Y0+.01, .3, .1, P.gold, .7); });
+    path(t => [-1.1 + .9*t, Y0 + .66 - .64*t*(1 - t), .3], .95, 0xC8413A, .8, 1.4, .012);
+    box(-.95, Y0+.3, .95, .2, Y0+.38, 1.22, 0xB5824E);                  // bench
+    [-.85, .1].forEach(x => box(x-.04, Y0, 1.0, x+.04, Y0+.3, 1.17, 0x5A6488));
+    tube([-1.4, Y0+1.68, -1.3], [1.3, Y0+1.68, -1.3], .015, 0x8A90AA, .6);   // track lights
+    [-.65, .7].forEach(x => cyl(x, Y0+1.56, -1.3, .05, .12, P.dark, .7, {r1: .03}));
+  },
+
+  // A red-brick storefront with a striped awning, a display window, and a sidewalk sign.
+  retail({quad, box, ball, tube}, R){
+    quad([-1.6,Y0,-1.0], [3.2,0,0], [0,0,2.6], (a, b) => {
+      if (b > .9) return 0x7C8398;
+      return (a*3.2) % .8 < .02 || (b*2.6) % .8 < .02 ? 0xA9AEBC : mixHex(0xCDD1DB, 0xC0C5D0, R());
+    });
+    const brick = (x, y) => {
+      const off = Math.floor(y/.09) % 2 ? .1 : 0;
+      if (y % .09 < .014 || (x + off + 10) % .2 < .014) return 0xD9D0C0;
+      return pickOne([0xB5523B, 0xA8472F, 0xC25E43]);
+    };
+    box(-1.45, Y0, -1.25, 1.45, Y0+2.05, -.95, {top: 0x9A8F80, side: (a, b) => brick(a*.3, b*2.05), front: (a, b) => {
+      const x = -1.45 + a*2.9, y = b*2.05;
+      if (y > 1.95) return P.paper;                                     // cornice
+      if (inBox(x, y, -1.3, 1.44, 1.3, 1.76)) return inBox(x, y, -1.2, 1.53, 1.2, 1.67) && Math.floor((x + 1.2)*9) % 3 !== 2 ? P.dark : P.yellow;
+      if (inBox(x, y, -1.18, .32, .5, 1.22)){                          // display window
+        if (y < .44) return P.paper;
+        if (y < .72 && Math.floor((x + 1.18)*5) % 2) return [P.red, P.blue, P.green, P.yellow][Math.floor((x + 1.18)*2.5) % 4];
+        return mixHex(0x9CC0F2, 0xE4EEFB, ((x + y)*1.5) % 1 < .25 ? .8 : .2);
+      }
+      if (inBox(x, y, -1.24, .26, .56, 1.28)) return P.paper;
+      if (inBox(x, y, .72, 0, 1.18, 1.3)) return inBox(x, y, .8, .7, 1.1, 1.2) ? 0x9CC0F2 : P.blue;   // door
+      if (inBox(x, y, .66, 0, 1.24, 1.36)) return P.paper;
+      return brick(x, y);
+    }}, 1, 'bottom,back');
+    const stripe = a => Math.floor(a*12) % 2 ? P.paper : P.blue;
+    quad([-1.25, Y0+1.4, -.95], [1.8, 0, 0], [0, -.3, .6], stripe);    // awning and its scalloped edge
+    quad([-1.25, Y0+1.1, -.35], [1.8, 0, 0], [0, -.13, 0], (a, b) => b > .4 + .6*Math.sqrt(Math.max(0, 1 - (2*((a*12) % 1) - 1)**2)) ? -1 : stripe(a));
+    const board = (a, b) => (a < .08 || a > .92 || b < .06 || b > .94) ? 0xB5824E
+      : (Math.abs(b - .7) < .04 && a > .2 && a < .8) || (Math.abs(b - .5) < .03 && a > .25 && a < .65) ? P.paper : P.dark;
+    quad([-.2, Y0, .4], [.4, 0, 0], [0, .62, -.16], board);            // sidewalk sign
+    quad([.2, Y0, .08], [-.4, 0, 0], [0, .62, .16], board);
+    box(1.25, Y0, -.9, 1.52, Y0+.32, -.62, 0x8A91A6);                   // planter
+    ball(1.385, Y0+.55, -.76, .22, leafy);
+    tube([-1.45, Y0, 1.35], [-1.45, Y0+1.9, 1.35], .025, 0x5A6488, .7);   // street lamp
+    ball(-1.45, Y0+1.95, 1.35, .1, P.glassLo);
+  },
+
+  // A classroom: chalkboard, desks and chairs in rows, a globe, and a clock.
+  education({quad, box, ball, disc, tube}, R){
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,0,3], (a, b) => (Math.floor(a*10) + Math.floor(b*10)) % 2 ? 0xE6E1D3 : 0xCFC8B6);
+    const wallpaint = () => mixHex(P.sky, 0xCFD9EC, R()*.5);
+    quad([-1.5,Y0,-1.5], [3,0,0], [0,1.9,0], (a, b) => {
+      const x = -1.5 + a*3, y = b*1.9;
+      if (y < .1) return 0x8A90AA;
+      if (inBox(x, y, -1.12, .78, .82, 1.62)){
+        const chalk = (Math.abs(y - 1.45) < .018 && x > -.95 && x < -.1 && Math.floor(x*14) % 4 !== 3)
+          || (Math.abs(y - 1.3) < .018 && x > -.95 && x < -.35)
+          || (Math.abs(y - 1.15) < .018 && x > -.95 && x < -.2 && Math.floor(x*10) % 3 !== 2)
+          || Math.abs(Math.hypot(x - .42, y - 1.2) - .2) < .015 || (Math.abs(x - .42) < .012 && Math.abs(y - 1.2) < .2);
+        return chalk ? 0xE8EDE6 : mixHex(0x2F6B55, 0x285E4A, R());
+      }
+      if (inBox(x, y, -1.18, .72, .88, 1.68)) return 0xB5824E;
+      return wallpaint();
+    });
+    box(-1.12, Y0+.72, -1.5, .82, Y0+.76, -1.42, 0x9C6B3F);           // chalk tray
+    disc(1.2, Y0+1.45, -1.49, .14, r => r > .85 ? P.red : P.paper, 1, 'z');   // clock
+    tube([1.2, Y0+1.45, -1.48], [1.2, Y0+1.55, -1.48], .008, P.dark, .5); tube([1.2, Y0+1.45, -1.48], [1.27, Y0+1.45, -1.48], .008, P.dark, .5);
+    quad([-1.5,Y0,-1.5], [0,0,3], [0,1.9,0], (a, b) => {            // windows along the side wall
+      const z = -1.5 + a*3, y = b*1.9;
+      if (y < .1) return 0x8A90AA;
+      for (const zc of [-.55, .6]){
+        if (inBox(z, y, zc - .38, .8, zc + .38, 1.6)) return Math.abs(z - zc) < .02 ? P.paper : mixHex(P.glassLo, P.glassHi, (y - .8)/.8);
+        if (inBox(z, y, zc - .44, .74, zc + .44, 1.66)) return P.paper;
+      }
+      return wallpaint();
+    });
+    [-.2, .75].forEach(z => [-.95, -.15, .65].forEach(x => {             // desks and chairs, facing the board
+      box(x - .27, Y0+.55, z - .17, x + .27, Y0+.6, z + .17, 0xD8AE78);
+      [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([i, j]) => tube([x + i*.23, Y0, z + j*.13], [x + i*.23, Y0+.55, z + j*.13], .01, 0x8A90AA, .5));
+      box(x - .17, Y0+.34, z + .26, x + .17, Y0+.38, z + .56, P.yellow, .9);
+      box(x - .17, Y0+.38, z + .53, x + .17, Y0+.72, z + .57, P.yellow, .9);
+      tube([x, Y0, z + .41], [x, Y0+.34, z + .41], .012, 0x8A90AA, .5);
+    }));
+    box(-.8, Y0+.6, -.15, -.62, Y0+.66, .0, P.red, .8);                // a book
+    box(.72, Y0, -1.3, 1.42, Y0+.7, -.82, {top: 0xB5824E, side: 0x9C6B3F});   // teacher's desk and globe
+    tube([1.18, Y0+.7, -1.05], [1.18, Y0+.86, -1.05], .015, P.gold, .6);
+    ball(1.18, Y0+1.03, -1.05, .17, (u, t) => Math.sin(t*19 + u*3) + Math.cos(u*7 - t*9) > .7 ? P.green : P.blue);
+  },
+
+  // A real room dissolving into a game grid, with a floating VR headset and voxel pieces.
+  games({quad, box, cyl, ball, path}, R){
+    const hash = (i, j) => { const s = Math.sin(i*127.1 + j*311.7)*43758.5453; return s - Math.floor(s); };
+    quad([-1.6,Y0,-1.6], [3.2,0,0], [0,0,3.2], (a, b) => {
+      const x = -1.6 + a*3.2, z = -1.6 + b*3.2;
+      if (x < -.35 + (hash(Math.floor(x/.2), Math.floor(z/.2)) - .5)*.9) return wood(b, 10);
+      const g = v => Math.abs(((v % .4) + .4) % .4 - .2) > .175;
+      return g(x) || g(z) ? 0x7FB0FF : 0x22367E;
+    });
+    box(-1.35, Y0, -.9, -.75, Y0+.4, -.35, P.red);                      // the real side: armchair and plant
+    box(-1.35, Y0, -.9, -1.22, Y0+.85, -.35, 0xD9432A);
+    box(-1.35, Y0, -.98, -.75, Y0+.58, -.9, 0xD9432A); box(-1.35, Y0, -.35, -.75, Y0+.58, -.27, 0xD9432A);
+    cyl(-1.3, Y0, .75, .12, .34, P.sky, 1, {r1: .15});
+    ball(-1.3, Y0+.68, .75, .26, leafy);
+    const hy = Y0+1.1;                                                  // VR headset
+    box(-.6, hy, -.28, .6, hy+.6, .28, {side: P.paper, front: (a, b) => (a + b*.6) % 1 < .12 ? 0x8FB4E8 : mixHex(P.dark, P.ink, b)});
+    box(-.54, hy+.05, -.4, .54, hy+.55, -.28, 0x5A6488);
+    path(t => [Math.cos(Math.PI*t)*.62, hy+.3, -.26 - Math.sin(Math.PI*t)*.7], 2.2, 0x5A6488, 1, 1.8, .035);
+    const vox = (x, y, z, c, s=.2) => box(x - s/2, y, z - s/2, x + s/2, y + s, z + s/2, c, .9);
+    [0, 1, 2].forEach(n => vox(1.0, Y0 + n*.2, -.9, 0x9C6B3F));          // voxel tree
+    [[-1, 0], [1, 0], [0, -1], [0, 1], [0, 0]].forEach(([i, j]) => vox(1.0 + i*.2, Y0+.6, -.9 + j*.2, P.green));
+    [[0, 0], [1, 0], [0, 1]].forEach(([i, j]) => vox(.9 + i*.2, Y0+.8, -1.0 + j*.2, 0x2FB57F));
+    vox(.95, Y0+.55, .75, P.yellow, .22); vox(-.2, Y0+.25, 1.05, P.red, .18); vox(.35, Y0+1.95, -.6, P.blue, .2); vox(1.35, Y0+1.25, .2, P.green, .16);
+    cyl(.8, Y0+1.05, .45, .15, .04, P.yellow, 1, {axis: 'z'});          // a coin
+  }
+};
+})();
+</script>
+</body>
+</html>

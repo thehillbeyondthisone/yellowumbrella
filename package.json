@@ -1,0 +1,8 @@
+{
+  "name": "yellow-umbrella-group-site",
+  "private": true,
+  "scripts": {
+    "check": "node scripts/check-site.mjs",
+    "serve": "node scripts/serve.mjs"
+  }
+}
