@@ -6,6 +6,44 @@
 <meta name="theme-color" content="#DCE4F2">
 <title>Yellow Umbrella Group | Games, 3D, spatial capture, and print</title>
 <meta name="description" content="Yellow Umbrella Group builds games, creates 3D models, captures real places as photorealistic, explorable 3D scenes, turns floor plans into interactive 3D homes, and produces 3D prints, large-format print, and apparel. Based in St. Louis, working across the US and in Europe.">
+<link rel="canonical" href="https://yellowumbrella.group/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yellow Umbrella Group">
+<meta property="og:title" content="Yellow Umbrella Group | 3D capture, 3D floor plans, modeling, and print">
+<meta property="og:description" content="We scan real places into 3D scenes you can walk through, turn floor plans into 3D homes, model in 3D, and print everything from small parts to big banners. Based in St. Louis, working across the U.S. and in Europe.">
+<meta property="og:url" content="https://yellowumbrella.group/">
+<meta property="og:image" content="https://yellowumbrella.group/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A yellow umbrella next to the words Yellow Umbrella Group: 3D capture, 3D floor plans, modeling, and print">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2 13A10 10 0 0 1 22 13Q19.5 11 17 13Q14.5 11 12 13Q9.5 11 7 13Q4.5 11 2 13Z' fill='%23FFC61A' stroke='%23161D38' stroke-width='1.5'/%3E%3Cpath d='M12 13V19.5a2 2 0 0 1-4 0' fill='none' stroke='%23161D38' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Yellow Umbrella Group",
+  "legalName": "Yellow Umbrella Group, LLC",
+  "url": "https://yellowumbrella.group/",
+  "image": "https://yellowumbrella.group/og.png",
+  "foundingDate": "2018",
+  "email": "yellowumbrellagroup@gmail.com",
+  "description": "A St. Louis studio for 3D spatial capture, 3D floor plans, 3D modeling, 3D printing, large-format print, and apparel.",
+  "address": {"@type": "PostalAddress", "addressLocality": "St. Louis", "addressRegion": "MO", "addressCountry": "US"},
+  "areaServed": ["St. Louis, MO", "United States", "Europe"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D spatial capture", "url": "https://yellowumbrella.group/capture.html"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D floor plans", "url": "https://yellowumbrella.group/floorplans.html"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Large-format print and apparel"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D modeling"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D printing"}}
+    ]
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -32,14 +70,26 @@ h2{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.2vw,4.6re
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
 .brand{display:flex;gap:10px;align-items:center;text-decoration:none;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
 .nav ul{display:flex;gap:30px;list-style:none;padding:0;align-items:center}
-.nav ul a:not(.btn){text-decoration:none;font-weight:500;font-size:16px}
+.nav ul a:not(.btn){text-decoration:none;font-weight:500;font-size:16px;white-space:nowrap}
 .nav ul a:not(.btn):hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
 .btn{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;font:600 16px/1 var(--body);padding:15px 24px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1), background .2s, color .2s}
 @media (hover:hover){.btn:hover{transform:translateY(-3px) rotate(-1.5deg)}}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.ghost:hover{background:var(--ink);color:var(--paper)}
 .btn.small{padding:11px 18px;font-size:15px}
-@media (max-width:760px){.nav ul li:not(:last-child){display:none}}
+.menu-btn{display:none;align-items:center;gap:8px;font:600 15px/1 var(--body);color:var(--ink);background:transparent;border:2px solid var(--ink);border-radius:999px;padding:9px 15px;cursor:pointer}
+.menu-btn .x,.menu-btn[aria-expanded=true] .bars{display:none}
+.menu-btn[aria-expanded=true] .x{display:inline}
+/* below this width the links don't fit in the bar, so they fold into a panel under it */
+@media (max-width:1040px){
+  .menu-btn{display:inline-flex}
+  .nav.open{background:var(--paper)}
+  .nav ul{display:none;position:absolute;top:74px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:4px var(--pad) 24px;background:var(--paper);box-shadow:0 16px 22px -16px rgba(22,29,56,.4)}
+  .nav.open ul{display:flex}
+  .nav ul a:not(.btn){display:block;padding:15px 0;font-size:19px;font-weight:600;border-bottom:2px solid rgba(22,29,56,.12)}
+  .nav ul li:last-child{margin-top:20px}
+  .nav ul .btn{justify-content:center;width:100%;padding:15px 24px;font-size:16px}
+}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:100svh;background:var(--sky);overflow:hidden;display:flex;align-items:flex-end}
@@ -143,11 +193,30 @@ h2{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.2vw,4.6re
 /* ---------- contact ---------- */
 .contact{background:var(--umbrella);padding:clamp(96px,13vw,170px) 0}
 .contact h2{font-size:clamp(3rem,8vw,7.4rem);max-width:10ch}
-.contact p{max-width:44ch;margin-top:26px;font-size:20px}
-.email{display:inline-block;margin-top:40px;font-family:var(--display);font-weight:700;font-size:clamp(22px,3.6vw,46px);letter-spacing:-.02em;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:8px;overflow-wrap:anywhere}
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,5vw,72px);align-items:start;margin-top:clamp(32px,5vw,56px)}
+.contact-grid > div > p{max-width:34ch;font-size:20px}
+.contact .alt{margin-top:32px;font-size:16px}
+.email{display:inline-block;margin-top:6px;font-family:var(--display);font-weight:700;font-size:clamp(18px,1.7vw,22px);letter-spacing:-.01em;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:8px;overflow-wrap:anywhere}
 .email:hover{text-decoration-thickness:6px}
-.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;align-items:center}
+.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;align-items:center}
 .contact .ghost{border-color:var(--ink)}
+.intake{background:var(--paper);border:2px solid var(--ink);border-radius:30px;padding:clamp(22px,3vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+.field{display:flex;flex-direction:column;justify-content:flex-end;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-weight:600;font-size:15px}
+.field label i{font-style:normal;font-weight:500;color:var(--ink-2)}
+.intake input[type=text],.intake input[type=email],.intake select,.intake textarea{width:100%;font:500 17px/1.4 var(--body);color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:14px;padding:11px 14px;transition:box-shadow .2s}
+.intake textarea{min-height:92px;resize:vertical}
+.intake select{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23161D38' stroke-width='2.2'/%3E%3C/svg%3E") no-repeat right 14px center;padding-right:40px}
+.intake input:focus,.intake select:focus,.intake textarea:focus{outline:none;box-shadow:0 0 0 4px var(--canal)}
+.intake ::placeholder{color:#6C7391}
+.form-foot{grid-column:1/-1;display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;margin-top:6px}
+.form-foot small{font-size:14px;color:var(--ink-2);max-width:40ch}
+.form-status{grid-column:1/-1;font-weight:600;font-size:16px}
+.form-status:empty{display:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}   /* bot trap: send.php drops any submission that fills it */
+@media (max-width:980px){.contact-grid{grid-template-columns:1fr}}
+@media (max-width:600px){.intake{grid-template-columns:1fr}}
 
 /* ---------- footer ---------- */
 footer{background:var(--ink);color:var(--paper);padding:48px 0}
@@ -176,7 +245,11 @@ footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
       </svg>
       Yellow Umbrella Group
     </a>
-    <ul>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path class="bars" d="M3 6h18M3 12h18M3 18h18"/><path class="x" d="M5 5l14 14M19 5L5 19"/></svg>
+      <span class="lbl">Menu</span>
+    </button>
+    <ul id="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="capture.html">3D Capture</a></li>
       <li><a href="floorplans.html">3D Floor Plans</a></li>
@@ -195,7 +268,7 @@ footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
       <defs><path id="circ" d="M70,70 m-54,0 a54,54 0 1,1 108,0 a54,54 0 1,1 -108,0"/></defs>
       <g class="ring" id="badge-ring">
         <text font-family="Figtree, sans-serif" font-weight="700" font-size="11.5" letter-spacing="1.4" fill="currentColor">
-          <textPath href="#circ">games ✦ 3D ✦ capture ✦ print ✦ since 2018 ✦</textPath>
+          <textPath href="#circ">3d assets ✦ spatial ✦ capture ✦ print ✦ since 2018 ✦</textPath>
         </text>
       </g>
       <circle class="core" cx="70" cy="70" r="30" fill="#F6F8FC" stroke="currentColor" stroke-width="2" style="transition:fill .2s"/>
@@ -223,7 +296,7 @@ footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
     <div class="wrap">
       <div class="services-head">
         <h2 id="services-title">What fits under the umbrella</h2>
-        <p>Six kinds of work, one studio. Use one, or combine them: scan a real location, build a game inside it, and print the figure for launch day.</p>
+        <p>Five kinds of work, one studio. Use one, or combine them: scan a real location, model what comes next, and print the signs for opening day.</p>
       </div>
 
       <div class="services-grid">
@@ -238,26 +311,21 @@ footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
             <span class="desc">We turn the flat floor plans in your brochure into furnished 3D homes renters can turn, compare, and walk through from a link. No site visit needed.</span>
             <span class="tags">Apartments, new construction, leasing, condo sales</span>
           </span></button><a class="svc-link" href="floorplans.html">See the 3D floor plans page <span aria-hidden="true">&rarr;</span></a></li>
-          <li><button class="svc" data-key="games" aria-pressed="false" type="button"><span class="svc-inner">
-            <h3>Game development</h3>
-            <span class="desc">Browser, desktop, and mobile games from first prototype to launch. Real-time 3D on the web is home turf.</span>
-            <span class="tags">Three.js, WebGL, prototypes, mobile</span>
-          </span></button></li>
-          <li><button class="svc" data-key="modeling" aria-pressed="false" type="button"><span class="svc-inner">
-            <h3>3D modeling</h3>
-            <span class="desc">Characters, props, environments, and product models, prepared for games, renders, or printing.</span>
-            <span class="tags">Game assets, product renders, print-ready files</span>
-          </span></button></li>
-          <li><button class="svc" data-key="printing" aria-pressed="false" type="button"><span class="svc-inner">
-            <h3>3D printing</h3>
-            <span class="desc">Prototypes, replacement parts, figures, and small production runs, printed and finished.</span>
-            <span class="tags">Prototypes, parts, figures, small runs</span>
-          </span></button></li>
-          <li><button class="svc" data-key="large" aria-pressed="false" type="button"><span class="svc-inner">
+          <li><button class="svc has-link" data-key="large" aria-pressed="false" type="button"><span class="svc-inner">
             <h3>Large-format print &amp; apparel</h3>
             <span class="desc">Banners, signs, posters, and custom apparel, from a single piece to a whole event's worth.</span>
             <span class="tags">Banners, signs, posters, shirts</span>
-          </span></button></li>
+          </span></button><a class="svc-link" href="#contact" data-service="Large-format print &amp; apparel">Get a print or apparel quote <span aria-hidden="true">&rarr;</span></a></li>
+          <li><button class="svc has-link" data-key="modeling" aria-pressed="false" type="button"><span class="svc-inner">
+            <h3>3D modeling</h3>
+            <span class="desc">Characters, props, environments, and product models, prepared for games, renders, or printing.</span>
+            <span class="tags">Game assets, product renders, print-ready files</span>
+          </span></button><a class="svc-link" href="#contact" data-service="3D modeling">Get a 3D modeling quote <span aria-hidden="true">&rarr;</span></a></li>
+          <li><button class="svc has-link" data-key="printing" aria-pressed="false" type="button"><span class="svc-inner">
+            <h3>3D printing</h3>
+            <span class="desc">Prototypes, replacement parts, figures, and small production runs, printed and finished.</span>
+            <span class="tags">Prototypes, parts, figures, small runs</span>
+          </span></button><a class="svc-link" href="#contact" data-service="3D printing">Get a 3D printing quote <span aria-hidden="true">&rarr;</span></a></li>
         </ul>
 
         <div class="viewer-wrap">
@@ -319,11 +387,42 @@ footer nav a:hover{text-decoration:underline;text-underline-offset:5px}
   <section class="contact" id="contact" aria-labelledby="contact-title">
     <div class="wrap">
       <h2 id="contact-title">Got something to make?</h2>
-      <p>Tell us what it is, roughly when you need it, and where it's going. We'll reply with questions and next steps.</p>
-      <a class="email" href="mailto:yellowumbrellagroup@gmail.com?subject=New%20project">yellowumbrellagroup@gmail.com</a>
-      <div class="contact-actions">
-        <a class="btn" href="mailto:yellowumbrellagroup@gmail.com?subject=New%20project">Email us</a>
-        <button class="btn ghost" id="copy-email" type="button">Copy email address</button>
+      <div class="contact-grid">
+        <div>
+          <p>Tell us what it is, roughly when you need it, and where it's going. We'll reply with questions and next steps.</p>
+          <p class="alt">Rather write it yourself?</p>
+          <a class="email" href="mailto:yellowumbrellagroup@gmail.com?subject=New%20project">yellowumbrellagroup@gmail.com</a>
+          <div class="contact-actions">
+            <button class="btn ghost small" id="copy-email" type="button">Copy email address</button>
+          </div>
+        </div>
+
+        <!-- Submissions post to send.php, which emails them to us. If that fails (or data-endpoint is emptied),
+             the form opens the visitor's email app with everything filled in. -->
+        <form class="intake" id="intake" data-endpoint="send.php" novalidate>
+          <div class="hp" aria-hidden="true"><label>Leave this one empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="Name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="Email" type="email" autocomplete="email" required></div>
+          <div class="field full"><label for="f-service">What do you need?</label>
+            <select id="f-service" name="Service" required>
+              <option value="">Choose one</option>
+              <option>3D spatial capture</option>
+              <option>3D floor plans</option>
+              <option>Large-format print &amp; apparel</option>
+              <option>3D modeling</option>
+              <option>3D printing</option>
+              <option>A mix, or not sure yet</option>
+            </select>
+          </div>
+          <div class="field full"><label for="f-what">What is it?</label><textarea id="f-what" name="Project" rows="3" placeholder="A banner for a storefront, a scan of a building before work starts, a part that broke..." required></textarea></div>
+          <div class="field"><label for="f-when">When do you need it? <i>(optional)</i></label><input id="f-when" name="Needed by" type="text" placeholder="e.g. early November"></div>
+          <div class="field"><label for="f-where">Where is it going? <i>(optional)</i></label><input id="f-where" name="Location" type="text" placeholder="City, site address, or ship-to"></div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <div class="form-foot">
+            <button class="btn" type="submit">Send it</button>
+            <small id="form-hint">This opens your email app with the details filled in, ready to send.</small>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -357,6 +456,17 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const nav = document.getElementById('nav');
 const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
 addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// phone menu: the links fold into a panel under the bar
+const menuBtn = document.getElementById('menu-btn');
+function setMenu(open){
+  nav.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.querySelector('.lbl').textContent = open ? 'Close' : 'Menu';
+}
+menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+nav.querySelectorAll('ul a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
 // headline: split words for the drop-in
 const h1 = document.getElementById('headline');
@@ -454,6 +564,42 @@ copyBtn.addEventListener('click', async () => {
   setTimeout(() => copyBtn.textContent = 'Copy email address', 2200);
 });
 
+// project form: posts to send.php, and composes an email instead if that isn't set or doesn't answer
+(function intake(){
+  const form = document.getElementById('intake'), status = document.getElementById('form-status');
+  const endpoint = form.dataset.endpoint.trim(), sendBtn = form.querySelector('[type=submit]');
+  if (endpoint) document.getElementById('form-hint').textContent = "We'll reply by email, usually within a couple of business days.";
+  // the "Get a quote" links under each service preselect it
+  document.querySelectorAll('a[data-service]').forEach(a => a.addEventListener('click', () => { form.elements.Service.value = a.dataset.service; }));
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const bad = [...form.querySelectorAll('[required]')].find(el => !el.checkValidity());
+    if (bad){
+      status.textContent = `Please check "${form.querySelector(`label[for="${bad.id}"]`).textContent}".`;
+      bad.focus(); return;
+    }
+    const data = new FormData(form);
+    if (endpoint){
+      status.textContent = 'Sending...'; sendBtn.disabled = true;
+      try {
+        const r = await fetch(endpoint, {method:'POST', body:data, headers:{Accept:'application/json'}});
+        if (!r.ok || !(await r.json()).ok) throw new Error(r.status);   // only send.php's own "ok" counts as sent
+        form.reset(); status.textContent = "Thanks. We've got it and will reply by email.";
+        return;
+      } catch { status.textContent = "That didn't send, so we've opened an email instead."; }
+      finally { sendBtn.disabled = false; }
+    }
+    const body = [...data.entries()].filter(([, v]) => String(v).trim()).map(([k, v]) => `${k}: ${v}`).join('\n');
+    // also put the message on the clipboard, for visitors whose computer has no email app set up
+    let copied = false;
+    try { await navigator.clipboard.writeText(body); copied = true; } catch {}
+    location.href = `mailto:yellowumbrellagroup@gmail.com?subject=${encodeURIComponent('New project: ' + data.get('Service'))}&body=${encodeURIComponent(body)}`;
+    if (!endpoint) status.textContent = 'Your email app should open with the details filled in. ' + (copied
+      ? 'If nothing opens, your message is copied: paste it into an email to yellowumbrellagroup@gmail.com.'
+      : "If it doesn't, email yellowumbrellagroup@gmail.com.");
+  });
+})();
+
 if (!window.THREE) return;
 
 function addLights(scene){
@@ -471,12 +617,73 @@ function softShadowTexture(){
   return new THREE.CanvasTexture(c);
 }
 
-// A little room built from soft "splats" that appear in the order a scanner would reach them.
+// A little room, twice. `solid` is the real place, drawn as flat planes with a scan line crossing it.
+// `points` is its copy: soft "splats" that are measured where the scan passes, cross over, and settle.
 function makeSplatRoom(n){
   const R = Math.random, W = 1.5, Y0 = -1.1, H = 2.2;
   const rgb = h => [(h>>16&255)/255, (h>>8&255)/255, (h&255)/255];
   const mix = (a,b,t) => a.map((v,i) => v + (b[i]-v)*t);
   const INK = rgb(0x161D38), pos = [], col = [], size = [], seed = [];
+  // one set of surface colors, shared by the planes and the splats
+  const floorCol = (x,z) => {   // floorboards and a rug
+    const e = (x-.2)**2/.75 + (z-.35)**2/.4;
+    return e < 1 ? rgb(e > .75 ? 0xFF5B3A : 0x2D5BE3) : rgb([0xC99A63,0xB5824E,0xD8AE78][Math.floor((x+W)*3.3)%3]);
+  };
+  const backCol = (x,y) => {    // back wall with an arched window
+    const dx = x-.3, inWin = r => Math.abs(dx) < r && y > -.35-(r-.42) && (y < .3 || Math.hypot(dx, y-.3) < r);
+    if (inWin(.42)) return mix(rgb(0xFFE3A0), rgb(0x8FB4E8), Math.min(1, (y+.35)/1.1));
+    return inWin(.5) || y < Y0+.14 ? INK : rgb(0xEDE6DA);
+  };
+  const sideCol = (z,y) => {    // side wall with a framed print
+    const fz = Math.abs(z+.15), fy = Math.abs(y-.25);
+    if (fz < .46 && fy < .34) return (fz > .38 || fy > .26) ? rgb(0xFFC61A) : mix(rgb(0x2D5BE3), rgb(0x36D399), (y+.01)/.52);
+    return y < Y0+.14 ? INK : rgb(0xE3D5BF);
+  };
+
+  const uT = {value:0}, solid = new THREE.Group();
+  // a wall or floor: `at` places it in the room, `colAt` paints it; a runs -W..W, b runs b0..b1
+  function plane(colAt, at, b0, b1){
+    const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
+    const g = c.getContext('2d'), img = g.createImageData(S, S);
+    const A = u => -W + 2*W*u, B = v => b0 + (b1-b0)*v;
+    for (let j=0; j<S; j++) for (let i=0; i<S; i++){
+      const k = (j*S+i)*4, px = colAt(A((i+.5)/S), B(1-(j+.5)/S));
+      img.data[k] = px[0]*255; img.data[k+1] = px[1]*255; img.data[k+2] = px[2]*255; img.data[k+3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute([[0,0],[1,0],[0,1],[1,1]].flatMap(([u,v]) => at(A(u), B(v))), 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute([0,0, 1,0, 0,1, 1,1], 2));
+    geo.setIndex([0,1,2, 2,1,3]);
+    solid.add(new THREE.Mesh(geo, new THREE.ShaderMaterial({
+      uniforms: {map:{value:new THREE.CanvasTexture(c)}, uT},
+      vertexShader: `
+        varying vec2 vUv; varying vec3 vP;
+        void main(){ vUv = uv; vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`,
+      fragmentShader: `
+        uniform sampler2D map; uniform float uT;
+        varying vec2 vUv; varying vec3 vP;
+        void main(){
+          float d = length(vec3(vP.x-1.3, (vP.y+1.1)*.5, vP.z-1.3)) / 4.1;   // same measure as the splat seeds
+          float band = smoothstep(.07, 0., abs(d - uT + .05));
+          gl_FragColor = vec4(mix(texture2D(map, vUv).rgb, vec3(.176,.357,.89), band*.9), 1.);
+        }`,
+      side: THREE.DoubleSide
+    })));
+  }
+  plane(floorCol, (x,z) => [x,Y0,z], -W, W);
+  plane(backCol,  (x,y) => [x,y,-W], Y0, Y0+H);
+  plane(sideCol,  (z,y) => [-W,y,z], Y0, Y0+H);
+  const thing = (geo, color, x, y, z, to=solid) => { const m = new THREE.Mesh(geo, std(color)); m.position.set(x,y,z); to.add(m); return m; };
+  thing(new THREE.CylinderGeometry(.19,.14,.42,10), C.signal, -.95, Y0+.21, -.95);             // plant pot
+  thing(new THREE.IcosahedronGeometry(.36,1), 0x2AA873, -.95, Y0+.8, -.95).scale.y = 1.1;      // leaves
+  thing(new THREE.CylinderGeometry(.4,.4,.04,20), C.ink, .55, Y0+.6, .15);                     // round side table
+  thing(new THREE.CylinderGeometry(.05,.05,.6,8), C.ink, .55, Y0+.3, .15);
+  const scanner = new THREE.Group(); scanner.position.set(1.3, Y0, 1.3); solid.add(scanner);   // where the scan starts
+  thing(new THREE.CylinderGeometry(.03,.03,.8,8), C.ink, 0, .4, 0, scanner);
+  const head = thing(new THREE.CylinderGeometry(.13,.13,.22,12), C.yellow, 0, .9, 0, scanner);
+  thing(new THREE.BoxGeometry(.1,.1,.12), C.canal, 0, 0, .13, head);
+
   function add(x,y,z,c,s){
     pos.push(x,y,z);
     c.forEach(v => col.push(Math.min(1, Math.max(0, v + (R()-.5)*.07))));
@@ -484,24 +691,9 @@ function makeSplatRoom(n){
     seed.push(Math.min(1, Math.hypot(x-1.3, (y-Y0)*.5, z-1.3)/4.1 + R()*.1));
   }
   const loop = (f, fn) => { for (let i=0, m=Math.round(n*f); i<m; i++) fn(); };
-  loop(.3, () => {   // floorboards and a rug
-    const x = (R()*2-1)*W, z = (R()*2-1)*W, e = (x-.2)**2/.75 + (z-.35)**2/.4;
-    add(x, Y0, z, e < 1 ? rgb(e > .75 ? 0xFF5B3A : 0x2D5BE3) : rgb([0xC99A63,0xB5824E,0xD8AE78][Math.floor((x+W)*3.3)%3]), .15);
-  });
-  loop(.3, () => {   // back wall with an arched window
-    const x = (R()*2-1)*W, y = Y0 + R()*H, dx = x-.3;
-    const inWin = r => Math.abs(dx) < r && y > -.35-(r-.42) && (y < .3 || Math.hypot(dx, y-.3) < r);
-    let c = y < Y0+.14 ? INK : rgb(0xEDE6DA);
-    if (inWin(.42)) c = mix(rgb(0xFFE3A0), rgb(0x8FB4E8), Math.min(1, (y+.35)/1.1));
-    else if (inWin(.5)) c = INK;
-    add(x, y, -W, c, .14);
-  });
-  loop(.24, () => {  // side wall with a framed print
-    const z = (R()*2-1)*W, y = Y0 + R()*H, fz = Math.abs(z+.15), fy = Math.abs(y-.25);
-    let c = y < Y0+.14 ? INK : rgb(0xE3D5BF);
-    if (fz < .46 && fy < .34) c = (fz > .38 || fy > .26) ? rgb(0xFFC61A) : mix(rgb(0x2D5BE3), rgb(0x36D399), (y+.01)/.52);
-    add(-W, y, z, c, .14);
-  });
+  loop(.3, () => { const x = (R()*2-1)*W, z = (R()*2-1)*W; add(x, Y0, z, floorCol(x,z), .15); });
+  loop(.3, () => { const x = (R()*2-1)*W, y = Y0 + R()*H; add(x, y, -W, backCol(x,y), .14); });
+  loop(.24, () => { const z = (R()*2-1)*W, y = Y0 + R()*H; add(-W, y, z, sideCol(z,y), .14); });
   loop(.05, () => {  // plant pot
     const a = R()*Math.PI*2, h = R()*.42, r = .14 + h*.12;
     add(-.95 + Math.cos(a)*r, Y0 + h, -.95 + Math.sin(a)*r, rgb(0xFF5B3A), .1);
@@ -524,17 +716,21 @@ function makeSplatRoom(n){
   const order = new Uint16Array(N).map((_, i) => i), idx = new THREE.BufferAttribute(order, 1);
   idx.setUsage(THREE.DynamicDrawUsage); geo.setIndex(idx);
   const mat = new THREE.ShaderMaterial({
-    uniforms: {uT:{value:0}, uFade:{value:1}, uPx:{value:500}},
+    uniforms: {uT, uFade:{value:1}, uPx:{value:500}, uFrom:{value:new THREE.Vector3()}},
     vertexShader: `
-      uniform float uT, uPx;
+      uniform float uT, uPx; uniform vec3 uFrom;
       attribute vec3 aCol; attribute float aSize, aSeed;
       varying vec3 vC; varying float vA;
       void main(){
-        float k = clamp((uT - aSeed) / .06, 0., 1.);
-        vec4 mv = modelViewMatrix * vec4(position, 1.);
+        // f: the trip over from the real room (uFrom away), which only some splats are shown making. k: swelling into place.
+        float f = clamp((uT - aSeed) / .16, 0., 1.), k = clamp((uT - aSeed - .16) / .06, 0., 1.);
+        float fly = step(fract(aSeed * 91.7), .22) * step(.001, f), e = f*f*(3. - 2.*f);
+        vec3 p = position + uFrom * (1. - e) * fly;
+        p.y += sin(f * 3.1416) * (.8 + fract(aSeed * 53.3)) * fly;
+        vec4 mv = modelViewMatrix * vec4(p, 1.);
         gl_Position = projectionMatrix * mv;
-        gl_PointSize = aSize * length(modelMatrix[0].xyz) * uPx * (k + 1.6*k*(1.-k)) / -mv.z;
-        vC = aCol + (1.-k) * .35; vA = k;
+        gl_PointSize = aSize * length(modelMatrix[0].xyz) * uPx * max(k + 1.6*k*(1.-k), .5*fly) / -mv.z;
+        vC = mix(mix(aCol + .35, vec3(.176,.357,.89), fly), aCol, k); vA = max(k, fly);
       }`,
     fragmentShader: `
       uniform float uFade;
@@ -549,8 +745,9 @@ function makeSplatRoom(n){
   });
   const points = new THREE.Points(geo, mat); points.frustumCulled = false;
   const depth = new Float32Array(N), cam = new THREE.Vector3(); let frameNo = 0;
-  return {points, update(t, camera, renderer){
+  return {points, solid, from: mat.uniforms.uFrom.value, update(t, camera, renderer){
     const u = mat.uniforms;
+    if (!RM) head.rotation.y = t*2.4;
     u.uPx.value = renderer.domElement.height / (2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
     if (RM){ u.uT.value = 2; u.uFade.value = 1; }
     else { const c = t % 11; u.uT.value = c/6; u.uFade.value = Math.min(1, (11-c)*2); }
@@ -807,10 +1004,35 @@ function makeSplatRoom(n){
 
   const makers = {
     capture(){
-      const g = new THREE.Group(), room = makeSplatRoom(innerWidth < 760 ? 2600 : 4200);
-      room.points.scale.setScalar(.8); room.points.position.y = -.55; g.add(room.points);
-      return {group:g, update(t){
-        g.rotation.y = .6 + Math.sin(t*.4)*.3;
+      // The real room on the left, its scanned copy on the right.
+      const g = new THREE.Group(), stage = new THREE.Group(), room = makeSplatRoom(innerWidth < 760 ? 2600 : 4200);
+      stage.add(room.solid, room.points);
+      const label = text => {
+        const c = document.createElement('canvas'); c.width = 256; c.height = 64;
+        const tex = new THREE.CanvasTexture(c); tex.encoding = THREE.sRGBEncoding;
+        const paint = () => {
+          const k = c.getContext('2d'); k.clearRect(0,0,256,64);
+          k.fillStyle = '#161D38'; k.font = '600 34px Figtree, system-ui, sans-serif';
+          k.textAlign = 'center'; k.textBaseline = 'middle'; k.fillText(text, 128, 34); tex.needsUpdate = true;
+        };
+        paint(); if (document.fonts) document.fonts.ready.then(paint);
+        const s = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthTest:false}));
+        s.scale.set(1.4,.35,1); stage.add(s); return s;
+      };
+      const names = [label('Real room'), label('3D scan')];
+      g.add(stage);
+      return {group:g, noShadow:true, update(t, spin){
+        // side by side in a wide viewer, corner to corner in a square one
+        const wide = camera.aspect > 1.25, S = wide ? .44 : .56, X = wide ? 1.12 : .88, Y = wide ? 0 : .95;
+        const a = .5 + Math.sin(t*.4)*.18 + spin;
+        g.rotation.y = -spin;   // dragging turns each room where it stands
+        [room.solid, room.points].forEach((o,i) => {
+          const x = i ? X : -X, y = i ? -Y : Y;
+          o.scale.setScalar(S); o.rotation.y = a; o.position.set(x, y + .2, 0);
+          names[i].position.set(x, y - .22 - S*1.1 - (Y - y)*.11, 0);   // the lower room is seen from higher up, so its floor reaches further down
+        });
+        room.from.set(-2*X*Math.cos(a), 2*Y, -2*X*Math.sin(a)).divideScalar(S);
+        stage.scale.setScalar(wide ? Math.min(1.4, camera.aspect) : 1);
         room.update(t, camera, renderer);
       }};
     },
@@ -857,30 +1079,6 @@ function makeSplatRoom(n){
         walls.forEach(w => w.scale.y = h);
         furniture.forEach((f,i) => f.scale.setScalar(Math.max(.001, pop((c - 2.3 - i*.16)/.5) * (1 - ss(6.6,7.1,c)))));
         g.rotation.y = -.35 + Math.sin(t*.4)*.3;
-      }};
-    },
-    games(){
-      const g = new THREE.Group(), bot = new THREE.Group(); g.add(bot);
-      const s = .3, cube = new THREE.BoxGeometry(s*.96,s*.96,s*.96);
-      const put = (x,y,z,col) => { const m = new THREE.Mesh(cube, std(col)); m.position.set(x*s,y*s,z*s); bot.add(m); };
-      for (let x=-1;x<=1;x++) for (let y=0;y<3;y++) for (let z=-1;z<=1;z++) put(x,y+2,z,C.yellow);  // head
-      put(-.5,3,1.35,C.ink); put(.5,3,1.35,C.ink);                                                   // eyes
-      put(0,5,0,C.ink);                                                                              // antenna
-      for (let x=-1;x<=1;x++) for (let y=0;y<2;y++) for (let z=-.5;z<=.5;z++) put(x,y,z,C.canal);    // body
-      put(-2,1,0,C.yellow); put(2,1,0,C.yellow); put(-2,0,0,C.yellow); put(2,0,0,C.yellow);          // arms
-      put(-1,-1,0,C.ink); put(1,-1,0,C.ink);                                                         // legs
-      const bulb = new THREE.Mesh(new THREE.SphereGeometry(.1,10,8), new THREE.MeshBasicMaterial({color:lin(C.signal)})); bulb.position.y = 6*s; bot.add(bulb);
-      bot.position.y = -.9;
-      const coins = [];
-      for (let i=0;i<3;i++){
-        const c = new THREE.Mesh(new THREE.CylinderGeometry(.2,.2,.06,18), std(C.yellow2, {metalness:.3, roughness:.35}));
-        c.rotation.x = Math.PI/2; g.add(c); coins.push(c);
-      }
-      return {group:g, update(t){
-        const hop = Math.abs(Math.sin(t*3));
-        bot.position.y = -1.05 + hop*.45; bot.scale.set(1+(1-hop)*.06, 1-(1-hop)*.08, 1+(1-hop)*.06);
-        bot.rotation.y = Math.sin(t*.8)*.6;
-        coins.forEach((c,i) => { const a=t*.9+i*2.09; c.position.set(Math.cos(a)*1.7, .2+Math.sin(t*2+i)*.2, Math.sin(a)*1.7); c.rotation.z = t*3; });
       }};
     },
     modeling(){
@@ -1008,9 +1206,10 @@ function makeSplatRoom(n){
       if (sc <= 0 || RM){ items[current].group.visible = false; current = target; items[current].group.visible = true; sc = RM ? 1 : 0; }
     } else sc = Math.min(1, sc + dt*(RM?99:3.2));
     items[current].group.scale.setScalar(Math.max(.001, target !== current ? sc : backOut(sc)));
-    items[current].update(t);
     if (drag === null){ spinV *= .94; spinY += spinV; }
     holder.rotation.y = spinY;
+    items[current].update(t, spinY);
+    shadow.visible = !items[current].noShadow;
     renderer.render(scene, camera);
   }
   frame();

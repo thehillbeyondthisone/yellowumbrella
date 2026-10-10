@@ -1,3 +1,6 @@
+// Previews the site exactly as a web host would serve it.
+//
+// Usage: npm run serve
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize, resolve } from 'node:path';
@@ -9,10 +12,13 @@ const types = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.jpg': 'image/jpeg',
   '.m4a': 'audio/mp4',
   '.mp3': 'audio/mpeg',
   '.png': 'image/png',
   '.webp': 'image/webp',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 };
 
 createServer((request, response) => {
