@@ -16,6 +16,7 @@ const required = [
   'paperwork.html',
   'vr.html',
   'og.png',
+  'splat-scenes.js',
   'floorplans/grotto-brochure.webp',
   'floorplans/grotto-3d.webp',
   'floorplans/poster.webp',
